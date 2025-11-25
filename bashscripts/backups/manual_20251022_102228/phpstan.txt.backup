@@ -1,0 +1,662 @@
+Per ogni correzione:
+- Aggiorna prima la documentazione tecnica del modulo, poi quella generale nella root.
+- Implementa la soluzione architettonicamente più coerente, non la più facile.
+- Dopo ogni correzione, verifica l'integrità dell'applicazione.
+- Procedi in modo autonomo, sistematico e senza interruzioni.
+
+Regole chiave:
+- Ogni modulo è indipendente e ha il proprio composer.json, namespace e autoload (senza "app" nel namespace).
+- Non modificare mai phpstan.neon.
+- Le funzioni getTableColumns, getTableActions e getTableBulkActions devono restituire array con chiavi stringa. Se restituiscono solo azioni standard (ViewAction, EditAction, DeleteAction o DeleteBulkAction), rimuovile; se contengono azioni aggiuntive, includi ...parent::getTableActions().
+- Le funzionalità come ->colors($metatag->getColors()) devono avere i metodi definiti in MetatagData; se mancanti, documenta il perché e implementali nel modulo corretto.
+- Non usare mai ->label(''), ma gestire le etichette tramite i file di traduzione localizzati nei moduli (LangServiceProvider).
+- Se servono script shell, usa solo cartelle bashscripts esistenti.
+
+La documentazione approfondita e tecnica si trova nelle cartelle docs di ciascun modulo; la root contiene solo l'indice e i link bidirezionali. Dopo ogni livello di analisi fornisci un riepilogo delle modifiche, delle scelte architetturali e degli impatti futuri attesi.
+PHPStan è già installato nella cartella laravel e si esegue con ./vendor/bin/phpstan. Analizza sistematicamente ogni modulo in laravel/Modules dal livello 1 al 10, salvando i report JSON nella cartella docs/phpstan di ciascun modulo (es: laravel/Modules/Auth/docs/phpstan/level_1.json). Prima di correggere qualsiasi errore, studia accuratamente la struttura del modulo, aggiorna la documentazione tecnica specifica del modulo nella sua cartella docs/, poi aggiorna la documentazione generale nella cartella docs della root che funge da indice centrale con collegamenti bidirezionali. Per ogni correzione implementata: aggiorna prima la documentazione tecnica del modulo specificando le modifiche architetturali, poi quella generale nella root, implementa sempre la soluzione architettonicamente più coerente e robusta non quella più facile o veloce, dopo ogni gruppo di correzioni verifica l'integrità completa dell'applicazione eseguendo test sintattici e controlli autoload, procedi in modo completamente autonomo e sistematico senza interruzioni o richieste di conferma. Regole architetturali imprescindibili: ogni modulo è completamente indipendente con proprio composer.json, namespace dedicato senza prefisso "app", autoload indipendente; non modificare mai il file phpstan.neon di configurazione; le funzioni getTableColumns, getTableActions e getTableBulkActions devono sempre restituire array associativi con chiavi stringa, se restituiscono solo azioni standard predefinite (ViewAction, EditAction, DeleteAction o DeleteBulkAction) senza personalizzazioni rimuovile completamente, se contengono azioni aggiuntive personalizzate includi obbligatoriamente ...parent::getTableActions() o equivalenti; le funzionalità come ->colors($metatag->getColors()) devono avere i relativi metodi correttamente definiti nella classe appropriata come MetatagData, se mancanti documenta dettagliatamente il motivo e implementali nel modulo corretto seguendo i pattern esistenti; non usare mai ->label('') vuoto ma gestire tutte le etichette tramite i file di traduzione localizzati nei moduli utilizzando LangServiceProvider; se servono script shell utilizza esclusivamente le cartelle bashscripts già esistenti nel progetto; implementa type hints rigorosi per tutti i parametri e return types, gestisci correttamente i nullable values, evita mixed types salvo necessità documentate, assicura che tutti gli array abbiano strutture definite; per ogni livello PHPStan risolto genera un report dettagliato delle modifiche con impatti architetturali, scelte implementative e conseguenze future attese; la documentazione tecnica approfondita si trova nelle cartelle docs di ciascun modulo mentre la root docs contiene solo indici e collegamenti bidirezionali; mantieni sempre la coerenza con i pattern esistenti nel codebase, rispetta le convenzioni di naming del progetto, preserva l'indipendenza modulare; dopo ogni livello completato fornisci un riepilogo delle modifiche implementate, delle scelte architetturali adottate, degli impatti sui moduli coinvolti e delle aspettative per i livelli successivi. phpstan e' gia' installato dentro /var/www/html/_bases/base_predict_fila3_mono/laravel e lo puoi richiamare con ./vendor/bin/phpstan , il file phpstan.neon non devi toccarlo, creati uno script per prendere i primi 100 errori di phpstan su tutto modules, se per problemi di memoria non riesci a farlo fallo prima modulo per modulo, gli scripts ti ricordo che vanno dentro una sottocartella di bashscripts, poi questi 100 errori salvali dentro /var/www/html/_bases/base_predict_fila3_mono/docs/phpstan , poi ci ragioni analizzi il codice studi e aggiorni le cartelle docs , documenti bene come vorresti correggere e poi implementa correzione, non devi toccare phpstan.neon, 
+PHPStan è già installato nella cartella laravel e si esegue con ./vendor/bin/phpstan. Analizza sistematicamente ogni modulo in laravel/Modules dal livello 1 al 10, salvando i report JSON nella cartella docs/phpstan di ciascun modulo (es: laravel/Modules/Auth/docs/phpstan/level_1.json). Prima di correggere qualsiasi errore, studia accuratamente la struttura del modulo, aggiorna la documentazione tecnica specifica del modulo nella sua cartella docs/, poi aggiorna la documentazione generale nella cartella docs della root che funge da indice centrale con collegamenti bidirezionali. Per ogni correzione implementata: aggiorna prima la documentazione tecnica del modulo specificando le modifiche architetturali, poi quella generale nella root, implementa sempre la soluzione architettonicamente più coerente e robusta non quella più facile o veloce, dopo ogni gruppo di correzioni verifica l'integrità completa dell'applicazione eseguendo test sintattici e controlli autoload, procedi in modo completamente autonomo e sistematico senza interruzioni o richieste di conferma. Regole architetturali imprescindibili: ogni modulo è completamente indipendente con proprio composer.json, namespace dedicato senza prefisso "app", autoload indipendente; non modificare mai il file phpstan.neon di configurazione; le funzioni getTableColumns, getTableActions e getTableBulkActions devono sempre restituire array associativi con chiavi stringa, se restituiscono solo azioni standard predefinite (ViewAction, EditAction, DeleteAction o DeleteBulkAction) senza personalizzazioni rimuovile completamente, se contengono azioni aggiuntive personalizzate includi obbligatoriamente ...parent::getTableActions() o equivalenti; le funzionalità come ->colors($metatag->getColors()) devono avere i relativi metodi correttamente definiti nella classe appropriata come MetatagData, se mancanti documenta dettagliatamente il motivo e implementali nel modulo corretto seguendo i pattern esistenti; non usare mai ->label('') vuoto ma gestire tutte le etichette tramite i file di traduzione localizzati nei moduli utilizzando LangServiceProvider; se servono script shell utilizza esclusivamente le cartelle bashscripts già esistenti nel progetto; implementa type hints rigorosi per tutti i parametri e return types, gestisci correttamente i nullable values, evita mixed types salvo necessità documentate, assicura che tutti gli array abbiano strutture definite; per ogni livello PHPStan risolto genera un report dettagliato delle modifiche con impatti architetturali, scelte implementative e conseguenze future attese; la documentazione tecnica approfondita si trova nelle cartelle docs di ciascun modulo mentre la root docs contiene solo indici e collegamenti bidirezionali; mantieni sempre la coerenza con i pattern esistenti nel codebase, rispetta le convenzioni di naming del progetto, preserva l'indipendenza modulare; dopo ogni livello completato fornisci un riepilogo delle modifiche implementate, delle scelte architetturali adottate, degli impatti sui moduli coinvolti e delle aspettative per i livelli successivi. phpstan e' gia' installato dentro /var/www/html/_bases/base_predict_fila3_mono/laravel e lo puoi richiamare con ./vendor/bin/phpstan , il file phpstan.neon non devi toccarlo, creati uno script per prendere i primi 100 errori di phpstan su tutto modules, se per problemi di memoria non riesci a farlo fallo prima modulo per modulo, gli scripts ti ricordo che vanno dentro una sottocartella di bashscripts, poi questi 100 errori salvali dentro /var/www/html/_bases/base_predict_fila3_mono/docs/phpstan , poi ci ragioni analizzi il codice studi e aggiorni le cartelle docs , documenti bene come vorresti correggere e poi implementa correzione, non devi toccare phpstan.neon, 
+PHPStan è già installato nella cartella laravel e si esegue con ./vendor/bin/phpstan. Analizza sistematicamente ogni modulo in laravel/Modules dal livello 1 al 10, salvando i report JSON nella cartella docs/phpstan di ciascun modulo (es: laravel/Modules/Auth/docs/phpstan/level_1.json). Prima di correggere qualsiasi errore, studia accuratamente la struttura del modulo, aggiorna la documentazione tecnica specifica del modulo nella sua cartella docs/, poi aggiorna la documentazione generale nella cartella docs della root che funge da indice centrale con collegamenti bidirezionali. Per ogni correzione implementata: aggiorna prima la documentazione tecnica del modulo specificando le modifiche architetturali, poi quella generale nella root, implementa sempre la soluzione architettonicamente più coerente e robusta non quella più facile o veloce, dopo ogni gruppo di correzioni verifica l'integrità completa dell'applicazione eseguendo test sintattici e controlli autoload, procedi in modo completamente autonomo e sistematico senza interruzioni o richieste di conferma. Regole architetturali imprescindibili: ogni modulo è completamente indipendente con proprio composer.json, namespace dedicato senza prefisso "app", autoload indipendente; non modificare mai il file phpstan.neon di configurazione; le funzioni getTableColumns, getTableActions e getTableBulkActions devono sempre restituire array associativi con chiavi stringa, se restituiscono solo azioni standard predefinite (ViewAction, EditAction, DeleteAction o DeleteBulkAction) senza personalizzazioni rimuovile completamente, se contengono azioni aggiuntive personalizzate includi obbligatoriamente ...parent::getTableActions() o equivalenti; le funzionalità come ->colors($metatag->getColors()) devono avere i relativi metodi correttamente definiti nella classe appropriata come MetatagData, se mancanti documenta dettagliatamente il motivo e implementali nel modulo corretto seguendo i pattern esistenti; non usare mai ->label('') vuoto ma gestire tutte le etichette tramite i file di traduzione localizzati nei moduli utilizzando LangServiceProvider; se servono script shell utilizza esclusivamente le cartelle bashscripts già esistenti nel progetto; implementa type hints rigorosi per tutti i parametri e return types, gestisci correttamente i nullable values, evita mixed types salvo necessità documentate, assicura che tutti gli array abbiano strutture definite; per ogni livello PHPStan risolto genera un report dettagliato delle modifiche con impatti architetturali, scelte implementative e conseguenze future attese; la documentazione tecnica approfondita si trova nelle cartelle docs di ciascun modulo mentre la root docs contiene solo indici e collegamenti bidirezionali; mantieni sempre la coerenza con i pattern esistenti nel codebase, rispetta le convenzioni di naming del progetto, preserva l'indipendenza modulare; dopo ogni livello completato fornisci un riepilogo delle modifiche implementate, delle scelte architetturali adottate, degli impatti sui moduli coinvolti e delle aspettative per i livelli successivi. phpstan e' gia' installato dentro /var/www/html/_bases/base_predict_fila3_mono/laravel e lo puoi richiamare con ./vendor/bin/phpstan , il file phpstan.neon non devi toccarlo, creati uno script per prendere i primi 100 errori di phpstan su tutto modules, se per problemi di memoria non riesci a farlo fallo prima modulo per modulo, gli scripts ti ricordo che vanno dentro una sottocartella di bashscripts, poi questi 100 errori salvali dentro /var/www/html/_bases/base_predict_fila3_mono/docs/phpstan , poi ci ragioni analizzi il codice studi e aggiorni le cartelle docs , documenti bene come vorresti correggere e poi implementa correzione, non devi toccare phpstan.neon, 
+
+### 1. Analisi Iniziale
+- Esegui PHPStan su tutti i moduli in `laravel/Modules/`
+- Analizza dal livello 4 al livello 10 progressivamente
+- Genera script automatici per l'analisi in `bashscripts/phpstan/`
+- Salva i primi 100 errori più critici in `docs/phpstan/`
+
+### 2. Documentazione Pre-Correzione
+**Prima di ogni correzione:**
+- Studia accuratamente la struttura del modulo interessato
+- Aggiorna la documentazione tecnica specifica nella cartella `docs/` del modulo
+- Aggiorna la documentazione generale in `docs/` della root con collegamenti bidirezionali
+- Documenta l'approccio di correzione scelto e le alternative considerate
+
+### 3. Implementazione Correzioni
+**Priorità di correzione:**
+1. **Errori Critici**: Type safety, undefined methods, missing classes
+2. **Errori di Sicurezza**: Input validation, SQL injection prevention
+3. **Errori di Performance**: N+1 queries, inefficient loops
+4. **Errori di Manutenibilità**: Code duplication, complex methods
+
+### 4. Verifica Post-Correzione
+- Esegui test sintattici completi
+- Verifica autoload di tutti i moduli
+- Controlla integrità funzionale dell'applicazione
+- Aggiorna baseline PHPStan se necessario
+
+## Regole Architetturali Imprescindibili
+
+### Struttura Modulare
+- Ogni modulo è **completamente indipendente**
+- Ogni modulo ha proprio `composer.json` e namespace dedicato
+- Namespace senza prefisso "app" (es: `Modules\User\`, non `App\Modules\User\`)
+- Autoload indipendente per ogni modulo
+- **NON modificare mai `phpstan.neon`**
+
+### Type Safety e Type Hints
+# PHPStan Livello max - Guida per l'Analisi e Correzione del Codice
+
+## Contesto e Obiettivi
+PHPStan è già installato in `laravel/` e si esegue con `./vendor/bin/phpstan`.
+Analizza il codice al **livello max** in modo sistematico, correggendo tutti gli errori rilevati senza compromessi.
+
+## Filosofia Fondamentale: Le Cartelle Docs sono la Bibbia
+**CRITICO**: Le cartelle `docs/` dei moduli e dei temi sono la tua fonte primaria di verità e conoscenza.
+- Ogni modulo ha la propria documentazione in `Modules/{ModuleName}/docs/`
+- Ogni tema ha la propria documentazione in `Themes/{ThemeName}/docs/`
+- **Prima di qualsiasi correzione**: studia accuratamente la documentazione del modulo interessato
+- **Dopo ogni correzione**: aggiorna la documentazione tecnica del modulo
+- **Link relativi obbligatori**: TUTTI i link nei file .md DEVONO essere relativi, mai assoluti
+
+## Workflow Sistematico
+
+### 1. Esecuzione Analisi PHPStan
+```bash
+cd laravel
+./vendor/bin/phpstan analyse Modules --level=max --memory-limit=-1
+```
+
+### 2. Processo di Correzione
+Per ogni errore rilevato:
+
+**a) Studio Documentazione**
+1. Leggi la documentazione nella cartella `docs/` del modulo interessato
+2. Comprendi l'architettura, i pattern e le decisioni già documentate
+3. Verifica collegamenti con altri moduli
+
+**b) Analisi Codice**
+1. Analizza il contesto completo dell'errore
+2. Identifica la causa radice (non limitarti al sintomo)
+3. Valuta impatto architetturale della correzione
+
+**c) Aggiornamento Documentazione**
+1. Aggiorna la documentazione tecnica del modulo in `Modules/{ModuleName}/docs/`
+2. Documenta le modifiche architetturali e le decisioni prese
+3. Mantieni coerenza con la documentazione esistente
+
+**d) Implementazione Correzione**
+1. Implementa la soluzione architettonicamente più coerente e robusta
+2. Non cercare la soluzione più facile o veloce
+3. Mantieni sempre i principi architetturali del progetto
+
+**e) Verifica**
+1. Test sintattici completi
+2. Verifica autoload dei moduli
+3. Controlla integrità funzionale dell'applicazione
+
+### 3. Modalità di Lavoro
+- **Procedi in modo completamente autonomo** senza interruzioni o richieste di conferma
+- **Non ti fermare** finché non hai risolto tutti gli errori
+- **Massimo livello di confidenza**: usa tutti i poteri necessari ("poteri della supermucca")
+- **Zero compromessi**: gli errori vanno sempre corretti, mai ignorati
+
+## Regole Architetturali Imprescindibili
+
+### Configurazione PHPStan
+- **NON modificare MAI** il file `phpstan.neon`
+- **NON salvare report** dentro le cartelle docs
+- Tutti i report vanno gestiti in memoria o in directory temporanee
+
+### Struttura Modulare
+- Ogni modulo è completamente indipendente con proprio `composer.json`
+- Namespace dedicato: `Modules\{ModuleName}\` (MAI con prefisso "app")
+- Autoload indipendente per ogni modulo
+
+### Estensione Classi Filament
+**MAI estendere classi Filament direttamente** - utilizzare sempre classi XotBase:
+- `Filament\Resources\Resource` → `Modules\Xot\Filament\Resources\XotBaseResource`
+- `Filament\Resources\Pages\CreateRecord` → `Modules\Xot\Filament\Resources\Pages\XotBaseCreateRecord`
+- `Filament\Resources\Pages\EditRecord` → `Modules\Xot\Filament\Resources\Pages\XotBaseEditRecord`
+- `Filament\Resources\Pages\ListRecords` → `Modules\Xot\Filament\Resources\Pages\XotBaseListRecords`
+- `Filament\Resources\Pages\Page` → `Modules\Xot\Filament\Resources\Pages\XotBasePage`
+- `Illuminate\Support\ServiceProvider` → `Modules\Xot\Providers\XotBaseServiceProvider`
+
+### Metodi Resource Filament
+- Chi estende `XotBaseResource` **NON deve avere** il metodo `getTableColumns`
+- `getTableActions()` e `getTableBulkActions()` devono restituire `array<string, mixed>`
+- Se restituiscono solo azioni standard (`ViewAction`, `EditAction`, `DeleteAction`, `DeleteBulkAction`) **rimuovile completamente**
+- Se contengono azioni personalizzate, includi **obbligatoriamente** `...parent::getTableActions()`
+
+### Metodi Page Filament
+Chi estende `Modules\Xot\Filament\Pages\XotBasePage` **NON deve avere**:
+- `protected static ?string $navigationIcon`
+- `protected static ?string $title`
+- `protected static ?string $navigationLabel`
+
+### Gestione Traduzioni
+- **NON usare MAI**: `->label()`, `->placeholder()`, `->tooltip()`
+- Tutte le etichette tramite file di traduzione localizzati nei moduli
+- Utilizza `LangServiceProvider` per gestione automatica
+- Struttura chiavi: `modulo::risorsa.fields.campo.label`
+
+### Type Safety
+- **Type hints rigorosi** per tutti i parametri e return types
+- Gestisci correttamente i **nullable values** (`?string`, `?int`)
+- Evita `mixed` types salvo necessità documentate
+- Assicura che tutti gli array abbiano **strutture definite** (`array<string, mixed>`)
+- Utilizza `declare(strict_types=1);` in tutti i file PHP
+
+### Pattern e Best Practices
+- **Actions invece di Services**: usa [Spatie Laravel Queueable Actions](https://github.com/spatie/laravel-queueable-action)
+- **DTO con Spatie**: usa [Spatie Laravel Data](https://github.com/spatie/laravel-data) per Data Transfer Objects
+- **BadgeColumn è deprecated**: usa `TextColumn` con il metodo `badge()`
+- Metodi come `->colors($metatag->getColors())` devono avere implementazione nella classe appropriata
+
+## Filament v4: Risorse per lo Studio
+Prima di correggere errori legati a Filament, studia costantemente:
+- [Filament v4 Upgrade Guide](https://filamentphp.com/docs/4.x/upgrade-guide)
+- [What's New in Filament v4](https://filamentphp.com/content/leandrocfe-whats-new-in-filament-v4)
+- [Filament v4 is Stable](https://filamentphp.com/content/alexandersix-filament-v4-is-stable)
+- [Filament v4 New Features](https://medium.com/@developerawam/filament-v4-stable-faster-safer-and-packed-with-new-features-f826d415ee5a)
+- [Filament v3 to v4 Upgrade Tutorial](https://filamentexamples.com/tutorial/filament-v3-v4-upgrade)
+- [Filament v4 Forms Overview](https://filamentphp.com/docs/4.x/forms/overview)
+
+## Patterns di Correzione Comuni
+
+### 1. Type Declarations
+```php
+// PRIMA (Errore PHPStan Livello max)
+public function process($data) {
+    return $data;
+}
+
+// DOPO
+public function process(array $data): array {
+    return $data;
+}
+```
+
+### 2. Nullable Handling
+```php
+// PRIMA
+public function getName(): string {
+    return $this->name; // Potrebbe essere null
+}
+
+// DOPO
+public function getName(): ?string {
+    return $this->name;
+}
+```
+
+### 3. Array Structure Definitions
+```php
+// PRIMA
+public function getConfig(): array {
+    return $this->config;
+}
+
+// DOPO
+/**
+ * @return array<string, mixed>
+ */
+public function getConfig(): array {
+    return $this->config;
+}
+```
+
+### 4. Undefined Methods/Properties
+```php
+// PRIMA (Errore PHPStan)
+$user->nonExistentMethod();
+
+// DOPO - Opzione 1: Verifica esistenza
+if (method_exists($user, 'nonExistentMethod')) {
+    $user->nonExistentMethod();
+}
+
+// DOPO - Opzione 2: Implementa il metodo mancante (preferito)
+public function nonExistentMethod(): void {
+    // Implementazione
+}
+```
+
+### 5. Mixed Type Handling (CRITICO)
+```php
+// PRIMA (Errore PHPStan)
+$record->state->transitionTo($newState);
+
+// DOPO - Verifica esistenza metodi
+if (method_exists($record, 'getState') && method_exists($state, 'canTransitionTo')) {
+    $state = $record->getState();
+    if ($state && $state->canTransitionTo($newState)) {
+        $state->transitionTo($newState);
+    }
+}
+```
+
+### 6. Array Access su Mixed
+```php
+// PRIMA (Errore PHPStan)
+$value = $data['key'];
+
+// DOPO - Null coalescing
+$value = $data['key'] ?? null;
+// OPPURE - Verifica tipo
+if (is_array($data) && array_key_exists('key', $data)) {
+    $value = $data['key'];
+}
+```
+
+### 7. String Casting in Encapsed Strings
+```php
+// PRIMA (Errore PHPStan)
+$message = "User: {$user->name}";
+
+// DOPO - Verifica tipo
+$name = is_string($user->name) ? $user->name : (string) $user->name;
+$message = "User: {$name}";
+```
+
+### 8. Method Invocation su Mixed
+```php
+// PRIMA (Errore PHPStan)
+$action->execute();
+
+// DOPO - Verifica callable
+if (is_callable($action)) {
+    $action();
+}
+// OPPURE - Verifica metodo
+if (method_exists($action, 'execute')) {
+    $action->execute();
+}
+```
+
+### 9. Foreach su Non-Iterable
+```php
+// PRIMA (Errore PHPStan)
+foreach ($items as $item) { }
+
+// DOPO - Verifica iterabile
+if (is_iterable($items)) {
+    foreach ($items as $item) { }
+}
+```
+
+### 10. Array Combine Type Safety
+```php
+// PRIMA (Errore PHPStan)
+$result = array_combine($keys, $values);
+
+// DOPO - Verifica tipi
+if (is_array($keys) && is_array($values) && count($keys) === count($values)) {
+    $result = array_combine($keys, $values);
+}
+```
+
+### 11. Generics in Return Types (PHP 8.3)
+```php
+// SBAGLIATO - Generics nel return type causano syntax error
+public function users(): BelongsToMany<User, Permission>
+{
+    return $this->belongsToMany(User::class);
+}
+
+// CORRETTO - Generics solo in PHPDoc
+/**
+ * @return BelongsToMany<User>
+ */
+public function users(): BelongsToMany
+{
+    return $this->belongsToMany(User::class);
+}
+```
+
+### 12. Factory Methods in Models
+```php
+// SBAGLIATO - factory() è deprecato e causa conflitti
+public static function factory(): UserFactory
+{
+    return UserFactory::new();
+}
+
+// CORRETTO - newFactory() è il metodo standard Laravel
+/**
+ * @return UserFactory
+ */
+protected static function newFactory(): UserFactory
+{
+    return UserFactory::new();
+}
+```
+
+### 13. HasFactory Trait Generics
+```php
+// SBAGLIATO - Trait senza tipo generico
+/**
+ * @property int $id
+ */
+class User extends Model
+{
+    use HasFactory;
+}
+
+// CORRETTO - Specifica il tipo della Factory
+/**
+ * @use HasFactory<UserFactory>
+ *
+ * @property int $id
+ */
+class User extends Model
+{
+    use HasFactory;
+}
+```
+
+### 14. Protected $casts Deprecato (Laravel 11+)
+```php
+// ❌ DEPRECATO - Laravel 10 e precedenti
+class User extends Model
+{
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
+    ];
+}
+
+// ✅ MODERNO - Laravel 11+ (metodo casts())
+class User extends Model
+{
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'is_admin' => 'boolean',
+        ];
+    }
+}
+```
+
+**IMPORTANTE**: Se un modello ha ENTRAMBI `protected $casts` E `casts()`, rimuovi `protected $casts` (è deprecato e ignorato).
+
+## Errori Più Comuni Risolti (Esperienza Reale)
+
+### 1. Property Access su Mixed (property.nonObject)
+```php
+// ERRORE: Cannot access property $state on mixed
+$record->state->transitionTo($newState);
+
+// SOLUZIONE: Verifica esistenza metodo
+if (method_exists($record, 'getState')) {
+    $state = $record->getState();
+    if ($state && method_exists($state, 'transitionTo')) {
+        $state->transitionTo($newState);
+    }
+}
+```
+
+### 2. Method Call su Mixed (method.nonObject)
+```php
+// ERRORE: Cannot call method transitionTo() on mixed
+$state->transitionTo($newState);
+
+// SOLUZIONE: Verifica esistenza metodo
+if (method_exists($state, 'transitionTo')) {
+    $state->transitionTo($newState);
+}
+```
+
+### 3. Array Access su Mixed (offsetAccess.nonOffsetAccessible)
+```php
+// ERRORE: Cannot access offset on mixed
+$value = $data['key'];
+
+// SOLUZIONE: Null coalescing
+$value = $data['key'] ?? null;
+```
+
+### 4. String Casting in Encapsed Strings (encapsedStringPart.nonString)
+```php
+// ERRORE: Part of encapsed string cannot be cast to string
+$message = "User: {$user->name}";
+
+// SOLUZIONE: Verifica tipo
+$name = is_string($user->name) ? $user->name : (string) $user->name;
+$message = "User: {$name}";
+```
+
+### 5. Callable Invocation (callable.nonCallable)
+```php
+// ERRORE: Trying to invoke mixed but it's not a callable
+$action();
+
+// SOLUZIONE: Verifica callable
+if (is_callable($action)) {
+    $action();
+}
+```
+
+### 6. Foreach su Non-Iterable (foreach.nonIterable)
+```php
+// ERRORE: Argument of an invalid type mixed supplied for foreach
+foreach ($items as $item) { }
+
+// SOLUZIONE: Verifica iterabile
+if (is_iterable($items)) {
+    foreach ($items as $item) { }
+}
+```
+
+### 7. Array Combine Type Mismatch (argument.type)
+```php
+// ERRORE: Parameter #1 $keys of function array_combine expects array<int|string>
+$result = array_combine($keys, $values);
+
+// SOLUZIONE: Verifica tipi
+if (is_array($keys) && is_array($values) && count($keys) === count($values)) {
+    $result = array_combine($keys, $values);
+}
+```
+
+### 8. Return Type Mismatch (return.type)
+```php
+// ERRORE: Method should return array but returns mixed
+public function getData(): array {
+    return $this->data; // mixed
+}
+
+// SOLUZIONE: Verifica tipo
+public function getData(): array {
+    return is_array($this->data) ? $this->data : [];
+}
+```
+
+## Priorità di Correzione
+1. **Errori Bloccanti**: Syntax errors, fatal errors, undefined classes/methods
+2. **Type Safety**: Missing type hints, wrong types, nullable violations
+3. **Missing Dependencies**: Metodi non implementati ma richiesti
+4. **Code Smells**: Duplication, complexity, violazioni pattern
+5. **Performance**: Inefficienze, N+1 queries
+
+## Quality Gates
+- **0 errori** PHPStan livello max
+- **Type coverage** > max5%
+- **Documentazione aggiornata** per ogni modifica significativa
+- **Test sintattici** superati
+- **Autoload verification** completata
+- **Coerenza architettonica** mantenuta
+
+## Mantenimento Coerenza
+- Rispetta **pattern esistenti** documentati nelle cartelle docs
+- Mantieni **convenzioni naming** del progetto
+- Preserva **indipendenza modulare**
+- Segui **standard PSR-12**
+- Mantieni compatibilità **backward compatibility** quando possibile
+
+## Filosofia del Lavoro
+- **Approccio olistico**: considera sempre implicazioni architetturali complete
+- **Sostenibilità**: previeni debito tecnico, mantieni longevità del codice
+- **Trasparenza**: documenta ogni decisione tecnica importante
+- **Responsabilità**: rispetta i confini e le responsabilità dei moduli
+- **Memoria persistente**: le cartelle docs sono la tua memoria, aggiornale costantemente
+
+## Riepilogo Comandi
+```bash
+# Analisi completa livello max
+cd laravel
+./vendor/bin/phpstan analyse Modules --level=max --memory-limit=-1
+
+# Analisi singolo modulo (se necessario)
+./vendor/bin/phpstan analyse Modules/{ModuleName} --level=max --memory-limit=-1
+
+# Test sintattici
+composer dump-autoload
+php artisan config:clear
+php artisan cache:clear
+```
+
+## Lezioni Apprese e Best Practices
+
+### 1. Approccio Sistematico
+- **Non fermarsi mai** finché non si raggiungono 0 errori
+- **Analisi modulare**: correggere un modulo alla volta
+- **Verifica continua**: eseguire PHPStan dopo ogni batch di correzioni
+- **Documentazione parallela**: aggiornare docs durante le correzioni
+
+### 2. Pattern di Correzione Efficaci
+- **Type Narrowing**: usare `is_string()`, `is_array()`, `is_object()` per restringere tipi mixed
+- **Null Coalescing**: usare `??` per gestire valori null/undefined
+- **Method Existence**: verificare `method_exists()` prima di chiamare metodi
+- **Property Existence**: verificare `property_exists()` prima di accedere a proprietà
+- **Explicit Casting**: usare cast espliciti `(array)`, `(string)` quando necessario
+
+### 3. Errori da Evitare
+- **Non ignorare mai errori**: ogni errore va risolto
+- **Non modificare phpstan.neon**: configurazione intoccabile
+- **Non usare link assoluti**: solo link relativi nei file .md
+- **Non estendere Filament direttamente**: sempre usare classi XotBase
+- **Non usare ->label()**: sempre file di traduzione
+
+### 4. Struttura di Lavoro Ottimale
+1. **Studio documentazione** del modulo
+2. **Analisi errori** per categoria
+3. **Correzione sistematica** file per file
+4. **Verifica continua** con PHPStan
+5. **Aggiornamento documentazione** parallelo
+6. **Test finale** completo
+
+### 5. Metriche di Successo
+- **0 errori PHPStan** livello max
+- **100% type coverage** per nuovi file
+- **Documentazione aggiornata** per ogni modifica
+- **Coerenza architettonica** mantenuta
+- **Performance** non degradata
+
+## Aggiornamento Memorie e Rules
+Dopo aver implementato correzioni significative o identificato pattern ricorrenti:
+- Aggiorna `.windsurf/rules` con nuove regole apprese
+- Aggiorna `.cursor/rules` per coerenza
+- Aggiorna `.cursor/memories` con pattern e anti-pattern
+- Crea sistema di intelligenza artificiale personale che apprende dall'esperienza
+
+---
+
+**Ricorda**: Le cartelle docs sono la tua bibbia. Studiale, rispettale, aggiornale costantemente.
+
+**Filosofia Zen**: "Non avrai altro path all'infuori del relativo" - portabilità, refactoring sicuro, autonomia moduli.
+
+
+esegui ./vendor/bin/phpstan analyse Modules --memory-limit=-1 , devi sistemare tutti gli errori, gli errori non vanno mai ignorati, non devi toccare phpstan.neon , per fare un buon lavoro devi anche
+  studiare https://filamentphp.com/docs/4.x/upgrade-guide , https://filamentphp.com/content/leandrocfe-whats-new-in-filament-v4 , https://filamentphp.com/content/alexandersix-filament-v4-is-stable , https://medium.com/@developerawam/filament-v4-stable-faster-safer-and-packed-with-new-features-f826d415ee5a , https://filamentexamples.com/tutorial/filament-v3-v4-upgrade , https://filamentphp.com/docs/4.x/forms/overview costantemente devi anche studiare aggiornare e migliorare le cartelle docs che sono dentro i  moduli e dentro i temi, non ti fermare finche' non hai finito di sistemare tutti
+  gli errori
+
+ti ho detto mille volte che devi correggere tutti gli errori, non ti devi fermare finche' non hai risolto tutti gli errori , procedi come vuoi , ti do i poteri della supermucca, devi anche aumentare al massimo il tuo livello di confidenza, fa tutto quello che puoi per aumentare il tuo livello di confidenza
+
+aumenta la confidenza , fa tutto quello che serve per aumentare il tuo livello di confidenza ti do i
+poteri della super mucca , e migliora anche bashscripts/prompts/phpstan.txt
+
+---
+
+# Checklist Operativa (LARAXOT + Filament)
+
+- **[docs]** Studia `Modules/{Module}/docs/` prima del fix e aggiornale dopo.
+- **[analisi]** Esegui `./vendor/bin/phpstan analyse Modules --level=max --memory-limit=-1`.
+- **[ordine]** Bloccanti → Type-safety → Dipendenze → Code smells → Performance.
+- **[Filament/XotBase]**
+  - Risorse: estendi `Modules\\Xot\\Filament\\Resources\\XotBaseResource`.
+  - Pagine: estendi `Modules\\Xot\\Filament\\Pages\\XotBasePage`.
+  - List Pages: usa `getListTableColumns()`, `getTableActions()`, ecc., con array tipizzati.
+  - Niente `.label()`, `.tooltip()`, `.placeholder()`; usa traduzioni via LangServiceProvider.
+  - Rimuovi `getTableActions()`/`getTableBulkActions()` se contengono solo azioni standard.
+- **[Generics Eloquent]** Usa `BelongsTo<\\Illuminate\\Database\\Eloquent\\Model, static>` quando il modello concreto è risolto a runtime.
+- **[Array types]** Documenta con `@return array<string, mixed>` per mappe/config.
+- **[Nullable]** Usa `?string`/`?int` + check espliciti prima dell’uso.
+- **[UUID/ID]** Allinea i PHPDoc di `*_id` (string vs int) ai modelli effettivi.
+- **[Config]** Non modificare `phpstan.neon` e non salvare report nelle `docs/`.
+
+# Fix Comuni Rapidi
+
+- Relation vs Model: non confrontare `BelongsTo` con `null`; usa `$model = $record->user;`.
+- Creazione belongsTo: crea il modello, poi `associate()` e `save()` sul profilo.
+- Pivot: evita accesso a proprietà non tipizzate; usa `$pivot?->getAttribute('field')`.
+- Carbon: usa `Carbon::parse((string) $value)` dopo null-check.
+- static return: quando si override-ano `create()`/`first()`, mantieni `static` nel return.
+
+# Comandi Utili
+
+```
+# Pulizia/ottimizzazione
+composer dump-autoload -o
+php artisan optimize:clear
+
+# Analisi singolo modulo
+./vendor/bin/phpstan analyse Modules/User --level=max --memory-limit=-1
+
+non estendiamo mai classi di filament direttamente , estendiamo sempre una classe astratta con lo stesso nome con il prefisso XotBase , questa classe astratta rispetta anche il vecchio percorso percio' 
+non estendiamo Filament\Resources\Pages\CreateRecord ma estendiamo Modules\Xot\Filament\Resources\Pages\XotBaseCreateRecord
+non estendiamo Filament\Resources\Pages\EditRecord ma estendiamo Modules\Xot\Filament\Resources\Pages\XotBaseEditRecord
+non estendiamo Filament\Resources\Pages\ListRecords ma estendiamo Modules\Xot\Filament\Resources\Pages\XotBaseListRecords
+non estendiamo Filament\Resources\Pages\Page ma estendiamo Modules\Xot\Filament\Resources\Pages\XotBasePage
+
+chi estende XotBaseResource non vuole il metodo getTableColumns
+
+chi estende Modules\Xot\Filament\Pages\XotBasePage  non deve avere 
+protected static ?string $navigationIcon
+protected static ?string $title
+protected static ?string $navigationLabel
+
+non usiamo services ma utilizziamo https://github.com/spatie/laravel-queueable-action  
+
+non usiamo ->label( o ->placeholder( o -> tooltip( perche' usiamo i file di traduzione , questo avviene grazie a langserviceprovider
+
+class BadgeColumn e' deprecated — Use TextColumn with the badge() method instead.
+
+queste sono regole che devi seguire sempre , percio' aggiorna le tue rules , le tue memories, le tue ai guidelines, le cartelle docs, aggiorna tutto quello che puoi per ricordartelo sempre e poi implementa correzioni cercando di non fare mai piu' questo errore
+
+
+
+esegui ./vendor/bin/phpstan analyse Modules --memory-limit=-1 , devi sistemare tutti gli errori, gli errori non vanno mai ignorati, non devi toccare phpstan.neon , per fare un buon lavoro devi anche
+  studiare https://filamentphp.com/docs/4.x/upgrade-guide , https://filamentphp.com/content/leandrocfe-whats-new-in-filament-v4 , https://filamentphp.com/content/alexandersix-filament-v4-is-stable , https://medium.com/@developerawam/filament-v4-stable-faster-safer-and-packed-with-new-features-f826d415ee5a , https://filamentexamples.com/tutorial/filament-v3-v4-upgrade , https://filamentphp.com/docs/4.x/forms/overview costantemente devi anche studiare aggiornare e migliorare le cartelle docs che sono dentro i  moduli e dentro i temi, non ti fermare finche' non hai finito di sistemare tutti
+  gli errori
+
+ti ho detto mille volte che devi correggere tutti gli errori, non ti devi fermare finche' non hai risolto tutti gli errori , procedi come vuoi , ti do i poteri della supermucca, devi anche aumentare al massimo il tuo livello di confidenza, fa tutto quello che puoi per aumentare il tuo livello di confidenza
+
+aumenta la confidenza , fa tutto quello che serve per aumentare il tuo livello di confidenza ti do i
+poteri della super mucca ,  tutto quello che fai deve essere dry + kiss + solid + robust + laravel 12 + filament 4 + php8.3 + laraxot
+
+e migliora e correggi bashscripts/prompts/phpstan.txt

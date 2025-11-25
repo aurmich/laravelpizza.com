@@ -1,0 +1,8 @@
+name: psalm
+on: [push]
+
+jobs:
+    phpinsights:
+        runs-on: ubuntu-latest
+        name: PHP Insights checks
+        steps:

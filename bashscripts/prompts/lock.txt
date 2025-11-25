@@ -1,0 +1,3 @@
+quando devi modificare un file, prima fai un file nello stesso percorso con lo stesso nome concatenato a .lock
+se tale file esiste gia' , passa a fare altro, quando hai finito la tua modifica cancella il file .lock che hai creato
+capisci da solo questa regola, capisci la filosofia, lo zen, la politica , la religione, la logica, questa regola devi sempre ricordartela percio' aggiorna le tue rules, le tue memories, fa tutto quello che puoi per ricordarti questa regola fondamentale

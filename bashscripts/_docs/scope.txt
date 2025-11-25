@@ -1,0 +1,2 @@
+https://github.com/tkeer/how-laravel-global-scope-works
+

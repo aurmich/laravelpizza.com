@@ -1,0 +1,15 @@
+aumenta al massimo il tuo livello di confidenza, fa tutto quello che ti serve per aumentare il
+   tuo livello di confidenza , capisci la logica, la filosofia, lo zen, la politica, la religione poi aggiorna e studia le cartelle docs dentro i moduli e dentro i temi, 
+   
+   puoi creare i files .md solo dentro le cartelle docs, non puoi creare cartelle docs, devi usare quelle che ci sono
+   i nomi dei files .md non devono contenere ne date ne caratteri maiuscoli ad eccezzione di README.md e CHANGELOG.md, 
+   quando crei un nuovo file .md , prima controlla che non ci sia gia' un file .md che parli dello stesso argomento,
+   devi sempre focalizzarti sulla bussiness logic, sullo scopo, sulla filosofia, sulla religione , sullo zen ,sul perche', con ottica dry + kiss 
+
+
+ti ricordo che prima di tutto devi capire la logica, la politica, la bussiness logic, la religione , la politica, poi aggiorni e studi le cartelle docs dentro i  moduli e dentro i temi , poi litghi furiosamente con te stesso , poi implementi , opi controlli, poi correggi, poi verifichi , poi migliori, ti ricordo che ogni volta che modifichi un file devi controllarlo anche con phpstan a livello 10, phpmd, phpinsights
+   devi sempre focalizzarti sulla bussiness logic, sullo scopo, sul perche', con ottica DRY + KISS + CLEAN CODE
+
+
+
+    per correggere prima devi capire la logica, lo scopo, il perche' la filosofia, la religione, lo zen, la bussiness logic, aggiornare le cartelle docs dentro i moduli, litigare furiosamente con te stesso, ragionare, implementare, controllare, correggere, verificare, migliorare, aggiornare le cartelle docs dentro i moduli , ricordati che quando modifichi un file devi controllarlo con phpstan a livello 10, phpmd, phpinsights

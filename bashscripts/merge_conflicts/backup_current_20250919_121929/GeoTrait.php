@@ -1,0 +1,600 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Geo\Models\Traits;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
+// --- models ---
+use Modules\Geo\Datas\GeoData;
+// ---- services --
+use Modules\Geo\Services\GeoService;
+
+/**
+ * Modules\Geo\Models\Traits\GeoTrait.
+ *
+ * @property float  $latitude
+ * @property float  $longitude
+ * @property string $country.
+ * @property string $country.
+ * @property string $administrative_area_level_2.
+ * @property string $country.
+ * @property string $locality.
+ * @property string $route.
+ * @property string $street_number.
+ * @property string $country.
+ * @property string $country.
+ * @property string $administrative_area_level_2.
+ * @property string $country.
+ * @property string $locality.
+ * @property string $route.
+ * @property string $street_number.
+ * @property string $route.
+ * @property string $street_number.
+ * @property string $postal_code.
+ * @property string $administrative_area_level_3.
+ * @property string $administrative_area_level_2_short.
+ */
+trait GeoTrait
+{
+    /*
+     * @return array
+<<<<<<< HEAD
+     *
+     * public function getFillable() {
+     * $shorts = collect(Place::$address_components)->map(
+     * function ($item) {
+     * return $item.'_short';
+     * }
+     * )->all();
+     * $fillable = array_merge($this->fillable, Place::$address_components, $shorts, ['latitude', 'longitude']);
+     *
+     * return $fillable;
+     * }*/
+
+    // --- functions ----
+
+    public function distance(null|float $lat = null, null|float $lng = null): null|float
+=======
+
+    public function getFillable() {
+        $shorts = collect(Place::$address_components)->map(
+            function ($item) {
+                return $item.'_short';
+            }
+        )->all();
+        $fillable = array_merge($this->fillable, Place::$address_components, $shorts, ['latitude', 'longitude']);
+
+        return $fillable;
+    }*/
+
+    // --- functions ----
+
+    public function distance(?float $lat = null, ?float $lng = null): ?float
+>>>>>>> bc26394 (.)
+    {
+        return (float) GeoService::distance((float) $this->latitude, (float) $this->longitude, $lat, $lng, '');
+    }
+
+<<<<<<< HEAD
+    public function distanceCustomField(
+        string $lat_field,
+        string $lng_field,
+        null|float $lat = null,
+        null|float $lng = null,
+        null|string $unit = '',
+    ): null|float {
+        return (float) GeoService::distance(
+            (float) $this->{$lat_field},
+            (float) $this->{$lng_field},
+            $lat,
+            $lng,
+            $unit,
+        );
+=======
+    public function distanceCustomField(string $lat_field, string $lng_field, ?float $lat = null, ?float $lng = null, ?string $unit = ''): ?float
+    {
+        return (float) GeoService::distance((float) $this->{$lat_field}, (float) $this->{$lng_field}, $lat, $lng, $unit);
+>>>>>>> bc26394 (.)
+    }
+
+    // ---- Scopes ----
+    public function scopeWithDistance(Builder $query, float $lat, float $lng): Builder
+    {
+        $q = $query;
+        if ($lat > 0 && $lng > 0) {
+            $haversine = GeoService::haversine($lat, $lng);
+
+<<<<<<< HEAD
+            return $query->selectRaw("*,{$haversine} AS distance")->orderBy('distance');
+=======
+            return $query->selectRaw("*,{$haversine} AS distance")
+                ->orderBy('distance');
+>>>>>>> bc26394 (.)
+        }
+
+        return $q;
+    }
+
+<<<<<<< HEAD
+    public function scopeWithDistanceCustomField(
+        Builder $query,
+        string $lat_field,
+        string $lng_field,
+        float $lat,
+        float $lng,
+    ): Builder {
+=======
+    public function scopeWithDistanceCustomField(Builder $query, string $lat_field, string $lng_field, float $lat, float $lng): Builder
+    {
+>>>>>>> bc26394 (.)
+        $q = $query;
+        if ($lat > 0 && $lng > 0) {
+            $haversine = GeoService::setLatitudeLongitudeField('lat', 'lng')->haversine($lat, $lng);
+
+<<<<<<< HEAD
+            return $query->selectRaw("*,{$haversine} AS distance")->orderBy('distance');
+=======
+            return $query->selectRaw("*,{$haversine} AS distance")
+                ->orderBy('distance');
+>>>>>>> bc26394 (.)
+        }
+
+        return $q;
+    }
+
+    public function scopeOfInPolygon(Builder $query, string $polygon_field, float $lat, float $lng): Builder
+    {
+        // (concat('POLYGON(',replace(replace(replace(replace(Replace(REPLACE(zone_polygon,'"lat":',''),',"lng":',' '),'{',''),'}',''),'[','('),']',')'),')'))
+        // errore poligono non chiuso
+        /*
+<<<<<<< HEAD
+         *
+         * SELECT ID,zone_polygon
+         * ,(ST_GeomFromText(
+         * concat('POLYGON((',
+         * REPLACE(
+         * REPLACE(
+         * REPLACE(
+         * REPLACE(
+         * replace(CONCAT(
+         * replace(replace(JSON_extract(zone_polygon,'$'),']',''),'[',''),
+         * ',',JSON_extract(zone_polygon,'$[0]'))
+         * ,'"lat":','')
+         * ,',"lng":',' ')
+         * ,'{',' ')
+         * ,', "lng":',' ')
+         * ,'}','')
+         * ,'))')
+         * )
+         * )
+         * AS test
+         *
+         * from vo_activities
+         * where zone_polygon IS NOT NULL
+         */
+=======
+
+ SELECT ID,zone_polygon
+,(ST_GeomFromText(
+concat('POLYGON((',
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+replace(CONCAT(
+replace(replace(JSON_extract(zone_polygon,'$'),']',''),'[',''),
+',',JSON_extract(zone_polygon,'$[0]'))
+,'"lat":','')
+,',"lng":',' ')
+,'{',' ')
+,', "lng":',' ')
+,'}','')
+,'))')
+)
+)
+AS test
+
+from vo_activities
+where zone_polygon IS NOT NULL
+        */
+>>>>>>> bc26394 (.)
+
+        $sql = "ST_Contains(
+        ST_GeomFromText(
+       concat('POLYGON((',
+       REPLACE(
+       REPLACE(
+       REPLACE(
+       REPLACE(
+       replace(CONCAT(
+       replace(replace(JSON_extract(zone_polygon,'$'),']',''),'[',''),
+       ',',JSON_extract(zone_polygon,'$[0]'))
+       ,'\"lat\":','')
+       ,',\"lng\":',' ')
+       ,'{',' ')
+       ,', \"lng\":',' ')
+       ,'}','')
+       ,'))')
+<<<<<<< HEAD
+       ), ST_GeomFromText('POINT(" . $lat . ' ' . $lng . ")')
+=======
+       ), ST_GeomFromText('POINT(".$lat.' '.$lng.")')
+>>>>>>> bc26394 (.)
+       )";
+
+        // dddx($query->whereNotNull($polygon_field)->whereRaw($sql)->toSql());
+
+        return $query->whereNotNull($polygon_field)->whereRaw($sql);
+    }
+
+    // ---- mutators ----
+
+    public function getAddress(): string
+    {
+        if ('' === $this->country) {
+            $this->country = 'Italia';
+        }
+
+<<<<<<< HEAD
+        return (
+            $this->route .
+            ', ' .
+            $this->street_number .
+            ', ' .
+            $this->locality .
+            ', ' .
+            $this->administrative_area_level_2 .
+            ', ' .
+            $this->country
+        );
+    }
+
+    public function getLatitudeAttribute(null|float $value): null|float
+=======
+        return $this->route.', '.$this->street_number.', '.$this->locality.', '.$this->administrative_area_level_2.', '.$this->country;
+    }
+
+    public function getLatitudeAttribute(?float $value): ?float
+>>>>>>> bc26394 (.)
+    {
+        if (null !== $value) {
+            return $value;
+        }
+        $address = $this->address;
+        if (null === $address) {
+            return null;
+        }
+<<<<<<< HEAD
+        if (is_string($address) && isJson((string) $address)) {
+=======
+        if (isJson($address)) {
+>>>>>>> bc26394 (.)
+            $geo = GeoData::from(json_decode((string) $address, true, 512, JSON_THROW_ON_ERROR));
+            $latlng = $geo->latlng;
+            $lat = $latlng['lat'];
+            $lng = $latlng['lng'];
+            $this->update([
+                'latitude' => $lat,
+                'longitude' => $lng,
+            ]);
+            $this->save();
+
+            return $lat;
+        }
+        // call to function is_object() with string will always evaluate to false
+        // if (\is_object($address)) {
+        //    dddx($address);
+        // }
+        // Call to function is_array() with string will always evaluate to false
+        /*
+<<<<<<< HEAD
+         * if (\is_array($address)) {
+         * $lat = $address['latlng']['lat'];
+         * $lng = $address['latlng']['lng'];
+         * $this->update([
+         * 'latitude' => $lat,
+         * 'longitude' => $lng,
+         * ]);
+         * $this->save();
+         *
+         * return $lat;
+         * }
+         */
+=======
+        if (\is_array($address)) {
+            $lat = $address['latlng']['lat'];
+            $lng = $address['latlng']['lng'];
+            $this->update([
+                'latitude' => $lat,
+                'longitude' => $lng,
+            ]);
+            $this->save();
+
+            return $lat;
+        }
+        */
+>>>>>>> bc26394 (.)
+
+        return null;
+    }
+
+    /**
+<<<<<<< HEAD
+     * Set address attribute with proper type handling.
+     */
+    public function setAddressAttribute(mixed $value): void
+    {
+        // *
+
+        if (is_string($value) && isJson((string) $value)) {
+=======
+     * Undocumented function.
+     */
+    public function setAddressAttribute($value): void
+    {
+        // *
+
+        if (is_string($value) && isJson($value)) {
+>>>>>>> bc26394 (.)
+            /*
+             * @var array<string, mixed>
+             */
+            // $json = json_decode($value, true);
+            // $json['latitude'] = $json['latlng']['lat'];
+            // $json['longitude'] = $json['latlng']['lng'];
+
+<<<<<<< HEAD
+            $geo = GeoData::from(json_decode((string) $value, true, 512, JSON_THROW_ON_ERROR));
+=======
+            $geo = GeoData::from(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
+>>>>>>> bc26394 (.)
+            $latlng = $geo->latlng;
+            $lat = $latlng['lat'];
+            $lng = $latlng['lng'];
+
+            // unset($json['latlng'], $json['value']);
+            // $this->attributes = array_merge($this->attributes, $json);
+            $this->attributes['latitude'] = $lat;
+            $this->attributes['longitude'] = $lng;
+<<<<<<< HEAD
+            if (!isset($this->attributes['full_address'])) {
+=======
+            if (! isset($this->attributes['full_address'])) {
+>>>>>>> bc26394 (.)
+                $this->attributes['full_address'] = ',,';
+            }
+
+            if (\strlen($this->attributes['full_address']) < 10) {
+                /*$address = collect($json);
+<<<<<<< HEAD
+                 * $tmp = [];
+                 * $tmp[] = $address->get('route');
+                 * $tmp[] = $address->get('street_number');
+                 * $tmp[] = $address->get('postal_code');
+                 * $tmp[] = $address->get('administrative_area_level_3');
+                 * $tmp[] = $address->get('administrative_area_level_2_short');
+                 */
+=======
+                $tmp = [];
+                $tmp[] = $address->get('route');
+                $tmp[] = $address->get('street_number');
+                $tmp[] = $address->get('postal_code');
+                $tmp[] = $address->get('administrative_area_level_3');
+                $tmp[] = $address->get('administrative_area_level_2_short');
+                */
+>>>>>>> bc26394 (.)
+                $tmp = [];
+                $tmp[] = $geo->route;
+                $tmp[] = $geo->street_number;
+                $tmp[] = $geo->postal_code;
+                $tmp[] = $geo->administrative_area_level_3;
+                $tmp[] = $geo->administrative_area_level_2_short;
+                $this->attributes['full_address'] = implode(', ', $tmp);
+            }
+        }
+
+        if (\is_array($value)) {
+            $value = json_encode($value, JSON_THROW_ON_ERROR);
+        }
+        $this->attributes['address'] = $value;
+<<<<<<< HEAD
+
+=======
+>>>>>>> bc26394 (.)
+        // dddx(['isJson'=>\isJson($value),'value'=>$value]);
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return bool|mixed|string
+     */
+    /*
+<<<<<<< HEAD
+     * public function getAddressAttribute($value) {
+     * if (null !== $value) {
+     * return json_decode($value);
+     * }
+     *
+     * if ('' == $this->country) {
+     * $this->country = 'Italia';
+     * }
+     * $val1 = (object) [
+     * 'value' => $this->route.', '.$this->street_number.', '.$this->locality.', '.$this->administrative_area_level_2.', '.$this->country,
+     * ];
+     * $val1->latlng = (object) [
+     * 'lat' => $this->latitude,
+     * 'lng' => $this->longitude,
+     * ];
+     * foreach (Place::$address_components as $v) {
+     * $val1->$v = $this->$v;
+     * $val1->{$v.'_short'} = $this->{$v.'_short'};
+     * }
+     *
+     * return json_encode($val1, 1);
+     * //return response()->json($val1);
+     * }
+     */
+=======
+    public function getAddressAttribute($value) {
+        if (null !== $value) {
+            return json_decode($value);
+        }
+
+        if ('' == $this->country) {
+            $this->country = 'Italia';
+        }
+        $val1 = (object) [
+            'value' => $this->route.', '.$this->street_number.', '.$this->locality.', '.$this->administrative_area_level_2.', '.$this->country,
+        ];
+        $val1->latlng = (object) [
+            'lat' => $this->latitude,
+            'lng' => $this->longitude,
+        ];
+        foreach (Place::$address_components as $v) {
+            $val1->$v = $this->$v;
+            $val1->{$v.'_short'} = $this->{$v.'_short'};
+        }
+
+        return json_encode($val1, 1);
+        //return response()->json($val1);
+    }
+    */
+>>>>>>> bc26394 (.)
+
+    /**
+     * ---.
+     */
+<<<<<<< HEAD
+    public function getFullAddressAttribute(null|string $value): null|string
+=======
+    public function getFullAddressAttribute(?string $value): ?string
+>>>>>>> bc26394 (.)
+    {
+        if (null === $this->address) {
+            return null;
+        }
+<<<<<<< HEAD
+        if (is_string($this->address) && isJson($this->address)) {
+            /*
+             * $addr = json_decode($this->address);
+             * if (\is_object($addr)) {
+             * $addr = get_object_vars($addr);
+             * }
+             *
+             * extract($addr);
+             */
+            $geo = GeoData::from(json_decode((string) $this->address, true, 512, JSON_THROW_ON_ERROR));
+=======
+        if (isJson($this->address)) {
+            /*
+            $addr = json_decode($this->address);
+            if (\is_object($addr)) {
+                $addr = get_object_vars($addr);
+            }
+
+            extract($addr);
+            */
+            $geo = GeoData::from(json_decode($this->address, true, 512, JSON_THROW_ON_ERROR));
+>>>>>>> bc26394 (.)
+
+            $value = str_ireplace(', Italia', '', $geo->value);
+            // Call to function is_array() with string will always evaluate to false.
+            // if (\is_array($value)) {
+            //    $value = implode(' ', $value);
+            // }
+            if (isset($geo->street_number)) {
+<<<<<<< HEAD
+                $str = $geo->street_number . ', ';
+                $before = Str::before($geo->value, $str);
+                $after = Str::after($geo->value, $str);
+
+                return $before . $str . '' . ($geo->postal_code ?? '') . ', ' . $after;
+            }
+            if (isset($geo->administrative_area_level_3)) {
+                $str = ', ' . $geo->administrative_area_level_3;
+                $before = Str::before($geo->value, $str);
+                $after = Str::after($geo->value, $str);
+
+                return $before . ', ' . ($geo->postal_code ?? '') . '' . $str . '' . $after;
+=======
+                $str = $geo->street_number.', ';
+                $before = Str::before($geo->value, $str);
+                $after = Str::after($geo->value, $str);
+
+                return $before.$str.''.($geo->postal_code ?? '').', '.$after;
+            }
+            if (isset($geo->administrative_area_level_3)) {
+                $str = ', '.$geo->administrative_area_level_3;
+                $before = Str::before($geo->value, $str);
+                $after = Str::after($geo->value, $str);
+
+                return $before.', '.($geo->postal_code ?? '').''.$str.''.$after;
+>>>>>>> bc26394 (.)
+            }
+        }
+        // Call to function is_object() with string|null will always evaluate to false.
+        /*
+<<<<<<< HEAD
+         * if (\is_object($this->address)) {
+         * $address = collect($this->address)->except(['value', 'latlng']);
+         * $up = false;
+         * foreach ($address->all() as $k => $v) {
+         * if ($this->$k !== $v) {
+         * $up = true;
+         * break;
+         * }
+         * }
+         * if ($up) {
+         * $this->update($address->all());
+         * }
+         *
+         * $tmp = [];
+         * $tmp[] = $address->get('route');
+         * $tmp[] = $address->get('street_number');
+         * $tmp[] = $address->get('postal_code');
+         * $tmp[] = $address->get('administrative_area_level_3');
+         * $tmp[] = $address->get('administrative_area_level_2_short');
+         * $value = implode(', ', $tmp);
+         *
+         * return $value;
+         * }
+         */
+=======
+        if (\is_object($this->address)) {
+            $address = collect($this->address)->except(['value', 'latlng']);
+            $up = false;
+            foreach ($address->all() as $k => $v) {
+                if ($this->$k !== $v) {
+                    $up = true;
+                    break;
+                }
+            }
+            if ($up) {
+                $this->update($address->all());
+            }
+
+            $tmp = [];
+            $tmp[] = $address->get('route');
+            $tmp[] = $address->get('street_number');
+            $tmp[] = $address->get('postal_code');
+            $tmp[] = $address->get('administrative_area_level_3');
+            $tmp[] = $address->get('administrative_area_level_2_short');
+            $value = implode(', ', $tmp);
+
+            return $value;
+        }
+        */
+>>>>>>> bc26394 (.)
+        $tmp = [];
+        $tmp[] = $this->route;
+        $tmp[] = $this->street_number;
+        $tmp[] = $this->postal_code;
+        $tmp[] = $this->administrative_area_level_3;
+        $tmp[] = $this->administrative_area_level_2_short;
+
+        return implode(', ', $tmp);
+    }
+}

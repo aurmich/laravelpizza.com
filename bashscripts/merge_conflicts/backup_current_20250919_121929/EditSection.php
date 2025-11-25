@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Cms\Filament\Resources\SectionResource\Pages;
+
+use Modules\Cms\Filament\Resources\SectionResource;
+<<<<<<< HEAD
+use Modules\Lang\Filament\Resources\Pages\LangBaseEditRecord;
+use Modules\Xot\Filament\Resources\Pages\XotBaseEditRecord;
+=======
+use Modules\Xot\Filament\Resources\Pages\XotBaseEditRecord;
+use Modules\Lang\Filament\Resources\Pages\LangBaseEditRecord;
+>>>>>>> 3401a6b (.)
+
+class EditSection extends LangBaseEditRecord
+{
+    protected static string $resource = SectionResource::class;
+}

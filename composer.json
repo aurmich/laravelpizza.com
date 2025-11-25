@@ -1,0 +1,45 @@
+{
+    "name": "laraxot/bashscripts_fila3",
+    "description": "Script di utilità per la gestione dei repository Git, Toolkit di automazione Git per progetti Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "marco76tv",
+            "email": "marco76tv@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "keywords": [
+        "bash",
+        "scripts",
+        "git",
+        "automation",
+        "laravel",
+        "subtree",
+        "submodule"
+    ],
+    "homepage": "https://github.com/laraxot/bashscripts_fila3.git",
+    "require": {},
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Laraxot\\BashScripts\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Laraxot\\BashScripts\\Composer\\Scripts::postAutoloadDump"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    }
+}

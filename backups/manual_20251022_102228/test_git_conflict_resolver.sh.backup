@@ -1,0 +1,382 @@
+#!/bin/bash
+# ==============================================================================
+# Test Suite per Git Conflict Resolver Library
+# ==============================================================================
+# Test automatici per verificare il corretto funzionamento della libreria
+# di risoluzione conflitti Git
+#
+# Uso: ./test_git_conflict_resolver.sh
+#
+# Autore: AI Assistant + Laraxot Team
+# Versione: 1.0
+# ==============================================================================
+
+set -euo pipefail
+
+# ==============================================================================
+# SETUP
+# ==============================================================================
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIB_DIR="$(cd "$SCRIPT_DIR/../lib" && pwd)"
+TEST_DIR="$SCRIPT_DIR/tmp_test_$$"
+
+# Carica libreria
+source "$LIB_DIR/git_conflict_resolver.sh"
+
+# Contatori
+TESTS_RUN=0
+TESTS_PASSED=0
+TESTS_FAILED=0
+
+# ==============================================================================
+# TEST HELPERS
+# ==============================================================================
+
+setup() {
+    mkdir -p "$TEST_DIR"
+    cd "$TEST_DIR"
+}
+
+teardown() {
+    cd "$SCRIPT_DIR"
+    rm -rf "$TEST_DIR"
+}
+
+assert_equals() {
+    local expected="$1"
+    local actual="$2"
+    local message="${3:-Assertion failed}"
+    
+    ((TESTS_RUN++)) || true
+    
+    if [ "$expected" = "$actual" ]; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: $message"
+        return 0
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: $message"
+        echo "   Expected: '$expected'"
+        echo "   Got:      '$actual'"
+        return 1
+    fi
+}
+
+assert_file_exists() {
+    local file="$1"
+    local message="${2:-File should exist}"
+    
+    ((TESTS_RUN++)) || true
+    
+    if [ -f "$file" ]; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: $message"
+        return 0
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: $message (file not found: $file)"
+        return 1
+    fi
+}
+
+assert_no_conflicts() {
+    local file="$1"
+    local message="${2:-File should have no conflicts}"
+    
+    ((TESTS_RUN++)) || true
+    
+    if ! grep -q "^<<<<<<< HEAD" "$file" 2>/dev/null; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: $message"
+        return 0
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: $message (conflicts found in $file)"
+        return 1
+    fi
+}
+
+# ==============================================================================
+# TEST CASES
+# ==============================================================================
+
+test_version() {
+    echo ""
+    echo "🧪 TEST: Version function"
+    local version
+    version=$(gcr_version)
+    assert_equals "Git Conflict Resolver Library v5.0.0" "$version" "Version string correct"
+}
+
+test_has_conflicts() {
+    echo ""
+    echo "🧪 TEST: Conflict detection"
+    
+    # File con conflitti
+    cat > "conflict.txt" << 'EOF'
+Some content
+Version B
+More content
+EOF
+    
+    if gcr_has_conflicts "conflict.txt"; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: Detects conflicts correctly"
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: Should detect conflicts"
+    fi
+    ((TESTS_RUN++)) || true
+    
+    # File senza conflitti
+    echo "No conflicts here" > "no_conflict.txt"
+    
+    if ! gcr_has_conflicts "no_conflict.txt"; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: No false positives"
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: Should not detect conflicts"
+    fi
+    ((TESTS_RUN++)) || true
+}
+
+test_count_conflicts() {
+    echo ""
+    echo "🧪 TEST: Count conflicts"
+    
+    cat > "multiple_conflicts.txt" << 'EOF'
+B1
+Some text
+B2
+B3
+EOF
+    
+    local count
+    count=$(gcr_count_conflicts "multiple_conflicts.txt")
+    assert_equals "3" "$count" "Counts 3 conflicts"
+}
+
+test_resolve_incoming() {
+    echo ""
+    echo "🧪 TEST: Resolve with incoming strategy"
+    
+    cat > "test_incoming.txt" << 'EOF'
+Before conflict
+INCOMING version
+After conflict
+EOF
+    
+    cat "test_incoming.txt" | gcr_resolve_incoming > "result.txt"
+    
+    local expected="Before conflict
+INCOMING version
+After conflict"
+    
+    local actual
+    actual=$(cat "result.txt")
+    
+    assert_equals "$expected" "$actual" "Incoming strategy keeps theirs"
+}
+
+test_resolve_head() {
+    echo ""
+    echo "🧪 TEST: Resolve with head strategy"
+    
+    cat > "test_head.txt" << 'EOF'
+Before conflict
+INCOMING version
+After conflict
+EOF
+    
+    cat "test_head.txt" | gcr_resolve_head > "result.txt"
+    
+    local expected="Before conflict
+HEAD version
+After conflict"
+    
+    local actual
+    actual=$(cat "result.txt")
+    
+    assert_equals "$expected" "$actual" "Head strategy keeps ours"
+}
+
+test_resolve_file_incoming() {
+    echo ""
+    echo "🧪 TEST: Resolve file with incoming"
+    
+    cat > "file_test.txt" << 'EOF'
+Line 1
+INCOMING content
+Line 2
+EOF
+    
+    if gcr_resolve_file "file_test.txt" "incoming" "" "false"; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: File resolved successfully"
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: File resolution failed"
+    fi
+    ((TESTS_RUN++)) || true
+    
+    assert_no_conflicts "file_test.txt" "No conflicts after resolution"
+    
+    if grep -q "INCOMING content" "file_test.txt"; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: Contains incoming content"
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: Should contain incoming content"
+    fi
+    ((TESTS_RUN++)) || true
+}
+
+test_resolve_file_dry_run() {
+    echo ""
+    echo "🧪 TEST: Dry-run mode"
+    
+    cat > "dry_run_test.txt" << 'EOF'
+Modified
+EOF
+    
+    local original_content
+    original_content=$(cat "dry_run_test.txt")
+    
+    gcr_resolve_file "dry_run_test.txt" "incoming" "" "true" > /dev/null 2>&1 || true
+    
+    local after_dry_run
+    after_dry_run=$(cat "dry_run_test.txt")
+    
+    assert_equals "$original_content" "$after_dry_run" "Dry-run doesn't modify file"
+}
+
+test_resolve_file_with_backup() {
+    echo ""
+    echo "🧪 TEST: Backup creation"
+    
+    mkdir -p "backup_dir"
+    
+    cat > "backup_test.txt" << 'EOF'
+Modified
+EOF
+    
+    gcr_resolve_file "backup_test.txt" "incoming" "backup_dir" "false" > /dev/null 2>&1 || true
+    
+    assert_file_exists "backup_dir/backup_test.txt.backup" "Backup file created"
+}
+
+test_binary_detection() {
+    echo ""
+    echo "🧪 TEST: Binary file detection"
+    
+    # Crea un file binario fake
+    printf '\x00\x01\x02\x03' > "binary_file.bin"
+    
+    if gcr_is_binary "binary_file.bin"; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: Detects binary files"
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: Should detect binary"
+    fi
+    ((TESTS_RUN++)) || true
+}
+
+test_analyze_file() {
+    echo ""
+    echo "🧪 TEST: File analysis"
+    
+    cat > "analyze_test.txt" << 'EOF'
+LineA
+LineB
+LineC
+EOF
+    
+    local result
+    result=$(gcr_analyze_file "analyze_test.txt")
+    
+    if echo "$result" | grep -q '"has_conflicts": true'; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: Analysis detects conflicts"
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: Analysis should detect conflicts"
+    fi
+    ((TESTS_RUN++)) || true
+}
+
+test_multiple_conflicts_in_file() {
+    echo ""
+    echo "🧪 TEST: Multiple conflicts in single file"
+    
+    cat > "multi_conflict.txt" << 'EOF'
+Start
+First INCOMING
+Middle
+Second INCOMING
+End
+EOF
+    
+    gcr_resolve_file "multi_conflict.txt" "incoming" "" "false" > /dev/null 2>&1 || true
+    
+    assert_no_conflicts "multi_conflict.txt" "All conflicts resolved"
+    
+    if grep -q "First INCOMING" "multi_conflict.txt" && \
+       grep -q "Second INCOMING" "multi_conflict.txt"; then
+        ((TESTS_PASSED++)) || true
+        echo "✅ PASS: All conflicts resolved with incoming"
+    else
+        ((TESTS_FAILED++)) || true
+        echo "❌ FAIL: Not all conflicts resolved correctly"
+    fi
+    ((TESTS_RUN++)) || true
+}
+
+# ==============================================================================
+# RUN TESTS
+# ==============================================================================
+
+main() {
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║     🧪 GIT CONFLICT RESOLVER - TEST SUITE                   ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    
+    setup
+    
+    test_version
+    test_has_conflicts
+    test_count_conflicts
+    test_resolve_incoming
+    test_resolve_head
+    test_resolve_file_incoming
+    test_resolve_file_dry_run
+    test_resolve_file_with_backup
+    test_binary_detection
+    test_analyze_file
+    test_multiple_conflicts_in_file
+    
+    teardown
+    
+    echo ""
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║                     TEST RESULTS                             ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo ""
+    echo "✅ Tests passed:  $TESTS_PASSED"
+    echo "❌ Tests failed:  $TESTS_FAILED"
+    echo "📊 Total tests:   $TESTS_RUN"
+    echo ""
+    
+    if [ "$TESTS_FAILED" -eq 0 ]; then
+        echo "🎉 ALL TESTS PASSED!"
+        return 0
+    else
+        echo "⚠️  SOME TESTS FAILED"
+        return 1
+    fi
+}
+
+main "$@"
+

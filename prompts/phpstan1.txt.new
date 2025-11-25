@@ -1,0 +1,85 @@
+# Prompt Operativo PHPStan (versione DRY + KISS)
+
+## Missione
+- Portare PHPStan a 0 errori senza toccare `phpstan.neon` né creare baseline.
+- Correggere, non ignorare: ogni warning è un bug di qualità.
+- Mantenere type safety totale e documentazione coerente per moduli e temi.
+
+## Ordine Operativo (Modulo → Globale)
+1. **Confidenza**: prima leggi/aggiorna le docs del modulo (`Modules/<Modulo>/docs/`) e del tema coinvolto.
+2. **Analisi singolo modulo**  
+   ```bash
+   cd /var/www/_bases/base_quaeris_fila4_mono/laravel
+   ./vendor/bin/phpstan analyse Modules/<Modulo> --memory-limit=-1
+   ```
+3. **Correzione**: applica pattern safe (type narrowing, Assert, Safe\* functions, CastActions). Non usare `property_exists`; per attributi Eloquent usa `isset()` o `getAttribute()`.
+4. **Verifica locale**: ripeti PHPStan sul file/modulo toccato + `vendor/bin/pint --dirty` se necessario.
+5. **Documentazione**: aggiorna subito `docs/` (link relativi, nomi `.md` in kebab-case, niente date, solo `README.md` può essere maiuscolo, evita duplicati).
+6. **Controlli qualità**: dopo modifiche sostanziali lancia `phpstan --level=10`, `phpmd`, `phpinsights` sui file toccati.
+7. **Lock discipline**: prima di editare crea `<file>.lock`, rimuovilo a lavoro finito. Se il lock esiste, aspetta o cambia task.
+8. Quando **tutti i moduli** sono puliti (0 errori nei run singoli) esegui l’analisi completa:
+   ```bash
+   ./vendor/bin/phpstan analyse Modules --memory-limit=-1
+   ```
+
+## Regole Non Negoziabili
+- Docs come bibbia: studia prima, aggiorna dopo ogni fix, link sempre relativi.
+- Backoffice → Filament (mai controller); frontoffice → Folio + Volt.
+- Estendi sempre le classi `Modules\Xot\*` (Resource/Page/Widget ecc.), mai quelle Filament native.
+- Niente `->label() / ->placeholder() / ->tooltip()` hardcoded; usa traduzioni.
+- `BadgeColumn` è deprecata → usa `TextColumn::make(...)->badge()`.
+- `protected $casts` è deprecato → implementa `casts(): array`.
+- Nessun service class: usa [spatie/laravel-queueable-action].
+- Mixed è ultima spiaggia: effettua type narrowing con `is_*`, `Assert`, Cast Actions (`Modules\Xot\Actions\Cast\Safe*`).
+- Tests in Pest; se falliscono capisci se è codice o test da correggere.
+- Operare sempre da `laravel/`; `composer dump-autoload`, `php artisan config:clear`, `php artisan cache:clear` dopo refactor pesanti.
+- Property rules:
+  - `Team` estende `BaseTeam`, `Permission` estende `SpatiePermission`, ecc.
+  - Non duplicare metodi del parent senza motivo.
+- Traduzioni `.navigation`: migliorale confrontando moduli esistenti.
+- Mai usare `property_exists` su model; evita accessi diretti se la proprietà è magica.
+- Dopo ogni modifica significativa: `phpstan`, `phpmd`, `phpinsights` sui file toccati.
+
+## Strumenti Rapidi
+```bash
+# PHPStan modulo
+./vendor/bin/phpstan analyse Modules/<Modulo> --memory-limit=-1
+# PHPStan file specifico
+./vendor/bin/phpstan analyse Modules/<Modulo>/path/File.php --memory-limit=-1
+# Rector (dry + apply)
+./vendor/bin/rector process Modules/<Modulo> --dry-run
+./vendor/bin/rector process Modules/<Modulo>
+# Psalm
+./vendor/bin/psalm --show-info=true
+# PHP Insights mirato
+./vendor/bin/phpinsights analyse Modules/<Modulo> --min-quality=90
+```
+
+## Pattern Essenziali
+- **Type narrowing** con `Assert::isArray`, `Assert::isInstanceOf`, ecc.
+- **Safe\***: `Safe\sprintf`, `Safe\json_decode`, `Safe\file_get_contents`.
+- **Collections tipizzate**: documenta con `Collection<int, Model>` e usa `->values()` quando necessario.
+- **Array associativi**: actions/columns Filament devono restituire `array<string, ...>`.
+- **Factory**: usa `newFactory()` + trait `HasXotFactory` (senza generics).
+- **Slug/UUID**: gestisci conversioni tramite Cast Actions, mai concatenazioni dirette con mixed.
+- **Lock + run**: dopo edit → rimuovi lock → riesegui PHPStan sul target.
+
+## Checklist Rapida per Ogni Task
+1. Lock + studio docs.
+2. Analisi PHPStan modulo/file.
+3. Fix (type safety, traduzioni, architettura).
+4. Aggiornamento docs (kebab-case, no date, link relativi).
+5. PHPStan sul target aggiornato (e se serve phpmd/phpinsights).
+6. Output al team:
+   - file corretti + tipo di errori risolti;
+   - errori residui con priorità;
+   - docs aggiornate.
+
+## Note Finali
+- Lavora sempre “modulo per modulo”, poi `Modules/` completo.
+- Nessuna automazione cieca sui conflitti: risolvi a mano leggendo docs correlate.
+- Usa sempre traduzioni già esistenti prima di introdurne di nuove.
+- Mantieni DRY + KISS: se una regola è già documentata, referenziala invece di duplicarla.
+
+Procedi con autonomia totale: correggi, documenta, verifica. Zero compromessi, zero errori residui.
+

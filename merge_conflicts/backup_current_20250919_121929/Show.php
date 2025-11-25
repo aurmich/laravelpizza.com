@@ -1,0 +1,180 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Cms\Http\Livewire\Page;
+
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
+use Livewire\Component;
+use Modules\Cms\Models\Page;
+use Modules\Xot\Services\ThemeService;
+
+class Show extends Component
+{
+    /**
+     * Lo slug della pagina da visualizzare.
+     *
+     * @var string
+     */
+    public string $slug;
+
+    /**
+     * Se utilizzare la cache per i contenuti.
+     *
+     * @var bool
+     */
+    public bool $cache = true;
+
+    /**
+     * Il tema da utilizzare.
+     *
+     * @var string|null
+     */
+<<<<<<< HEAD
+    public null|string $theme = null;
+=======
+    public ?string $theme = null;
+>>>>>>> 3401a6b (.)
+
+    /**
+     * Se mostrare informazioni di debug.
+     *
+     * @var bool
+     */
+    public bool $debug = false;
+
+    /**
+     * I contenuti della pagina.
+     *
+<<<<<<< HEAD
+     * @var array<string, mixed>
+=======
+     * @var array
+>>>>>>> 3401a6b (.)
+     */
+    protected array $pageContent = [];
+
+    /**
+     * Regole di validazione per i parametri.
+     *
+     * @return array<string, string>
+     */
+    protected function rules(): array
+    {
+        return [
+            'slug' => 'required|string',
+            'cache' => 'boolean',
+            'theme' => 'nullable|string',
+            'debug' => 'boolean',
+        ];
+    }
+
+    /**
+     * Carica i contenuti della pagina.
+     */
+    public function mount(): void
+    {
+        $this->loadPageContent();
+    }
+
+    /**
+     * Carica i contenuti della pagina, eventualmente dalla cache.
+     */
+    protected function loadPageContent(): void
+    {
+        // Chiave per la cache
+        $cacheKey = 'page_content_' . $this->slug . '_' . ($this->theme ?? ThemeService::getTheme());
+
+        // Se la cache è abilitata, tenta di recuperare dalla cache
+        if ($this->cache) {
+<<<<<<< HEAD
+            $cached = Cache::remember($cacheKey, now()->addHours(24), $this->fetchPageContent(...));
+            $this->pageContent = is_array($cached) ? $cached : [];
+=======
+            $this->pageContent = Cache::remember(
+                $cacheKey,
+                now()->addHours(24),
+                fn () => $this->fetchPageContent()
+            );
+>>>>>>> 3401a6b (.)
+        } else {
+            $this->pageContent = $this->fetchPageContent();
+        }
+    }
+
+    /**
+     * Recupera i contenuti della pagina dal database.
+     *
+<<<<<<< HEAD
+     * @return array<string, mixed>
+=======
+     * @return array
+>>>>>>> 3401a6b (.)
+     */
+    protected function fetchPageContent(): array
+    {
+        try {
+            // Recupera la pagina dal database
+<<<<<<< HEAD
+            $page = Page::where('slug', $this->slug)->where('lang', app()->getLocale())->first();
+
+            if (!$page) {
+=======
+            $page = Page::where('slug', $this->slug)
+                ->where('lang', app()->getLocale())
+                ->first();
+
+            if (! $page) {
+>>>>>>> 3401a6b (.)
+                return ['error' => 'Page not found', 'slug' => $this->slug];
+            }
+
+            // Recupera e processa i contenuti della pagina
+            return [
+                'title' => $page->title,
+<<<<<<< HEAD
+                'subtitle' => null, // Property doesn't exist in Page model
+                'content' => $page->content,
+                'meta' => [
+                    'description' => null, // Property doesn't exist in Page model
+                    'keywords' => null, // Property doesn't exist in Page model
+                ],
+                'blocks' => $page->content_blocks ?? [],
+                'layout' => 'default',
+=======
+                'subtitle' => $page->subtitle,
+                'content' => $page->content,
+                'meta' => [
+                    'description' => $page->meta_description,
+                    'keywords' => $page->meta_keywords,
+                ],
+                'blocks' => $page->blocks ?? [],
+                'layout' => $page->layout ?? 'default',
+>>>>>>> 3401a6b (.)
+            ];
+        } catch (Exception $e) {
+            if ($this->debug) {
+                return [
+                    'error' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ];
+            }
+
+            return ['error' => 'An error occurred while loading the page'];
+        }
+    }
+
+    /**
+     * Renderizza la vista con i contenuti della pagina.
+     */
+    public function render(): View
+    {
+        return view('cms::livewire.page.show', [
+            'pageContent' => $this->pageContent,
+            'theme' => $this->theme ?? ThemeService::getTheme(),
+        ]);
+    }
+}

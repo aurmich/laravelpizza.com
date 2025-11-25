@@ -1,0 +1,541 @@
+# PHPStan Code Quality Guide - base_quaeris_fila4_mono
+
+**Ultimo aggiornamento**: 2025-01-06  
+**Principi**: DRY + KISS + SOLID + Robust  
+**Stack**: Laravel 12 + Filament 4 + PHP 8.3 + Laraxot  
+**Obiettivo**: 0 errori PHPStan Level 10
+
+---
+
+## 🚨 Regole Assolute
+
+### Mai Modificare Configurazione
+- **NON modificare MAI** `laravel/phpstan.neon`
+- **NON creare baseline** - tutti gli errori vanno corretti
+- **NON ignorare errori** - approccio "fix, don't ignore"
+- **NON usare** `@phpstan-ignore` - correggere sempre il codice
+
+### Filosofia Fondamentale
+- **Docs come Bibbia**: Studia `Modules/{Modulo}/docs/` prima di ogni correzione
+- **Link sempre relativi**: Mai path assoluti nei file .md
+- **Naming files**: Minuscolo, no date, solo README.md può essere maiuscolo
+- **Property exists**: NON funziona con magic attributes Eloquent - usa `isset()`
+
+---
+
+## 📋 Quick Reference - Comandi Essenziali
+
+```bash
+# Analisi PHPStan completa
+cd /var/www/_bases/base_quaeris_fila4_mono/laravel
+./vendor/bin/phpstan analyse Modules --memory-limit=-1
+
+# Analisi singolo modulo
+./vendor/bin/phpstan analyse Modules/{ModuleName} --memory-limit=-1
+
+# Verifica autoload
+composer dump-autoload && php artisan config:clear && php artisan cache:clear
+```
+
+---
+
+## 🎯 Workflow Operativo
+
+### Fase 1: Preparazione
+1. **Aumenta confidenza**: Studia architettura e business logic
+2. **Studia docs**: Leggi `Modules/{Modulo}/docs/` e `Themes/{Tema}/docs/`
+3. **Aggiorna docs**: Mantieni documentazione sempre aggiornata
+
+### Fase 2: Analisi
+```bash
+cd laravel
+./vendor/bin/phpstan analyse Modules --memory-limit=-1 > /tmp/phpstan-report.txt
+```
+
+### Fase 3: Correzione Sistematica
+1. **Scegli modulo**: Inizia da moduli con meno errori (quick wins)
+2. **Categorizza errori**: Raggruppa per tipo (argument.type, return.type, ecc.)
+3. **Correggi batch**: Pattern simili insieme
+4. **Verifica incrementale**: Riesegui PHPStan dopo ogni batch
+5. **Aggiorna docs**: Documenta modifiche e pattern applicati
+
+### Fase 4: Verifica Finale
+```bash
+./vendor/bin/phpstan analyse Modules --memory-limit=-1
+composer dump-autoload
+php artisan config:clear
+php artisan cache:clear
+```
+
+---
+
+## 🏗️ Regole Architetturali Critiche
+
+### Estensione Classi Filament - REGOLA CRITICA ASSOLUTA
+**MAI, MAI, MAI estendere classi Filament direttamente** - sempre XotBase:
+
+| ❌ SBAGLIATO (Filament) | ✅ CORRETTO (XotBase) |
+|-------------------------|----------------------|
+| `Filament\Resources\Resource` | `Modules\Xot\Filament\Resources\XotBaseResource` |
+| `Filament\Resources\Pages\CreateRecord` | `Modules\Xot\Filament\Resources\Pages\XotBaseCreateRecord` |
+| `Filament\Resources\Pages\EditRecord` | `Modules\Xot\Filament\Resources\Pages\XotBaseEditRecord` |
+| `Filament\Resources\Pages\ListRecords` | `Modules\Xot\Filament\Resources\Pages\XotBaseListRecords` |
+| `Filament\Resources\Pages\Page` | `Modules\Xot\Filament\Resources\Pages\XotBasePage` |
+| `Filament\Pages\Page` | `Modules\Xot\Filament\Pages\XotBasePage` |
+| `Filament\Widgets\Widget` | `Modules\Xot\Filament\Widgets\XotBaseWidget` |
+| `Illuminate\Support\ServiceProvider` | `Modules\Xot\Providers\XotBaseServiceProvider` |
+
+**PRIORITÀ ASSOLUTA**: Questa regola ha precedenza su qualsiasi altra considerazione.
+
+### Metodi Resource Filament
+- Chi estende `XotBaseResource` **NON deve avere** `getTableColumns()`
+- `getTableActions()` e `getTableBulkActions()` devono restituire `array<string, mixed>`
+- Se solo azioni standard → **rimuovile completamente**
+- Se azioni personalizzate → includi `...parent::getTableActions()`
+
+### Metodi Page Filament
+Chi estende `XotBasePage` **NON deve avere**:
+- `protected static ?string $navigationIcon`
+- `protected static ?string $title`
+- `protected static ?string $navigationLabel`
+
+### Gestione Traduzioni - REGOLA CRITICA
+- **VIETATO**: `->label()`, `->placeholder()`, `->tooltip()` su componenti Filament
+- **OBBLIGATORIO**: Tutte le etichette tramite file di traduzione nei moduli
+- Usa `LangServiceProvider` per gestione automatica
+- Struttura chiavi: `modulo::risorsa.fields.campo.label`
+
+### Services vs QueueableActions
+- **VIETATO**: Creare classi Service tradizionali
+- **OBBLIGATORIO**: Usare Spatie QueueableActions
+
+### BadgeColumn Deprecato
+- **VIETATO**: Usare `BadgeColumn` (deprecato in Filament 4)
+- **OBBLIGATORIO**: Usare `TextColumn` con metodo `badge()`
+
+### $casts Deprecato
+- **VIETATO**: Usare `protected $casts` (deprecato Laravel 11+)
+- **OBBLIGATORIO**: Usare metodo `casts()`
+
+---
+
+## 🔧 Patterns di Correzione Comuni
+
+### 1. Carbon createFromFormat (Carbon|null)
+**CRITICO**: L'estensione Carbon di PHPStan restituisce `Carbon|null`, NON `Carbon|false`
+
+```php
+// ❌ ERRATO - Carbon::createFromFormat() restituisce Carbon|null, NON Carbon|false
+$targetMonth = Carbon::createFromFormat('Y-m', $month);
+if ($targetMonth === false) { // ERRORE: mai false, può essere solo null
+    // ...
+}
+
+// ✅ CORRETTO - L'estensione Carbon restituisce Carbon|null
+$targetMonth = Carbon::createFromFormat('Y-m', $month);
+if ($targetMonth === null) {
+    $targetMonth = now()->startOfMonth();
+} else {
+    $targetMonth = $targetMonth->startOfMonth();
+}
+```
+
+### 2. Carbon locale() Return Type
+**CRITICO**: `locale()` può restituire `Carbon|string` secondo PHPStan
+
+```php
+// ❌ ERRORE - locale() può restituire Carbon|string
+$dayCarbon = $monday->copy()->addDays($i)->locale(App::getLocale());
+$shortDayName = $dayCarbon->shortLocaleDayOfWeek; // ERRORE: property su Carbon|string
+
+// ✅ CORRETTO - Type narrowing esplicito
+$dayCarbonRaw = $monday->copy()->addDays($i)->locale(App::getLocale());
+if (!($dayCarbonRaw instanceof Carbon)) {
+    $dayCarbon = Carbon::now()->startOfWeek(Carbon::MONDAY)->addDays($i)->locale(App::getLocale());
+    if (!($dayCarbon instanceof Carbon)) {
+        $dayCarbon = Carbon::now()->startOfWeek(Carbon::MONDAY)->addDays($i);
+    }
+} else {
+    $dayCarbon = $dayCarbonRaw;
+}
+$shortDayName = $dayCarbon->shortLocaleDayOfWeek; // OK!
+```
+
+### 3. Type Narrowing con Assert
+```php
+use Webmozart\Assert\Assert;
+
+// ✅ CORRETTO
+if (is_array($data)) {
+    Assert::isArray($data);
+    $value = $data['key'] ?? null;
+}
+```
+
+### 4. Cast Actions Centralizzate
+```php
+use Modules\Xot\Actions\Cast\SafeArrayCastAction;
+use Modules\Xot\Actions\Cast\SafeStringCastAction;
+
+// ✅ CORRETTO
+$data = SafeArrayCastAction::cast($input);
+$title = SafeStringCastAction::cast($mod->title);
+```
+
+### 5. Array Associativi Filament
+```php
+// ❌ ERRORE - array<int, Action>
+public function getTableActions(): array
+{
+    return [EditAction::make(), DeleteAction::make()];
+}
+
+// ✅ CORRETTO - array<string, mixed>
+public function getTableActions(): array
+{
+    return [
+        'edit' => EditAction::make(),
+        'delete' => DeleteAction::make(),
+    ];
+}
+```
+
+### 6. Property Access su Mixed (Eloquent)
+```php
+// ❌ ERRORE - property_exists() NON funziona con magic attributes
+if (property_exists($model, 'attribute')) {
+    $value = $model->attribute;
+}
+
+// ✅ CORRETTO - usa isset() per magic attributes
+if (isset($model->attribute)) {
+    $value = $model->attribute;
+}
+```
+
+### 7. Casts Completi per Properties
+```php
+// ✅ CORRETTO - Tutte le properties usate DEVONO essere nei casts()
+protected function casts(): array
+{
+    return [
+        'auto_cleanup_num' => 'integer',
+        'auto_cleanup_type' => 'string',
+        'notification_email_address' => 'string',
+    ];
+}
+```
+
+### 8. HasXotFactory NON è Generico
+```php
+// ❌ ERRORE - HasXotFactory NON accetta generics
+/** @use HasXotFactory<TFactory> */
+use HasXotFactory;
+
+// ✅ CORRETTO - Rimuovi generics
+use HasXotFactory;
+```
+
+### 9. Notification via() Return Type
+```php
+// ❌ ERRORE - list<string>
+public function via($notifiable): array
+{
+    return ['mail', 'nexmo'];
+}
+
+// ✅ CORRETTO - array<string, mixed>
+/**
+ * @return array<string, mixed>
+ */
+public function via($notifiable): array
+{
+    return [
+        'mail' => 'mail',
+        'nexmo' => 'nexmo',
+    ];
+}
+```
+
+### 10. Relazioni Eloquent con Generics
+```php
+// ✅ CORRETTO - Generics solo in PHPDoc
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * @return HasMany<Post>
+ */
+public function posts(): HasMany
+{
+    return $this->hasMany(Post::class);
+}
+```
+
+### 11. Factory Typing
+```php
+// ✅ CORRETTO
+/**
+ * @var \Illuminate\Database\Eloquent\Factories\Factory<Model> $factory
+ */
+$factory = Model::factory();
+Assert::object($factory);
+Assert::methodExists($factory, 'create');
+$result = $factory->create($data);
+```
+
+### 12. PHPDoc varTag Consistency
+```php
+// ❌ ERRORE - PHPDoc con |null non compatibile con tipo nativo
+/** @var array<string, mixed>|null $formData */
+$formData = SafeArrayCastAction::cast($this->data);
+
+// ✅ CORRETTO - Rimuovi |null dal PHPDoc
+/** @var array<string, mixed> $formData */
+$formData = SafeArrayCastAction::cast($this->data);
+```
+
+### 13. String Casting in Encapsed Strings
+```php
+// ❌ ERRORE - Part of encapsed string cannot be cast to string
+$message = "User: {$user->name}";
+
+// ✅ CORRETTO - Verifica tipo prima
+$name = is_string($user->name) ? $user->name : (string) $user->name;
+$message = sprintf("User: %s", $name);
+```
+
+### 14. Database Select Results Type Narrowing
+```php
+// ❌ ERRORE - Cannot access property $TABLE_SCHEMA on mixed
+$tables = $this->getDb()->select('SELECT * FROM INFORMATION_SCHEMA.TABLES');
+foreach ($tables as $table) {
+    $schema = $table->TABLE_SCHEMA; // ERRORE!
+}
+
+// ✅ CORRETTO - Type narrowing per oggetti stdClass
+$tables = $this->getDb()->select('SELECT * FROM INFORMATION_SCHEMA.TABLES');
+foreach ($tables as $table) {
+    if (!is_object($table) || !isset($table->TABLE_SCHEMA) || !isset($table->TABLE_NAME)) {
+        continue;
+    }
+    /** @var string $schema */
+    $schema = $table->TABLE_SCHEMA;
+    /** @var string $name */
+    $name = $table->TABLE_NAME;
+    // ...
+}
+```
+
+---
+
+## 🔍 Errori Più Comuni e Soluzioni
+
+### 1. Property Access su Mixed
+```php
+// ERRORE: Cannot access property $state on mixed
+$record->state->transitionTo($newState);
+
+// SOLUZIONE
+if (method_exists($record, 'getState')) {
+    $state = $record->getState();
+    Assert::notNull($state);
+    if (method_exists($state, 'transitionTo')) {
+        $state->transitionTo($newState);
+    }
+}
+```
+
+### 2. Array Access su Mixed
+```php
+// ERRORE: Cannot access offset on mixed
+$value = $data['key'];
+
+// SOLUZIONE
+$data = SafeArrayCastAction::cast($data);
+$value = $data['key'] ?? null;
+```
+
+### 3. Return Type Mismatch
+```php
+// ERRORE: Method should return array but returns mixed
+public function getData(): array {
+    return $this->data;
+}
+
+// SOLUZIONE
+public function getData(): array {
+    Assert::isArray($this->data);
+    return $this->data;
+}
+```
+
+### 4. Method Call su Mixed
+```php
+// ERRORE: Cannot call method execute() on mixed
+app(MyAction::class)->execute();
+
+// SOLUZIONE
+/** @var MyAction $action */
+$action = app(MyAction::class);
+$action->execute();
+```
+
+### 5. Foreach su Non-Iterable
+```php
+// ERRORE: Argument of an invalid type mixed supplied for foreach
+foreach ($items as $item) { }
+
+// SOLUZIONE
+if (is_iterable($items)) {
+    Assert::isIterable($items);
+    foreach ($items as $item) { }
+}
+```
+
+---
+
+## 📚 Risorse Filament v4
+
+Studia costantemente:
+- [Filament v4 Upgrade Guide](https://filamentphp.com/docs/4.x/upgrade-guide)
+- [What's New in Filament v4](https://filamentphp.com/content/leandrocfe-whats-new-in-filament-v4)
+- [Filament v4 Forms Overview](https://filamentphp.com/docs/4.x/forms/overview)
+
+---
+
+## ✅ Checklist Pre-Correzione
+
+Prima di correggere un errore:
+- [ ] Ho letto la documentazione del modulo in `docs/`?
+- [ ] Ho compreso la causa radice dell'errore?
+- [ ] Ho valutato l'impatto architetturale?
+- [ ] La soluzione rispetta i pattern esistenti?
+- [ ] **La classe estende XotBase invece di Filament direttamente?**
+- [ ] **Non sto usando ->label(), ->placeholder(), ->tooltip()?**
+- [ ] **Sto usando Actions invece di Services?**
+- [ ] **Non sto usando BadgeColumn deprecato?**
+- [ ] **Ho migrato da `protected $casts` a `casts()`?**
+- [ ] La soluzione usa Cast Actions centralizzate?
+- [ ] **Non sto replicando metodi della classe base?**
+
+---
+
+## ✅ Checklist Post-Correzione
+
+Dopo aver corretto un batch:
+- [ ] PHPStan non segnala nuovi errori?
+- [ ] Il numero totale di errori è diminuito?
+- [ ] L'autoload funziona correttamente?
+- [ ] L'applicazione si avvia senza errori?
+- [ ] La documentazione è aggiornata?
+
+---
+
+## 🎯 Strategia Ottimale
+
+1. **Analisi per Modulo**: Eseguire PHPStan su singolo modulo
+2. **Pattern Recognition**: Identificare errori ricorrenti
+3. **Batch Fixes**: Correggere pattern simili insieme
+4. **Documentazione Parallela**: Aggiornare docs durante correzioni
+5. **Verifica Incrementale**: Riesegui PHPStan dopo ogni batch
+
+**Quick Wins**: Inizia da moduli con meno errori per massimizzare impatto.
+
+---
+
+## 📖 Documentazione
+
+### Struttura
+- **Modulo**: `Modules/{ModuleName}/docs/` - Documentazione tecnica approfondita
+- **Root**: `docs/` - Indici e collegamenti bidirezionali
+- **Tema**: `Themes/{ThemeName}/docs/` - Documentazione tema
+
+### Aggiornamento
+- **Prima di correggere**: Studia docs del modulo
+- **Dopo correzione**: Aggiorna docs con modifiche e pattern
+- **Link relativi**: Mai path assoluti nei file .md
+- **Naming**: Minuscolo, no date, solo README.md maiuscolo
+
+---
+
+## 🚫 Anti-Pattern da Evitare
+
+### ❌ Ignorare Errori
+```php
+// SBAGLIATO
+/** @phpstan-ignore-next-line */
+$value = $data['key'];
+```
+
+### ❌ Modificare Configurazione
+```php
+// SBAGLIATO - Modificare phpstan.neon
+parameters:
+    ignoreErrors:
+        - '#Cannot access property#'
+```
+
+### ❌ Cast Non Sicuri
+```php
+// SBAGLIATO
+$array = (array) $data;
+$string = (string) $value;
+```
+
+### ✅ Pattern Corretti
+```php
+// CORRETTO - Cast Actions
+$array = SafeArrayCastAction::cast($data);
+$string = SafeStringCastAction::cast($value);
+```
+
+---
+
+## 💡 Regole Speciali
+
+### Lock Files
+Prima di modificare un file:
+1. Crea file `.lock` con stesso nome nella stessa locazione
+2. Se `.lock` esiste → vai a fare altro
+3. Dopo modifica → cancella `.lock`
+
+### Verifica Post-Modifica
+Dopo ogni modifica file:
+- [ ] PHPStan Level 10
+- [ ] PHPMD
+- [ ] PHP Insights
+- [ ] Aggiorna docs moduli/temi
+
+### Git
+- **MAI tornare indietro** di versione
+- Solo avanti, mai backward
+
+### Property Exists vs Isset
+- **property_exists()** NON funziona con magic attributes Eloquent
+- Usa sempre **isset()** per proprietà dinamiche modelli
+
+---
+
+## 🎓 Mantra Finale
+
+**DRY + KISS + SOLID + Robust + Laravel 12 + Filament 4 + PHP 8.3 + Laraxot**
+
+**Filosofia Zen**: "Non avrai altro path all'infuori del relativo"
+
+**Poteri Supermucca**: Massima confidenza, zero compromessi, correzione completa
+
+**Approccio**: Fix, don't ignore - tutti gli errori vanno corretti, nessuno ignorato
+
+---
+
+## 📝 Note Operative
+
+- **Lavora dentro** `laravel/` directory
+- **Esegui PHPStan** da dentro `laravel/`
+- **Non usiamo controller**: Backoffice = Filament, Frontoffice = Folio + Volt
+- **Test**: Tutti i test in Pest
+- **Architettura**: Capisci logica, politica, business logic prima di implementare
+
+---
+
+**Ricorda**: Le cartelle docs sono la tua bibbia. Studiale, rispettale, aggiornale costantemente.

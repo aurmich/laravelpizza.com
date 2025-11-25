@@ -1,0 +1,91 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\User\Models\Traits;
+
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Filament\Panel;
+<<<<<<< HEAD
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Modules\User\Contracts\TeamContract;
+use Modules\Xot\Actions\Panel\ApplyTenancyToPanelAction;
+use Modules\Xot\Datas\XotData;
+
+/**
+ * Trait HasTenants
+ *
+ * Provides tenant functionality for User models implementing multi-tenancy.
+ *
+=======
+use Modules\Xot\Datas\XotData;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Modules\User\Contracts\TeamContract;
+use Modules\Xot\Actions\Panel\ApplyTenancyToPanelAction;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+/**
+ * Trait HasTenants
+ * 
+ * Provides tenant functionality for User models implementing multi-tenancy.
+ * 
+>>>>>>> fbc8f8e (.)
+ * @property TeamContract $currentTeam
+ */
+trait HasTenants
+{
+    /**
+     * Check if the user can access a specific tenant.
+     *
+     * @param Model $tenant
+     * @return bool
+     */
+    public function canAccessTenant(Model $tenant): bool
+    {
+        return $this->tenants()->whereKey($tenant)->exists();
+    }
+
+    /**
+     * Get tenants for the given panel.
+     *
+<<<<<<< HEAD
+     * @param Panel $_panel
+     * @return array<Model>|Collection<int, Model>
+     */
+    public function getTenants(Panel $_panel): array|Collection
+    {
+        /** @var Collection<int, Model> $tenants */
+        $tenants = $this->tenants;
+
+=======
+     * @param Panel $panel
+     * @return array<Model>|Collection<int, Model>
+     */
+    public function getTenants(Panel $panel): array|Collection
+    {
+        /** @var Collection<int, Model> $tenants */
+        $tenants = $this->tenants;
+        
+>>>>>>> fbc8f8e (.)
+        return $tenants;
+    }
+
+    /**
+     * Get all of the tenants the user belongs to.
+     *
+     * @return BelongsToMany<Model, Pivot>
+     */
+    public function tenants(): BelongsToMany
+    {
+        $xot = XotData::make();
+        /** @var class-string<Model> */
+        $tenant_class = $xot->getTenantClass();
+
+        return $this->belongsToManyX($tenant_class);
+    }
+}

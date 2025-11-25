@@ -1,0 +1,18 @@
+name: Duster Fix
+
+# Commits made in here will not trigger any workflows
+# Checkout Duster's documentation for a workaround
+
+on:
+    push:
+        branches: [ master ]
+    pull_request:
+
+jobs:
+  duster:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:

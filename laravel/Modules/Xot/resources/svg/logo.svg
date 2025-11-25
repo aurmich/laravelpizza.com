@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="xot-logo-title" role="img">
+  <title id="xot-logo-title">Xot Framework Logo</title>
+  <defs>
+    <linearGradient id="xot-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#8B5CF6" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#EC4899" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="xot-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="url(#xot-gradient)" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="url(#xot-gradient)" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="xot-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.1"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <circle cx="32" cy="32" r="28" fill="url(#xot-glow)"/>
+  
+  <g filter="url(#xot-shadow)">
+    <path d="M32 8 L48 20 L44 44 L20 44 L16 20 Z" 
+          fill="none" 
+          stroke="url(#xot-gradient)" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          opacity="0.9"/>
+    
+    <path d="M22 40c3.5-5 7-8 10-8s6.5 3 10 8" 
+          fill="none" 
+          stroke="url(#xot-gradient)" 
+          stroke-width="2" 
+          stroke-linecap="round"
+          opacity="0.8"/>
+    
+    <path d="M26 26 L32 30 L38 26" 
+          fill="none" 
+          stroke="url(#xot-gradient)" 
+          stroke-width="2" 
+          stroke-linecap="round"
+          opacity="0.7"/>
+    
+    <circle cx="32" cy="32" r="4" fill="url(#xot-gradient)" opacity="0.9"/>
+    
+    <circle cx="32" cy="32" r="2" fill="#ffffff" opacity="0.8"/>
+  </g>
+  
+  <g opacity="0.3">
+    <circle cx="32" cy="32" r="28" fill="none" stroke="url(#xot-gradient)" stroke-width="0.5" stroke-dasharray="2,4"/>
+  </g>
+</svg>

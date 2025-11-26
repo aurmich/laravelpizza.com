@@ -4,6 +4,7 @@
 echo "🔧 Risoluzione automatica conflitti PHP..."
 
 # Trova tutti i file PHP con conflitti rimanenti
+php_files_with_conflicts=$(find /var/www/html/_bases/base_techplanner_fila3_mono/laravel -name "*.php" -exec grep -l "<<<<<<< HEAD" {} \;)
 
 if [ -z "$php_files_with_conflicts" ]; then
     echo "✅ Nessun conflitto PHP trovato!"
@@ -21,6 +22,9 @@ for file in $php_files_with_conflicts; do
     cp "$file" "$file.backup"
     
     # Rimuovi marcatori di conflitto
+    sed -i '/^<<<<<<< HEAD$/d' "$file"
+    sed -i '/^=======$/d' "$file"
+    sed -i '/^>>>>>>> [a-z0-9]*.*$/d' "$file"
     
     # Rimuovi import duplicati
     sed -i '/^use .*$/s/use \(.*\);use \1;/use \1;/' "$file"
@@ -41,5 +45,5 @@ done
 echo "🎉 Risoluzione conflitti PHP completata!"
 
 # Verifica finale
-echo "📈 Conflitti PHP rimanenti: $remaining_conflicts"
+remaining_conflicts=$(find /var/www/html/_bases/base_techplanner_fila3_mono/laravel -name "*.php" -exec grep -l "<<<<<<< HEAD" {} \; | wc -l)
 echo "📈 Conflitti PHP rimanenti: $remaining_conflicts"

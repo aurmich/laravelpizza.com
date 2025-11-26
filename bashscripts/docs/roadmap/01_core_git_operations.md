@@ -1,23 +1,5 @@
-
-
-
-
-
-
-
-
-
-
-
-
-[0;34mℹ️ [2025-04-22 11:23:11] Scelto blocco incoming (1 linee vs 1)[0m
- 43df3e0 (.)
-aurmich/dev
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 🚀 Fase 1: Core Git Operations
 
 ## 📋 Panoramica
@@ -33,9 +15,9 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
 - Gestione dei submodule
 - Logging dettagliato
 - Gestione errori
+- Backup automatico pre-operazioni
 
-
-
+>>>>>>> 71ff9e32 (.)
 - Backup automatico pre-operazioni
 
 
@@ -46,10 +28,6 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
  43df3e0 (.)
 aurmich/dev
 
-=======
-- Backup automatico pre-operazioni
-
->>>>>>> 1831d11e78 (.)
 ### 2. Gestione dei Submodule
 **Script**: `sync_submodules.sh`
 **Stato**: ✅ Completato
@@ -57,6 +35,7 @@ aurmich/dev
 - Aggiornamento automatico dei submodule
 - Gestione dei conflitti
 - Backup prima delle operazioni
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -70,13 +49,9 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
 - Verifica integrità post-operazioni
 
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 ### 3. Backup Automatico
 **Script**: `backup.sh`
 **Stato**: ✅ Completato
@@ -84,6 +59,7 @@ aurmich/dev
 - Backup incrementale
 - Compressione automatica
 - Verifica integrità
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -99,14 +75,10 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
 - Gestione spazio disco
 - Rotazione backup
 
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 ### 4. Risoluzione Conflitti Base
 **Script**: `resolve_git_conflict.sh`
 **Stato**: ✅ Completato
@@ -114,6 +86,7 @@ aurmich/dev
 - Analisi automatica dei conflitti
 - Risoluzione quando possibile
 - Logging dettagliato
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -129,14 +102,10 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
 - Backup pre-risoluzione
 - Rollback automatico in caso di errori
 
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 ## 📝 Note di Implementazione
 
 ### Best Practices Implementate
@@ -144,6 +113,7 @@ aurmich/dev
    - Verifica delle chiavi SSH
    - Controllo dei permessi
    - Backup prima delle operazioni critiche
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -159,17 +129,14 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
    - Validazione input
    - Sanitizzazione output
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 2. **Performance**:
    - Ottimizzazione delle operazioni Git
    - Gestione efficiente della memoria
    - Caching dove possibile
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -185,17 +152,14 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
    - Parallelizzazione operazioni
    - Gestione risorse
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 3. **Manutenibilità**:
    - Codice modulare
    - Documentazione dettagliata
    - Logging strutturato
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -211,18 +175,15 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
    - Test automatici
    - Versionamento semantico
 
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 ### Lezioni Apprese
 1. Importanza del backup prima delle operazioni critiche
 2. Necessità di logging dettagliato per il debug
 3. Valore della gestione automatica dei conflitti
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -238,19 +199,16 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
 4. Importanza della validazione input
 5. Necessità di rollback automatico
 
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 ## 🔄 Collegamenti
 
 - [Roadmap Principale](../roadmap.md)
 - [Documentazione Script](../project.md)
 - [Fase 2: Manutenzione](../roadmap/02_maintenance.md)
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -264,19 +222,16 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
 - [Fase 3: Verifica](../roadmap/03_verification.md)
 
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 ## 📈 Metriche di Successo
 
 ### Obiettivi Raggiunti
 - ✅ 100% automazione operazioni base
 - ✅ 0 errori in produzione
 - ✅ Tempo di sincronizzazione ridotto del 70%
+>>>>>>> 71ff9e32 (.)
 
 
 
@@ -292,19 +247,16 @@ aurmich/dev
  43df3e0 (.)
 aurmich/dev
 
-<<<<<<< HEAD
-=======
-=======
 - ✅ 100% backup automatici
 - ✅ 99.9% risoluzione automatica conflitti
 
->>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> f52d0712 (.)
 ### Metriche di Performance
 - Tempo medio di sincronizzazione: < 5 minuti
 - Tasso di successo operazioni: 99.9%
 - Tempo di risoluzione conflitti: < 10 minuti
 
+>>>>>>> 71ff9e32 (.)
 
 
 - Tempo di backup: < 2 minuti
@@ -388,6 +340,7 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
 - Logging dettagliato
 - Gestione errori
 
+>>>>>>> ec52a6b4 (.)
 ### 2. Gestione dei Submodule
 **Script**: `sync_submodules.sh`
 **Stato**: ✅ Completato
@@ -395,7 +348,7 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
 - Aggiornamento automatico dei submodule
 - Gestione dei conflitti
 - Backup prima delle operazioni
-<<<<<<< HEAD
+>>>>>>> ea169dcc (.)
 - Verifica integrità post-operazioni
 
 ### 3. Backup Automatico
@@ -468,6 +421,7 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
 - Tasso di successo operazioni: 99.9%
 - Tempo di risoluzione conflitti: < 10 minuti
 
+>>>>>>> ec52a6b4 (.)
 ### 3. Backup Automatico
 **Script**: `backup.sh`
 **Stato**: ✅ Completato
@@ -525,8 +479,6 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
 - Tasso di successo operazioni: 99.9%
 - Tempo di risoluzione conflitti: < 10 minuti
 
-=======
-
 ### 3. Backup Automatico
 **Script**: `backup.sh`
 **Stato**: ✅ Completato
@@ -584,7 +536,8 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
 - Tasso di successo operazioni: 99.9%
 - Tempo di risoluzione conflitti: < 10 minuti
 
->>>>>>> 4b834e6 (.)
+>>>>>>> develop
+>>>>>>> ec52a6b4 (.)
 ## 🛠️ Strumenti Utilizzati
 
 ### Git
@@ -7406,10 +7359,8 @@ Questa fase si concentra sulle operazioni fondamentali di Git necessarie per la 
 - Tasso di successo operazioni: 99.9%
 - Tempo di risoluzione conflitti: < 10 minuti
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 - Tempo di backup: < 2 minuti
 - Tempo di rollback: < 5 minuti
 
@@ -7449,7 +7400,5 @@ Per ulteriori dettagli, consultare la documentazione degli script specifici e le
 
 
 
-<<<<<<< HEAD
-=======
->>>>>>> 3a6821ae8 (aggiornamento cartella bashscripts)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)

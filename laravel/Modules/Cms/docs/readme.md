@@ -1,7 +1,7 @@
 # Modulo CMS - Content Management System
 
 ## 🎯 Panoramica
-Sistema completo di gestione contenuti basato su Filament Builder Blocks per <main module>.
+Sistema completo di gestione contenuti basato su Filament Builder Blocks per <nome progetto>.
 
 ## 🏗️ Componenti Principali
 - **PageResource**: Interfaccia amministrativa Filament
@@ -28,10 +28,11 @@ Modules/Cms/
 - [Processo Build Tema](./theme-build-process.md)
 - [Architettura Frontend](./frontend-architecture/struttura-homepage.md)
 - [Testing Guidelines](./tests/architecture-separation-rules.md)
+- [PHPStan Fixes Summary](./phpstan-fixes-summary.md) ⭐ **QUALITY**
 
 ### Moduli Correlati
 - [Modulo UI - Blocchi](../../UI/docs/blocks-system.md)
-- [Modulo <main module> - Homepage](../../<main module>/docs/homepage-architecture.md)
+- [Modulo <nome progetto> - Homepage](../../<nome progetto>/docs/homepage-architecture.md)
 
 ### Documentazione Root
 - [Architettura Generale](../../../docs/architecture.md)
@@ -53,41 +54,9 @@ Modules/Cms/
 
 ---
 **Ultimo aggiornamento**: Gennaio 2025
-# 🗂️ CMS Module - Content Management System
-
-## 📋 Quick Reference
-| Categoria | Guida | File |
-|-----------|-------| ---- |
-| **Content** | Management | [content-management.md](content-management.md) |
-| **Components** | Blade | [components.md](components.md) |
-| **Filament** | Integration | [filament-integration.md](filament-integration.md) |
-| **Folio** | Pages | [folio-pages.md](folio-pages.md) |
-| **Homepage** | Structure | [homepage-management.md](homepage-management.md) |
-| **Architecture** | XotData | [architecture-xotdata-pattern.md](architecture-xotdata-pattern.md) |
-| **Troubleshooting** | Git Issues | [git-conflicts-resolution-impact.md](git-conflicts-resolution-impact.md) |
-
-## 🎯 Core Features
-- **Content Management**: Flexible content creation and editing
-- **Folio Integration**: File-based routing system
-- **Filament Resources**: Admin panel for content management
-- **Blade Components**: Reusable UI components
-- **Homepage Builder**: Dynamic homepage construction
-- **Multi-language**: Full i18n support
-
-## 📁 Documentation Structure
-- Core files in root level
-- `/blocks/` - Content blocks documentation
-- `/components/` - Component guides
-- `/content/` - Content management
-- `/frontoffice/` - Public facing features
-- `/standards/` - Development standards
-
----
-*Principio DRY: Sistema CMS flessibile, documentazione organizzata per funzionalità.*
-
 # Modulo CMS
 > **Collegamenti correlati**
-> - [README.md documentazione generale <main module>](../../../../docs/README.md)
+> - [README.md documentazione generale <nome progetto>](../../../../docs/README.md)
 > - [README.md toolkit bashscripts](../../../../bashscripts/docs/README.md)
 > - [README.md modulo CMS](../../../../laravel/Modules/Cms/docs/README.md)
 > - [README.md modulo Dental](../../../../laravel/Modules/Dental/docs/README.md)
@@ -107,7 +76,7 @@ Modules/Cms/
 > - [README.md tema Two](../../../../laravel/Themes/Two/docs/README.md)
 > - [Collegamenti documentazione centrale](../../../../docs/collegamenti-documentazione.md)
 
-> - [README.md documentazione generale <main module>](../../../../docs/README.md)
+> - [README.md documentazione generale <nome progetto>](../../../../docs/README.md)
 > - [README.md toolkit bashscripts](../../../../bashscripts/docs/README.md)
 > - [README.md modulo CMS](../../../../laravel/Modules/Cms/docs/README.md)
 > - [README.md modulo Dental](../../../../laravel/Modules/Dental/docs/README.md)

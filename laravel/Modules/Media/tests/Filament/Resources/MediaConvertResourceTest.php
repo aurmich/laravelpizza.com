@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Tests\TestCase;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
 use Modules\Media\Filament\Resources\MediaConvertResource;
-use Tests\TestCase;
 
 uses(TestCase::class);
 

@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
+
 namespace Modules\Cms\Tests\Feature\Auth;
 
+use Modules\Cms\Tests\TestCase;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
-use Modules\Cms\Tests\TestCase;
 use Modules\Xot\Datas\XotData;
 
 use function Pest\Laravel\actingAs;
+use function Pest\Laravel\get;
 
 uses(TestCase::class);
 
@@ -20,7 +22,7 @@ test('email verification screen can be rendered', function () {
     $user = $userClass::factory()->unverified()->create();
 
     $lang = app()->getLocale();
-    $response = actingAs($user)->get('/'.$lang.'/verify-email');
+    $response = actingAs($user)->get('/' . $lang . '/verify-email');
     $response->assertStatus(200);
 });
 
@@ -42,7 +44,7 @@ test('email can be verified', function () {
     expect($user->fresh()->hasVerifiedEmail())
         ->toBeTrue()
         ->and($response)
-        ->assertRedirect(route('dashboard', absolute: false).'?verified=1');
+        ->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
 });
 
 // Test: Email is not verified with invalid hash

@@ -7,33 +7,23 @@
  43df3e0 (.)
 
 aurmich/dev
-<<<<<<< HEAD
+>>>>>>> 71ff9e32 (.)
 
-
-
-=======
-=======
->>>>>>> 1831d11e78 (.)
-=======
-
-=======
-
-=======
-
-=======
->>>>>>> 3c18aa7e (.)
-=======
->>>>>>> 9de04485 (.)
-=======
 >>>>>>> 59901687 (.)
 >>>>>>> 85c5198c (.)
-=======
-=======
->>>>>>> 3c18aa7e (.)
 >>>>>>> f198176d (.)
 >>>>>>> d20d0523 (.)
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 85c5198c (.)
+>>>>>>> f198176d (.)
+>>>>>>> d20d0523 (.)
+>>>>>>> f71d08e230 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> 9de04485 (.)
+>>>>>>> ea169dcc (.)
+>>>>>>> f198176d (.)
+>>>>>>> e0c964a3 (first)
 # ⚡ Fase 6: Ottimizzazione
 
 ## 📋 Panoramica
@@ -136,22 +126,9 @@ Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sis
 - [Roadmap Principale](../roadmap.md)
 - [Documentazione Script](../project.md)
 - [Fase 5: Monitoraggio](../roadmap/05_monitoring.md)
-<<<<<<< HEAD
-=======
-=======
-=======
-=======
->>>>>>> 9de04485 (.)
-=======
-=======
->>>>>>> 85c5198c (.)
-=======
-=======
-=======
->>>>>>> f198176d (.)
->>>>>>> d20d0523 (.)
->>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> ea169dcc (.)
 - [Fase 7: Documentazione](../roadmap/07_documentation.md)
 
 ## 📅 Timeline
@@ -175,24 +152,16 @@ Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sis
 - Monitoraggio
 - Fine-tuning
 - Manutenzione
-<<<<<<< HEAD
-=======
-=======
-=======
 >>>>>>> 59901687 (.)
 >>>>>>> 85c5198c (.)
-=======
->>>>>>> 9de04485 (.)
-=======
 >>>>>>> 59901687 (.)
 >>>>>>> 85c5198c (.)
-=======
->>>>>>> 59901687 (.)
-=======
->>>>>>> f198176d (.)
 >>>>>>> d20d0523 (.)
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> e0c964a3 (first)
 
 
 [0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco incoming (1 linee vs 1)[0m
@@ -286,79 +255,62 @@ aurmich/dev
 * [06_optimization.md](docs/roadmap/06_optimization.md)
 
 
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> 9de04485 (.)
-=======
-=======
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> ea169dcc (.)
+[0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco incoming (1 linee vs 1)[0m
+aurmich/dev
+
+# ⚡ Fase 6: Ottimizzazione
+
+## 📋 Panoramica
+Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sistema.
+
+## 🔄 Collegamenti
+- [Roadmap Principale](../roadmap.md)
+- [Documentazione Script](../project.md)
+- [Fase 5: Monitoraggio](../roadmap/05_monitoring.md)
+
+
+# ⚡ Fase 6: Ottimizzazione
+
+## 📋 Panoramica
+Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sistema.
+
+## 🔄 Collegamenti
+- [Roadmap Principale](../roadmap.md)
+- [Documentazione Script](../project.md)
+- [Fase 5: Monitoraggio](../roadmap/05_monitoring.md)
+
+
+
+# ⚡ Fase 6: Ottimizzazione
+
+## 📋 Panoramica
+Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sistema.
+
+## 🔄 Collegamenti
+- [Roadmap Principale](../roadmap.md)
+- [Documentazione Script](../project.md)
+- [Fase 5: Monitoraggio](../roadmap/05_monitoring.md)
+
+[0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco HEAD (23 linee vs 1)[0m
+ 43df3e0 (.)
+
+aurmich/dev
+
+## Collegamenti tra versioni di 06_optimization.md
+* [06_optimization.md](bashscripts/docs/roadmap/06_optimization.md)
+* [06_optimization.md](docs/roadmap/06_optimization.md)
+
+
+>>>>>>> 337c5266 (.)
+>>>>>>> 59901687 (.)
 >>>>>>> 85c5198c (.)
-=======
-=======
-=======
->>>>>>> f198176d (.)
+>>>>>>> 59901687 (.)
+>>>>>>> 85c5198c (.)
 >>>>>>> d20d0523 (.)
->>>>>>> 4b834e6 (.)
-[0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco incoming (1 linee vs 1)[0m
-aurmich/dev
-
-# ⚡ Fase 6: Ottimizzazione
-
-## 📋 Panoramica
-Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sistema.
-
-## 🔄 Collegamenti
-- [Roadmap Principale](../roadmap.md)
-- [Documentazione Script](../project.md)
-- [Fase 5: Monitoraggio](../roadmap/05_monitoring.md)
-
-
-# ⚡ Fase 6: Ottimizzazione
-
-## 📋 Panoramica
-Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sistema.
-
-## 🔄 Collegamenti
-- [Roadmap Principale](../roadmap.md)
-- [Documentazione Script](../project.md)
-- [Fase 5: Monitoraggio](../roadmap/05_monitoring.md)
-
-
-
-# ⚡ Fase 6: Ottimizzazione
-
-## 📋 Panoramica
-Questa fase si concentra sull'ottimizzazione e il miglioramento continuo del sistema.
-
-## 🔄 Collegamenti
-- [Roadmap Principale](../roadmap.md)
-- [Documentazione Script](../project.md)
-- [Fase 5: Monitoraggio](../roadmap/05_monitoring.md)
-
-[0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco HEAD (23 linee vs 1)[0m
- 43df3e0 (.)
-
-aurmich/dev
-
-## Collegamenti tra versioni di 06_optimization.md
-* [06_optimization.md](bashscripts/docs/roadmap/06_optimization.md)
-* [06_optimization.md](docs/roadmap/06_optimization.md)
-
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 59901687 (.)
->>>>>>> 85c5198c (.)
-=======
->>>>>>> 9de04485 (.)
-=======
->>>>>>> 59901687 (.)
->>>>>>> 85c5198c (.)
-=======
->>>>>>> 59901687 (.)
-=======
->>>>>>> f198176d (.)
->>>>>>> d20d0523 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> e0c964a3 (first)

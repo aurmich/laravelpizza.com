@@ -42,13 +42,28 @@ Particolarmente comuni nel progetto, riguardano l'implementazione corretta dei n
 
 ### Fase 1: Identificazione
 ```bash
+### Fase 1: Identificazione
+```bash
+### Fase 1: Identificazione
+```bash
+>>>>>>> e0c964a3 (first)
 
+>>>>>>> ec52a6b4 (.)
 
 ### Fase 1: Identificazione
 ```bash
 
+>>>>>>> f52d0712 (.)
+>>>>>>> ec52a6b4 (.)
 ### Fase 1: Identificazione
 ```bash
+>>>>>>> 3c18aa7e (.)
+>>>>>>> 9c02579 (.)
+>>>>>>> 1420e3b683 (.)
+>>>>>>> 574afe9e (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> e0c964a3 (first)
 # Visualizzare tutti i file con conflitti
 git status
 
@@ -80,7 +95,12 @@ Per ogni file in conflitto:
 - `Modules\Predict\Database\Factories` per le factory
 - `Modules\Predict\lang\it` per i file di traduzione
 
-
+>>>>>>> e0c964a3 (first)
+>>>>>>> 3c18aa7e (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> e0c964a3 (first)
 ### Fase 3: Risoluzione
 Scegliere una delle seguenti strategie:
 
@@ -138,7 +158,14 @@ namespace Modules\NomeModulo\App\Filament;
 3. Verificare che tutte le risorse Filament siano registrate correttamente
 4. Testare il modulo in ambiente di sviluppo 
 
-
+>>>>>>> e0c964a3 (first)
+>>>>>>> 9c02579 (.)
+>>>>>>> 1420e3b683 (.)
+>>>>>>> 574afe9e (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> e0c964a3 (first)
 ## Risoluzione di Casi Specifici
 
 ### Conflitti in File PHP

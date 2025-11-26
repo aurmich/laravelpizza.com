@@ -175,9 +175,6 @@ resolve_file_conflicts() {
         next 
     }
     /^>>>>>>> / { 
-        in_conflict = 1
-        next 
-    }
         in_conflict = 0
         next 
     }
@@ -309,5 +306,4 @@ main() {
 # Check if script is being sourced or executed
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "$@"
-fi
 fi

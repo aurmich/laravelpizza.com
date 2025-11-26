@@ -10,12 +10,12 @@ use Modules\Media\Filament\Resources\MediaConvertResource;
 uses(TestCase::class);
 
 test('get form schema returns expected components', function (): void {
-    $form = MediaConvertResource::getFormSchema();
+    $schema = MediaConvertResource::getFormSchema();
 
-    expect($form)->toBeArray();
-    expect($form)->not->toBeEmpty();
+    expect($schema)->toBeArray();
+    expect($schema)->not->toBeEmpty();
 
-    $componentClasses = array_map(get_class(...), $form);
+    $componentClasses = array_map(get_class(...), $schema);
 
     expect($componentClasses)->toContain(Radio::class);
     expect($componentClasses)->toContain(TextInput::class);

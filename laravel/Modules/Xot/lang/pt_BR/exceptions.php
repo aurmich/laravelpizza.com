@@ -3,17 +3,6 @@
 declare(strict_types=1);
 
 return [
-    /*
-     |--------------------------------------------------------------------------
-     | Exception Language Lines
-     |--------------------------------------------------------------------------
-     |
-     | The following language lines are used in exceptions throughout the system.
-     | Regardless of where it is placed, a message can be listed here so it is
-     | easily found in an intuitive way.
-     |
-     |--------------------------------------------------------------------------
-     */
 
     'backend' => [
         'access' => [

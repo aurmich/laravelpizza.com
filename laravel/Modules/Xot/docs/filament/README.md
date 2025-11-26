@@ -118,7 +118,7 @@ Questa documentazione si applica a tutti i moduli che utilizzano Filament per il
 
 ### Collegamento
 - Vedi anche: [<nome modulo>/docs/filament-best-practices.mdc](../../../<nome modulo>/docs/filament-best-practices.mdc)
-- Vedi anche: [<nome progetto>/docs/filament-best-practices.mdc](../../../../docs/filament-best-practices.mdc)
+- Vedi anche: [SaluteOra/docs/filament-best-practices.mdc](../../../SaluteOra/docs/filament-best-practices.mdc)
 
 ### Checklist
 - [ ] Nessuna closure void restituisce un valore

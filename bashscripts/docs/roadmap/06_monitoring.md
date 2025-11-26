@@ -7,13 +7,11 @@ Questa fase si concentra sull'implementazione di un sistema avanzato di monitora
 
 
 [0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco incoming (1 linee vs 1)[0m
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 📊 Fase 6: Monitoraggio
 
 ## 📋 Panoramica
@@ -139,13 +137,11 @@ Questa fase si concentra sull'implementazione di un sistema avanzato di monitora
 ### Q4 2026
 - Deployment produzione
 - Monitoraggio continuo
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 📊 Fase 6: Monitoraggio
 
 ## 📋 Panoramica
@@ -271,13 +267,11 @@ Questa fase si concentra sull'implementazione di un sistema avanzato di monitora
 ### Q4 2026
 - Deployment produzione
 - Monitoraggio continuo
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 📊 Fase 6: Monitoraggio
 
 ## 📋 Panoramica
@@ -405,26 +399,22 @@ Questa fase si concentra sull'implementazione di un sistema avanzato di monitora
 - Monitoraggio continuo
 
 [0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco incoming (1 linee vs 1)[0m
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 📊 Fase 6: Monitoraggio
 
 ## 📋 Panoramica
 Questa fase si concentra sull'implementazione di un sistema avanzato di monitoraggio e analisi delle performance del sistema.
  43df3e0 (.)
 
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 ## 🎯 Funzionalità Future
 
 ### 1. Dashboard Operazioni
@@ -549,13 +539,11 @@ Questa fase si concentra sull'implementazione di un sistema avanzato di monitora
 
 
 aurmich/dev
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 📊 Fase 6: Monitoraggio
 
 ## 📋 Panoramica
@@ -681,13 +669,11 @@ Questa fase si concentra sull'implementazione di un sistema avanzato di monitora
 ### Q4 2026
 - Deployment produzione
 - Monitoraggio continuo
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 📊 Fase 6: Monitoraggio
 
 ## 📋 Panoramica
@@ -813,13 +799,11 @@ Questa fase si concentra sull'implementazione di un sistema avanzato di monitora
 ### Q4 2026
 - Deployment produzione
 - Monitoraggio continuo
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 # 📊 Fase 6: Monitoraggio
 
 ## 📋 Panoramica
@@ -1106,13 +1090,11 @@ aurmich/dev
 [0;34mℹ️ [2025-04-22 11:23:25] Scelto blocco HEAD (4 linee vs 1)[0m
 - Aggiornamenti 
  43df3e0 (.)
-=======
 
-<<<<<<< HEAD
 
-=======
 >>>>>>> 1831d11e78 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
 aurmich/dev
 
 ## Collegamenti tra versioni di 06_monitoring.md

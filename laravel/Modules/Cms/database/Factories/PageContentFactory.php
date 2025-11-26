@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Cms\Database\Factories;
 
-use Modules\Cms\Models\PageContent;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Cms\Models\PageContent;
 
 /**
  * @extends Factory<PageContent>

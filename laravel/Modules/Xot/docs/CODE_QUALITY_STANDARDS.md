@@ -46,6 +46,10 @@ class MyResource extends XotBaseResource
 ### 6. **Actions invece di Services**
 - Usare Spatie Queueable Actions invece di services tradizionali
 
+### 7. **Divieto assoluto di `dd()` nel codice**
+- Niente `dd()` (nemmeno commentato con `// dd(...)`): se serve diagnostica usare `\Log::debug()` o strumenti di profiling.
+- I commenti `// dd(...)` vanno rimossi per evitare residui di debug che generano rumore nei diff e nei log di code review.
+
 ## 🏗️ Architecture Principles
 
 ### 1. Base Class Design

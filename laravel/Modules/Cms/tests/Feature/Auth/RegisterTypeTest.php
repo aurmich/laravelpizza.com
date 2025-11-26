@@ -12,7 +12,7 @@ use function Pest\Laravel\get;
 
 uses(TestCase::class);
 
-/**
+/*
  * Tests for dynamic registration pages rendered by Themes/One
  * Route pattern: /{locale}/auth/{type}/register
  *
@@ -22,7 +22,7 @@ uses(TestCase::class);
  * 3. Dynamic content is correctly displayed based on user type
  * 4. Required components (Livewire widget) are present
  *
- * The Cms module must remain independent from <main module>; all user operations
+ * The Cms module must remain independent from SaluteOra; all user operations
  * go through XotData to obtain the correct User class.
  */
 
@@ -35,6 +35,7 @@ dataset('userTypes', [
     'patient' => ['patient'],
 ]);
 
+describe('Registration Page Accessibility', function () {
     test('guest can view :type registration page', function (string $type): void {
         $response = get("/it/auth/{$type}/register");
         expect($response->status())->toBe(200);
@@ -49,6 +50,7 @@ dataset('userTypes', [
     })->with('userTypes');
 });
 
+describe('Registration Page Content', function () {
     test(':type registration page contains expected elements', function (string $type): void {
         $response = get("/it/auth/{$type}/register");
 
@@ -72,6 +74,7 @@ dataset('userTypes', [
     })->with('userTypes');
 });
 
+describe('Registration Page Localization', function () {
     test(':type registration page uses Italian localization', function (string $type): void {
         $response = get("/it/auth/{$type}/register");
 
@@ -82,6 +85,7 @@ dataset('userTypes', [
     })->with('userTypes');
 });
 
+describe('Registration Page Security', function () {
     // test('handles invalid user type gracefully', function (): void {
     //    $response = get('/it/auth/invalid-type/register');
     //     expect($response->status())->toBe(404);
@@ -92,6 +96,7 @@ dataset('userTypes', [
     // });
 });
 
+describe('Registration Page Performance', function () {
     test(':type registration page loads within acceptable time limits', function (string $type): void {
         $startTime = microtime(true);
 

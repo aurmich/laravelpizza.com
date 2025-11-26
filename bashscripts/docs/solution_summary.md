@@ -154,32 +154,27 @@ return [
 ### 3. Comandi di Setup
 
 ```bash
-<<<<<<< HEAD
-
-
-=======
-=======
-
-=======
-
-=======
-
-=======
->>>>>>> 3c18aa7e (.)
-=======
->>>>>>> 9de04485 (.)
-=======
+>>>>>>> ea169dcc (.)
+>>>>>>> e0c964a3 (first)
 >>>>>>> 59901687 (.)
+>>>>>>> f198176d (.)
+>>>>>>> f52d0712 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> ea169dcc (.)
+>>>>>>> develop
+>>>>>>> ec52a6b4 (.)
 >>>>>>> 85c5198c (.)
-=======
-=======
->>>>>>> 3c18aa7e (.)
 >>>>>>> f198176d (.)
 >>>>>>> d20d0523 (.)
-=======
->>>>>>> e1b46df35 (.)
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> e9356a3a (.)
+>>>>>>> 42ab2308 (.)
+>>>>>>> develop
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> 85c5198c (.)
+>>>>>>> ea169dcc (.)
 # Pubblicazione delle configurazioni
 php artisan vendor:publish --tag=zeus-bolt-config
 
@@ -311,38 +306,28 @@ La soluzione implementata risolve completamente l'errore originale e fornisce un
 *Ultimo aggiornamento: Dicembre 2024*
 *Versione: 1.0*
 *Autore: AI Assistant* 
-=======
-=======
-=======
-=======
-=======
-=======
->>>>>>> d20d0523 (.)
 *Autore: AI Assistant* 
-<<<<<<< HEAD
+>>>>>>> 3c18aa7e (.)
+>>>>>>> 9c02579 (.)
 *Autore: AI Assistant* 
 *Autore: AI Assistant* 
-*Autore: AI Assistant* 
-*Autore: AI Assistant* 
-=======
-=======
+>>>>>>> ec52a6b4 (.)
+>>>>>>> f198176d (.)
+>>>>>>> 9de04485 (.)
+>>>>>>> ea169dcc (.)
 *Autore: AI Assistant* 
 >>>>>>> 9c02579 (.)
-=======
+>>>>>>> develop
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> ea169dcc (.)
+>>>>>>> 85c5198c (.)
 >>>>>>> 59901687 (.)
 >>>>>>> 85c5198c (.)
-=======
->>>>>>> 9de04485 (.)
-=======
->>>>>>> 59901687 (.)
->>>>>>> 85c5198c (.)
-=======
->>>>>>> 59901687 (.)
-=======
->>>>>>> f198176d (.)
 >>>>>>> d20d0523 (.)
-=======
-*Autore: AI Assistant* 
->>>>>>> e1b46df35 (.)
 >>>>>>> f71d08e230 (.)
->>>>>>> 4b834e6 (.)
+>>>>>>> 42ab2308 (.)
+>>>>>>> develop
+>>>>>>> 71ff9e32 (.)
+>>>>>>> ec52a6b4 (.)
+>>>>>>> e0c964a3 (first)

@@ -30,6 +30,7 @@ echo ""
 
 # Trova tutti i file con conflitti Git
 echo "🔍 Ricerca file con conflitti Git..."
+CONFLICT_FILES=$(find . -name "*.php" -o -name "*.blade.php" -o -name "*.js" -o -name "*.ts" -o -name "*.vue" -o -name "*.md" | xargs grep -l "<<<<<<< HEAD" 2>/dev/null || true)
 
 if [ -z "$CONFLICT_FILES" ]; then
     echo "✅ Nessun conflitto Git trovato!"
@@ -77,9 +78,16 @@ echo "$CONFLICT_FILES" | while read -r file; do
     # Processa il file riga per riga
     while IFS= read -r line; do
         case "$line" in
+            "<<<<<<< HEAD")
                 IN_CONFLICT=true
                 KEEP_SECTION=false
                 ;;
+            "=======")
+                if [ "$IN_CONFLICT" = true ]; then
+                    KEEP_SECTION=true
+                fi
+                ;;
+            ">>>>>>> develop")
                 IN_CONFLICT=false
                 KEEP_SECTION=false
                 ;;
@@ -99,6 +107,7 @@ echo "$CONFLICT_FILES" | while read -r file; do
     mv "$TEMP_FILE" "$file"
     
     # Verifica che il conflitto sia stato risolto
+    if grep -q "<<<<<<< HEAD" "$file"; then
         echo "   ❌ ERRORE: Conflitto non risolto in $file"
         ERRORS=$((ERRORS + 1))
     else
@@ -111,6 +120,16 @@ done
 
 # Statistiche finali
 echo "📊 STATISTICHE FINALI"
+echo "====================="
+echo "📁 File processati: $TOTAL_FILES"
+echo "✅ Conflitti risolti: $SUCCESS"
+echo "❌ Errori: $ERRORS"
+echo "💾 Backup salvato in: $BACKUP_DIR"
+echo ""
+
+# Verifica finale
+echo "🔍 Verifica finale conflitti rimanenti..."
+REMAINING_CONFLICTS=$(find . -name "*.php" -o -name "*.blade.php" -o -name "*.js" -o -name "*.ts" -o -name "*.vue" -o -name "*.md" | xargs grep -l "<<<<<<< HEAD" 2>/dev/null || true)
 
 if [ -z "$REMAINING_CONFLICTS" ]; then
     echo "🎉 TUTTI I CONFLITTI RISOLTI CON SUCCESSO!"

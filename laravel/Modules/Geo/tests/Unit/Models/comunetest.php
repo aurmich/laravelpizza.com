@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Tests\TestCase;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Modules\Geo\Models\Comune;
-use Tests\TestCase;
 
 uses(TestCase::class);
 

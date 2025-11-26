@@ -15,7 +15,11 @@ set -euo pipefail
 # - This script is idempotent; files without conflict markers are skipped.
 #
 # Conflict marker structure handled:
+#   <<<<<<< HEAD
 #   (local changes)
+#   =======
+#   (incoming changes)
+#   >>>>>>> branch-or-commit
 #
 # The script will keep only the incoming changes block and remove markers.
 

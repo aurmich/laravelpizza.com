@@ -61,33 +61,41 @@ class FolioVoltServiceProvider extends ServiceProvider
          */
         // $currentLocale = LaravelLocalization::setLocale() ?? app()->getLocale();
 
-        Folio::path($theme_path)
-            ->uri(LaravelLocalization::setLocale() ?? app()->getLocale())
-            // ->uri('{lang}')
-            ->middleware([
-                '*' => $base_middleware,
-            ]);
-
         /**
-         * @var Collection<Module>
+         * @var Collection<int, \Nwidart\Modules\Module>
          */
-        $modules = Module::collections();
+        $modules = Module::all();
         $paths = [];
-        $paths[] = $theme_path;
+
+        // Verifica che il percorso esista prima di passarlo a Folio
+        if (File::exists($theme_path) && File::isDirectory($theme_path)) {
+            $locale = LaravelLocalization::setLocale() ?: app()->getLocale();
+            Folio::path($theme_path)
+                ->uri($locale)
+                // ->uri('{lang}')
+                ->middleware([
+                    '*' => $base_middleware,
+                ]);
+            $paths[] = $theme_path;
+        }
+
         foreach ($modules as $module) {
             $path = $module->getPath().'/resources/views/pages';
             if (! File::exists($path)) {
                 continue;
             }
             $paths[] = $path;
+            $locale = LaravelLocalization::setLocale() ?: app()->getLocale();
             Folio::path($path)
-                ->uri(LaravelLocalization::setLocale() ?? app()->getLocale())
+                ->uri($locale)
                 // ->uri('{lang}')
                 ->middleware([
                     '*' => $base_middleware,
                 ]);
         }
 
-        Volt::mount($paths);
+        if (! empty($paths)) {
+            Volt::mount($paths);
+        }
     }
 }

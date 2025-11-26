@@ -341,6 +341,10 @@ class TenantService
         $dir = config_path($name);
         $dir = app(FixPathAction::class)->execute($dir);
 
+        if (! File::exists($dir) || ! File::isDirectory($dir)) {
+            return [];
+        }
+
         $files = File::files($dir);
 
         return collect($files)

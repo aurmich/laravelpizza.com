@@ -16,12 +16,20 @@ class GetViewAction
     /**
      * Summary of execute.
      *
-     * @return view-string
+     * @return string
      *
      * @throws Exception
      */
     public function execute(string $tpl = '', string $file0 = ''): string
     {
+        // Se $tpl è già un percorso view completo (contiene ::), restituirlo direttamente
+        if ($tpl !== '' && Str::contains($tpl, '::')) {
+            if (view()->exists($tpl)) {
+                return $tpl;
+            }
+            throw new Exception('View ['.$tpl.'] not found');
+        }
+
         if ($file0 === '') {
             $backtrace = debug_backtrace();
             $file0 = app(FixPathAction::class)->execute($backtrace[0]['file'] ?? '');
@@ -31,7 +39,6 @@ class GetViewAction
         $arr = explode(DIRECTORY_SEPARATOR, $file0);
         if ($arr[0] === '') {
             $arr = array_slice($arr, 1);
-            $arr = array_values($arr);
         }
 
         $mod = $arr[1];

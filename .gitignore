@@ -29,3 +29,10 @@ Homestead.json
 .phpactor.json
 auth.json
 bashscripts/
+docs/
+.claude/
+.ai/
+.cursor/
+.Windsurf/
+.windsurf/
+laravel/database/migrations/

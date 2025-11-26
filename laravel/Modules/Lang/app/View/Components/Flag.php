@@ -19,11 +19,13 @@ class Flag extends Component
 
     public function render(): Renderable
     {
+        /** @var string $view */
         $view = app(GetViewAction::class)->execute();
         $viewParams = [
             'view' => $view,
         ];
 
+        /** @var view-string $view */
         return view($view, $viewParams);
     }
 }

@@ -37,6 +37,7 @@ class Crud extends Component
 
     public function render(): Renderable
     {
+        /** @var string $view */
         $view = app(GetViewAction::class)->execute();
         $tasks = Task::paginate(20);
         $view_params = [
@@ -49,6 +50,7 @@ class Crud extends Component
              */
         ];
 
+        /** @var view-string $view */
         return view($view, $view_params);
     }
 

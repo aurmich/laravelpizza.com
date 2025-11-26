@@ -4,6 +4,18 @@
 
 This document establishes code quality standards and best practices for the Xot module, which serves as the foundation for all other modules in the platform. Xot provides base classes, traits, and utilities that other modules extend and use.
 
+## ⚠️ REGOLA CRITICA - Controlli Obbligatori
+
+**OGNI VOLTA CHE MODIFICHI UN FILE PHP, DEVI CONTROLLARLO CON:**
+
+1. **PHPStan livello 10**: `./vendor/bin/phpstan analyse --level=10 path/to/file.php`
+2. **PHPMD**: `./vendor/bin/phpmd path/to/file.php text path/to/phpmd.ruleset.xml`
+3. **PHPInsights** (se disponibile): `./vendor/bin/phpinsights analyse path/to/file.php`
+
+**NON COMMITARE MAI codice che non passa questi controlli!**
+
+Vedi: [Controlli Obbligatori Qualità Codice](./code-quality-mandatory-checks.md)
+
 ## 🏗️ Laraxot Architecture Rules
 
 ### 1. **MAI estendere direttamente classi Filament**

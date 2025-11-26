@@ -723,11 +723,13 @@ ssh-add ~/.ssh/id_ed25519
 
 ### Comandi Utili da Ricordare:
 ```bash
+=======
 
+<<<<<<< HEAD
 
+=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+>>>>>>> 4b834e6 (.)
 # Riavviare tutti i servizi
 sudo service mysql restart
 sudo service php8.2-fpm restart

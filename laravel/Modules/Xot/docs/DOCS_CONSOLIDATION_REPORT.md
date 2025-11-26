@@ -57,7 +57,7 @@ Questo report documenta il progresso del consolidamento della documentazione sec
    - Validazione coerenza dei link
 
 3. **Validazione PHPStan**
-   - Verifica che tutti gli esempi di codice siano conformi PHPStan Level 9
+   - Verifica che tutti gli esempi di codice siano conformi PHPStan level 10
    - Aggiornamento esempi non conformi
    - Test di funzionamento degli esempi
 
@@ -126,7 +126,7 @@ laravel/
 - Struttura coerente tra tutti i moduli
 
 ### 4. Qualità del Codice
-- Tutti gli esempi conformi PHPStan Level 9
+- Tutti gli esempi conformi PHPStan level 10
 - Type hints espliciti e documentazione PHPDoc
 - Namespace corretti senza segmento `app`
 

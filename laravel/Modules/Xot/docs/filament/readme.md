@@ -117,8 +117,7 @@ Questa documentazione si applica a tutti i moduli che utilizzano Filament per il
 - Aggiornare la documentazione ogni volta che si corregge questo errore.
 
 ### Collegamento
-- Vedi anche: [<nome modulo>/docs/filament-best-practices.mdc](../../../<nome modulo>/docs/filament-best-practices.mdc)
-- Vedi anche: [<nome progetto>/docs/filament-best-practices.mdc](../../../../docs/filament-best-practices.mdc)
+- Vedi anche: [<main module>/docs/filament-best-practices.mdc](../../../<main module>/docs/filament-best-practices.mdc)
 
 ### Checklist
 - [ ] Nessuna closure void restituisce un valore
@@ -133,7 +132,7 @@ Chi estende XotBaseResource **non deve mai** dichiarare o ridefinire:
 - `protected static ?string $navigationGroup`
 - `protected static ?string $translationPrefix`
 - `public static function table(...)`
-- `public static function getListTableColumns(): array`
+- `public static function getTableColumns(): array`
 
 **Motivazione:**
 - La logica di navigazione, traduzione e colonne è centralizzata per garantire coerenza e manutenibilità.

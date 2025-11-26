@@ -14,7 +14,7 @@ use Modules\Xot\Tests\TestCase;
  * |
  */
 
-pest()->extend(TestCase::class)->in('Feature', 'Unit');
+uses(TestCase::class)->in('Feature', 'Unit');
 
 /*
  * |--------------------------------------------------------------------------

@@ -42,15 +42,10 @@ process_complex_file() {
     
     # Leggi il file linea per linea
     while IFS= read -r line; do
-        if [[ "$line" == "<<<<<<< HEAD" ]]; then
             in_conflict=true
             ((conflict_count++))
             echo -e "${YELLOW}  Conflitto #${conflict_count} trovato${NC}"
             continue
-        elif [[ "$line" == "=======" ]] && [ "$in_conflict" = true ]; then
-            # Inizia la sezione incoming - la manteniamo
-            continue
-        elif [[ "$line" == ">>>>>>> filament4" ]] && [ "$in_conflict" = true ]; then
             in_conflict=false
             continue
         elif [ "$in_conflict" = true ] && [[ "$line" != "=======" ]]; then
@@ -68,7 +63,6 @@ process_complex_file() {
     echo -e "${GREEN}✓ Risolti ${conflict_count} conflitti in: ${relative_path}${NC}"
     
     # Verifica finale
-    if grep -q "<<<<<<< HEAD\|=======\|>>>>>>> filament4" "$file"; then
         echo -e "${RED}⚠ ATTENZIONE: Conflitti residui in: ${relative_path}${NC}"
         return 1
     fi
@@ -79,9 +73,6 @@ process_complex_file() {
 # Funzione per analizzare la complessità dei conflitti
 analyze_conflicts() {
     local file="$1"
-    local head_count=$(grep -c "<<<<<<< HEAD" "$file" 2>/dev/null || echo "0")
-    local sep_count=$(grep -c "=======" "$file" 2>/dev/null || echo "0")
-    local end_count=$(grep -c ">>>>>>> filament4" "$file" 2>/dev/null || echo "0")
     
     if [ "$head_count" -ne "$sep_count" ] || [ "$sep_count" -ne "$end_count" ]; then
         echo "MALFORMED"
@@ -96,7 +87,6 @@ analyze_conflicts() {
 
 # Trova tutti i file con conflitti
 echo -e "${BLUE}Analisi dei conflitti in corso...${NC}"
-mapfile -t CONFLICT_FILES < <(find "$WORK_DIR" -type f -name "*.php" -exec grep -l "<<<<<<< HEAD" {} \;)
 
 TOTAL_FILES=${#CONFLICT_FILES[@]}
 
@@ -161,7 +151,6 @@ if [ ${#SIMPLE_FILES[@]} -gt 0 ]; then
         relative_path="${file#$WORK_DIR/}"
         echo -e "${YELLOW}Processando: ${relative_path}${NC}"
         
-        if sed -i '/^<<<<<<< HEAD$/,/^=======$/d; /^>>>>>>> filament4$/d' "$file"; then
             echo -e "${GREEN}✓ Risolto: ${relative_path}${NC}"
             ((PROCESSED_FILES++))
         else
@@ -198,32 +187,3 @@ if [ ${#MALFORMED_FILES[@]} -gt 0 ]; then
 fi
 
 # Statistiche finali
-echo "================================================="
-echo -e "${GREEN}🐄 SuperMucca Advanced ha completato il lavoro! 🐄${NC}"
-echo ""
-echo -e "${BLUE}Statistiche finali:${NC}"
-echo -e "  File totali: ${TOTAL_FILES}"
-echo -e "  File risolti: ${GREEN}${PROCESSED_FILES}${NC}"
-echo -e "  File complessi risolti: ${PURPLE}${COMPLEX_CONFLICTS}${NC}"
-echo -e "  File saltati: ${RED}${SKIPPED_FILES}${NC}"
-echo ""
-
-if [ $PROCESSED_FILES -gt 0 ]; then
-    echo -e "${GREEN}✓ Risoluzione completata con successo!${NC}"
-    echo ""
-    echo -e "${YELLOW}Comandi utili:${NC}"
-    echo "  # Verifica lo stato"
-    echo "  git status"
-    echo ""
-    echo "  # Controlla le modifiche"
-    echo "  git diff"
-    echo ""
-    echo "  # Committa tutto"
-    echo "  git add . && git commit -m 'Resolve all merge conflicts - accept filament4 changes'"
-    echo ""
-    echo "  # Test PHPStan"
-    echo "  ./vendor/bin/phpstan analyze Modules --level=9"
-    echo ""
-    echo "  # Rimuovi i backup"
-    echo "  find . -name '*.advanced_backup' -delete"
-fi

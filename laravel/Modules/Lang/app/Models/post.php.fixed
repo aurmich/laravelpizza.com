@@ -81,7 +81,7 @@ use Spatie\Sluggable\SlugOptions;
  */
 class Post extends Model
 {
-    use \Modules\Xot\Models\Traits\HasXotFactory;
+    use HasFactory;
     use HasSlug;
     use Updater;
     // use Searchable;

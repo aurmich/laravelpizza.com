@@ -18,10 +18,8 @@ class Broad extends Component
 
     public function render(): Renderable
     {
-        /** @var string $view */
         $view = app(GetViewAction::class)->execute();
 
-        /** @var view-string $view */
         return view($view);
     }
 

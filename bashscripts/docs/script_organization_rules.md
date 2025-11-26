@@ -59,5 +59,14 @@ chmod +x bashscripts/utils/script.sh
   - ❌ API-Documentation.md
   - ❌ BestPractices.md
 
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+*Regole create il: $(date)*
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+=======
+>>>>>>> dev
+=======
+=======
+>>>>>>> 04d882f8f6 (.)
+>>>>>>> 4b834e6 (.)

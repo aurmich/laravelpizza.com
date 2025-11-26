@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
+
 namespace Modules\Cms\Tests\Feature\Auth;
 
+use Modules\Xot\Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Volt\Volt;
-use Modules\Xot\Tests\TestCase;
 
 uses(TestCase::class);
 

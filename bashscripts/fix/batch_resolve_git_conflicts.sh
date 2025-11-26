@@ -54,6 +54,9 @@ resolve_single_file() {
         next 
     }
     /^>>>>>>> / { 
+        in_conflict = 1
+        next 
+    }
         in_conflict = 0
         next 
     }
@@ -163,4 +166,5 @@ main() {
 # Run if executed directly
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "$@"
+fi
 fi

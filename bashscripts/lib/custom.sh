@@ -227,6 +227,9 @@ dummy_push(){
     git add -A
     git commit -am "$msg"
     git push -u "$org" HEAD:"$branch"
+    git gc --aggressive --prune=all     # remove the old files
+    git gc --auto
+    git rebase --continue
 }
 
 declare -A PARSED_KV  # Dizionario globale (o può essere passato per riferimento)

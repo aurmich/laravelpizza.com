@@ -116,24 +116,41 @@ test('successful login regenerates session', function (): void {
 
 ### **Test Execution Commands**
 ```bash
+=======
+=======
 
->>>>>>> 85c5198c (.)
->>>>>>> 85c5198c (.)
->>>>>>> d20d0523 (.)
->>>>>>> f71d08e230 (.)
+<<<<<<< HEAD
 
+
+
+
+
+=======
+=======
 >>>>>>> 85c5198c (.)
->>>>>>> d20d0523 (.)
->>>>>>> f71d08e230 (.)
->>>>>>> ec52a6b4 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+=======
 >>>>>>> 9c02579 (.)
->>>>>>> e0c964a3 (first)
+
+=======
+
+=======
+=======
 >>>>>>> 9c02579 (.)
+>>>>>>> 85c5198c (.)
+=======
 >>>>>>> 9de04485 (.)
->>>>>>> ea169dcc (.)
->>>>>>> e0c964a3 (first)
+=======
+>>>>>>> 59901687 (.)
+>>>>>>> 85c5198c (.)
+=======
+>>>>>>> 59901687 (.)
+=======
+>>>>>>> f198176d (.)
+>>>>>>> d20d0523 (.)
+=======
+>>>>>>> e1b46df35 (.)
+>>>>>>> f71d08e230 (.)
+>>>>>>> 4b834e6 (.)
 # Complete test suite
 ./vendor/bin/pest Modules/Cms/tests/Feature/Auth/LoginTest.php
 
@@ -227,15 +244,30 @@ Questa implementazione fornisce una **base solida** per tutti i futuri test di a
 *Last Updated: Gennaio 2025*  
 *Project: Laraxot SaluteOra*  
 *Module: Cms Testing Suite* 
->>>>>>> 337c5266 (.)
+<<<<<<< HEAD
+*Module: Cms Testing Suite* 
+=======
+=======
+*Module: Cms Testing Suite* 
+=======
 >>>>>>> 59901687 (.)
 >>>>>>> 85c5198c (.)
+=======
+*Module: Cms Testing Suite* 
+>>>>>>> 3c18aa7e (.)
 >>>>>>> 9de04485 (.)
->>>>>>> e0c964a3 (first)
+=======
+=======
+*Module: Cms Testing Suite* 
+>>>>>>> 59901687 (.)
+=======
+=======
+*Module: Cms Testing Suite* 
+>>>>>>> 3c18aa7e (.)
 >>>>>>> f198176d (.)
+>>>>>>> d20d0523 (.)
+=======
 *Module: Cms Testing Suite* 
 >>>>>>> e1b46df35 (.)
 >>>>>>> f71d08e230 (.)
-*Module: Cms Testing Suite* 
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+>>>>>>> 4b834e6 (.)

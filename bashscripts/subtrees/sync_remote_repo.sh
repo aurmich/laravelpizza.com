@@ -40,6 +40,7 @@ for ((i=0; i<total; i++)); do
     #    git remote add "$ORG" "$url"
     #fi
     echo "Submodule $i: 📂 path: $path 🌐 URL: $url 🔑 ORG: $origin"
+    mkdir -p "$curr_dir/$path"
     cd "$path"
     
     # Controllo se .git è un file e non una directory
@@ -52,12 +53,15 @@ for ((i=0; i<total; i++)); do
     if [ ! -d ".git" ]; then
         echo "Inizializzazione repository Git in $path..."
         git init
+        git remote add "$ORG" "$url"
     else
         echo "Repository Git già inizializzato in $path"
+        git remote set-url "$ORG" "$url"
     fi
     echo "🌐 URL: $url"
+    mkdir -p "$curr_dir/$path"
     git config --global --add safe.directory "$curr_dir/$path"
-    git checkout "$BRANCH" -- || git checkout -b "$BRANCH"
+    git checkout "$BRANCH" -- || git checkout -b "$BRANCH"  origin/"$BRANCH"  || git checkout -b "$BRANCH"  FETCH_HEAD || git checkout -b "$BRANCH"  
     git remote add "$origin" "$url"
     git_config_setup
     #git stash || echo "🔄 Non ci sono modifiche da salvare"
@@ -66,18 +70,21 @@ for ((i=0; i<total; i++)); do
     git fetch --unshallow
     git fetch "$origin" "$BRANCH" --depth=1
     git pull "$origin" "$BRANCH" --autostash  --depth=1
-    git merge "$origin/$BRANCH" --allow-unrelated-histories
+    git merge "$origin/$BRANCH" --allow-unrelated-histories -s resolve
 
     # Loop per gestire eventuali conflitti
     while ! git rebase --continue 2>/dev/null; do
         if git diff --name-only --diff-filter=U | grep .; then
             echo "⚠️  Conflitti trovati. Li sistemiamo in automatico (accettando i tuoi cambiamenti)..."
+            git checkout --ours -- $(git diff --name-only --diff-filter=U) 
+            git add $(git diff --name-only --diff-filter=U)
         else
             echo "✅ Nessun conflitto o già risolto"
             break
         fi
         dummy_push "$origin" "$BRANCH" "."
     done
+    git rebase --abort
     #git stash apply || echo "🔄 Non ci sono modifiche da ripristinare"
     # Push finale
     dummy_push "$origin" "$BRANCH" "."

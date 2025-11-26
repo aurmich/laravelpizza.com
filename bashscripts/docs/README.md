@@ -1,46 +1,99 @@
-### Versione HEAD
+# Bashscripts Documentation
 
-### Versione HEAD
+## 📚 Indice Documentazione
 
-### Versione HEAD
+Questa cartella contiene la documentazione completa di tutti gli script operativi del progetto PTVX.
 
-# 🚀 Toolkit di Automazione Git
+**📊 Ultimo aggiornamento**: Gennaio 2025 - Session 4/1/2025  
+**📁 Totale documenti**: 10+ (script, patterns, strategies)  
+**🎯 Coverage**: Git conflicts, file locking, docs consolidation
 
+### 🔧 Git & Conflict Resolution
 
+- **[git-conflicts-quick-reference.md](./git-conflicts-quick-reference.md)** ⚡  
+  Cheat sheet rapida: comandi one-liner, opzioni, exit codes, quando usare/non usare automazione.
 
-# il progetto - Toolkit di Automazione <nome-progetto>
+- **[git-conflict-resolution-guide.md](./git-conflict-resolution-guide.md)** 📖  
+  Guida pratica completa: Quick start, casi d'uso, troubleshooting, API libreria per sviluppatori, FAQ dettagliate.
 
-## Requisiti di Sistema
-- PHP 8.2 o superiore
-- Composer
-- Node.js 18+ e npm
-- MySQL 8.0+
-- Git
+- **[git-conflict-resolution-analysis.md](./git-conflict-resolution-analysis.md)** 🔬  
+  Analisi critica profonda: inventario 27 script, comparazione versioni, litigio filosofico, raccomandazioni architetturali, riflessioni meta.
 
-## Installazione
+- **[supermucca-v6-deep-analysis.md](./supermucca-v6-deep-analysis.md)** 🔬🐛  
+  Analisi forensic linea-per-linea SuperMucca V6 (584 righe): 16 bug trovati (3 critici, 4 importanti, 9 enhancements), litigio tecnico su ogni aspetto.
 
-### 1. Clonare il Repository
+- **[file-locking-pattern.md](./file-locking-pattern.md)** 🔒  
+  Pattern lock file per prevenzione race condition: filosofia, religione, ZEN, implementazione atomica, edge cases, best practices.
+
+- **[docs-consolidation-strategy.md](./docs-consolidation-strategy.md)** 📋  
+  Strategia consolidamento 5200+ file docs → 300-400: analisi situazione, piano fase 1, quick wins, timeline.
+
+- **[session-summary-2025-01-04.md](./session-summary-2025-01-04.md)** 📝  
+  Riepilogo completo sessione 4 Gennaio: obiettivi, fix implementati, documentazione creata, metriche, lezioni apprese.
+
+- **[MASTER-SESSION-2025-01-04.md](./MASTER-SESSION-2025-01-04.md)** 🎯👑  
+  **DOCUMENTO MASTER** - Executive summary completo: 7 obiettivi completati, 50+ errori fixati, 20+ docs creati, filosofie applicate, metriche dettagliate, next steps. START HERE per overview completo.
+
+### 🗂️ Organizzazione Repository
+
+- **[bashscripts-location-policy.md](../../laravel/Modules/Xot/docs/bashscripts-location-policy.md)**  
+  Policy vincolante sulla posizione degli script (SOLO in sottocartelle di `bashscripts/`).
+
+- **[file-naming-case-sensitivity.md](../../laravel/Modules/Xot/docs/file-naming-case-sensitivity.md)**  
+  Regole PSR-4 e case sensitivity per file PHP (UpperCamelCase obbligatorio).
+
+## 🎯 Quick Start
+
+### Scenario 1: Conflitti Git - Fix Rapido (COMUNE)
+
+**Hai file con `<<<< HEAD`? Vuoi accettare sempre la tua versione locale?**
+
 ```bash
-git clone https://github.com/your-username/<nome-progetto>.git
-cd <nome-progetto>
+cd /var/www/_bases/base_ptvx_fila4_mono
+
+# Step 1: Test sicuro
+./bashscripts/git/conflict_resolution/resolve_conflicts_current_change_v6.sh --dry-run
+
+# Step 2: Se OK, esegui
+./bashscripts/git/conflict_resolution/resolve_conflicts_current_change_v6.sh
+
+# Step 3: Commit
+git add -A && git commit -m "fix: auto-resolve conflicts (current)"
 ```
 
-### 2. Installare le Dipendenze PHP
+**Documentazione**: 
+- Quick: [git-conflicts-quick-reference.md](./git-conflicts-quick-reference.md) ⚡
+- Completa: [git-conflict-resolution-guide.md](./git-conflict-resolution-guide.md) 📖
+
+### Scenario 2: Conflitti Git - Script Custom/CI
+
+**Devi integrare in pipeline o creare logica custom?**
+
 ```bash
-composer install
+#!/bin/bash
+# Usa la libreria condivisa
+source bashscripts/lib/git-conflict-resolver.sh
+
+export GCR_BASE_DIR="/var/www/_bases/base_ptvx_fila4_mono"
+gcr_resolve_batch "$GCR_BASE_DIR/laravel" "current" false
 ```
 
-### 3. Installare le Dipendenze Node.js
+**Documentazione**: [git-conflict-resolution-guide.md § Libreria](./git-conflict-resolution-guide.md#-libreria-per-sviluppatori-avanzato)
+
+### Scenario 3: File Duplicati Case-Sensitivity
+
+**Hai file come `User.php` e `user.php` nella stessa directory?**
+
 ```bash
-npm install
+# Cleanup automatico
+/var/www/_bases/base_ptvx_fila4_mono/bashscripts/fix/cleanup-case-duplicates.sh
 ```
 
-### 4. Configurare l'Ambiente
-```bash
-cp .env.example .env
-php artisan key:generate
-```
+**Documentazione**: [file-naming-case-sensitivity.md](../../laravel/Modules/Xot/docs/file-naming-case-sensitivity.md)
 
+<<<<<<< HEAD
+## 📂 Struttura Bashscripts
+=======
 ### 5. Configurare il Database
 Modificare il file `.env` con le credenziali del database:
 ```env
@@ -59,11 +112,9 @@ php artisan migrate
 
 ### 7. Installare i Moduli
 ```bash
-
+=======
 
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
 # Installare Laravel Modules
 composer require nwidart/laravel-modules
 
@@ -139,11 +190,9 @@ La documentazione completa è disponibile nella directory `docs/`:
 
 ### Comandi Utili
 ```bash
-
+=======
 
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
 # Creare un nuovo modulo
 php artisan module:make NomeModulo
 
@@ -175,15 +224,15 @@ Questo progetto è sotto licenza MIT. Vedere il file [LICENSE](LICENSE) per i de
 
  b0f37c83 (.)
 
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+=======
 
  b7907077 (.)
 
 
  b1ca4c93 (Squashed 'bashscripts/' changes from c21599d..019cc70)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+>>>>>>> 3a6821ae8 (aggiornamento cartella bashscripts)
+=======
+>>>>>>> f71d08e230 (.)
 # 🚀 BashScripts Power Tools
  80ec88ee9 (.
 
@@ -260,11 +309,9 @@ php artisan migrate
 
 ### 7. Install Modules
 ```bash
-
+=======
 
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
 # Install Laravel Modules
 composer require nwidart/laravel-modules
 
@@ -340,11 +387,9 @@ Complete documentation is available in the `docs/` directory:
 
 ### Useful Commands
 ```bash
-
+=======
 
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
 # Create a new module
 php artisan module:make ModuleName
 
@@ -402,95 +447,138 @@ This toolkit is a comprehensive suite of Bash scripts designed to automate and s
 - PHP static code analysis
 
 ## 📁 Toolkit Structure
+>>>>>>> 4b834e6 (.)
 
 ```
 bashscripts/
-├── git/                 # Script per la gestione Git
-├── maintenance/         # Script di manutenzione
-├── checks/             # Script di verifica
-└── prompt/             # Template per prompt personalizzati
+├── analysis/           # Script analisi codice/moduli
+├── backup/            # Script backup e sync
+├── conflicts/         # (Legacy) Script gestione conflitti
+├── docs/              # 📚 QUESTA CARTELLA - Documentazione
+├── fix/               # Script correzione bug/problemi
+├── git/               # Script gestione Git
+│   └── conflict_resolution/  # ⭐ Script risoluzione conflitti (CANONICA)
+├── maintenance/       # Script manutenzione/ottimizzazione
+├── merge_conflicts/   # (Legacy) Script merge conflicts
+├── phpstan/           # Script analisi statica PHPStan
+├── testing/           # Script test automation
+├── translations/      # Script gestione traduzioni
+└── utils/             # Utility generiche
 ```
 
-## 🚀 Main Scripts
+## 🏆 Tool Ecosystem: Script vs Libreria
 
-### Git Sync & Organization
-- `git_sync_org.sh`: Sincronizza repository tra organizzazioni
-- `git_sync_subtree.sh`: Gestisce la sincronizzazione dei subtree
-- `git_change_org.sh`: Cambia l'organizzazione del repository
+### Due Approcci Complementari
 
-### Manutenzione
-- `fix_directory_structure.sh`: Corregge la struttura delle directory
-- `resolve_git_conflict.sh`: Risolve automaticamente i conflitti Git
-- `backup.sh`: Esegue backup automatizzati
+#### 1. **Script Standalone** (End Users)
 
-### Verifica
-- `check_before_phpstan.sh`: Esegue controlli pre-phpstan
-- `check_mysql.sh`: Verifica lo stato del database MySQL
+**Best**: `git/conflict_resolution/resolve_conflicts_current_change_v6.sh`
 
-## 💡 Best Practices
+**Per chi**: Developer, team leads, operazioni quotidiane  
+**Quando**: Quick fix, uso interattivo, conflitti current-only  
+**Come**: Esegui direttamente via CLI con opzioni
 
-1. **Sicurezza**: Tutti gli script includono controlli di sicurezza e validazione
-2. **Logging**: Sistema di logging dettagliato per tracciare le operazioni
-3. **Conferma**: Richiesta di conferma per operazioni critiche
-4. **Rollback**: Supporto per il ripristino in caso di errori
+**Features**:
+- ✅ Gestione conflitti annidati con depth tracking
+- ✅ Backup automatico validato
+- ✅ Dry-run mode integrato
+- ✅ Batch processing parallelo (4 core)
+- ✅ Logging dettagliato con timestamp
+- ✅ Performance ottimizzate
+- ✅ Color output + emoji
+- ✅ Help completo (`--help`)
 
-## 🛠️ Requisiti
+#### 2. **Libreria Condivisa** (Developers)
 
-- Bash 4.0+
-- Git 2.0+
-- PHP 8.0+ (per alcuni script)
-- MySQL (per gli script di verifica database)
+**Best**: `lib/git-conflict-resolver.sh`
 
-## 📚 Documentazione
+**Per chi**: DevOps, CI/CD engineers, sviluppatori script custom  
+**Quando**: Automazione, pipeline, logica complessa custom  
+**Come**: Import via `source` e usa funzioni API
 
-Per informazioni dettagliate su ogni script, consulta la documentazione specifica:
+**Features**:
+- ✅ API modulare con 15+ funzioni
+- ✅ Supporto BOTH strategies (incoming + current)
+- ✅ Logging multi-livello (debug/info/warning/error/success)
+- ✅ Riutilizzabile in infinite configurazioni
+- ✅ Testabile e componibile
+- ✅ Zero output se non richiesto (scriptable)
+- ✅ Namespace pulito (prefix `gcr_`)
 
-- [Roadmap del Progetto](docs/roadmap.md)
-- [Documentazione del Progetto](docs/project.md)
-- [Fasi della Roadmap](docs/roadmap/)
-- [Documentazione in Italiano](docs/it/README.md)
+### Quando Usare Cosa?
 
-## ⚠️ Avvertenze
+| Scenario | Tool Consigliato | Rationale |
+|----------|------------------|-----------|
+| Fix manuale veloce | SuperMucca V6 Script | CLI ready, no coding |
+| Conflitti current-only | SuperMucca V6 Script | Ottimizzato per questo |
+| Conflitti incoming | Libreria | Script standalone non supporta |
+| CI/CD pipeline | Libreria | Flessibilità configurazione |
+| Script custom logic | Libreria | API componibili |
+| 1000+ conflitti | SuperMucca V6 Script | Batch processing ottimizzato |
+| Strategia dinamica | Libreria | Puoi decidere per-file |
+| Learning/Tutorial | Libreria | Capire internals |
 
-- Utilizzare con cautela in ambienti di produzione
-- Eseguire sempre backup prima di operazioni critiche
-- Verificare le modifiche in ambiente di test
+### PHPStan Analysis
 
-## 🤝 Contribuire
+**BEST**: `phpstan/analyze_modules.sh`
 
-Le contribuzioni sono benvenute! Per favore, leggi le linee guida per i contributori prima di inviare pull request.
+- Analisi multi-modulo
+- Level 10 support
+- Memory management
+- Report dettagliati
 
-## 📄 Licenza
+### Documentation Management
 
-Questo progetto è distribuito sotto la licenza MIT. Vedi il file `LICENSE` per maggiori dettagli.
+**BEST**: `docs/fix_docs_naming_final.sh`
 
----
+- Naming convention enforcement (lowercase)
+- Backup automatico
+- Validazione
 
-<div align="center">
-  <sub>Built with ❤️ by the development team</sub>
-</div> 
+## 📖 Convenzioni
 
+### Naming Script
 
+```bash
+{action}_{scope}_{variant}_{version}.sh
 
+# Esempi
+resolve_git-conflicts_current-change_v6.sh
+fix_docs_naming_final.sh
+analyze_phpstan_modules.sh
+```
 
-> **Nota**: Questo README è in continuo aggiornamento. Se trovi errori o hai suggerimenti, apri pure una issue! 
+### Posizionamento
 
+**REGOLA ASSOLUTA**: Script `.sh` SOLO in sottocartelle di `bashscripts/`, MAI in root `laravel/` o root progetto.
 
+```bash
+# ✅ CORRETTO
+bashscripts/fix/cleanup-case-duplicates.sh
+bashscripts/git/conflict_resolution/resolve_conflicts_current_change_v6.sh
 
+<<<<<<< HEAD
+# ❌ ERRATO
+laravel/cleanup.sh
+/var/www/_bases/base_ptvx_fila4_mono/fix-something.sh
+```
+=======
  4bd5ca8f (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+=======
+>>>>>>> 4b834e6 (.)
 
- b0f37c83 (.)
+### Documentazione Script
 
+Ogni nuovo script DEVE avere:
 
+<<<<<<< HEAD
+1. **Header con metadata**:
+=======
  b7907077 (.)
 
-
+=======
 
 >>>>>>> 1831d11e78 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
 # 📣 Enhance Your App with the Fila3 Notify Module! 🚀
 
 ![GitHub issues](https://img.shields.io/github/issues/laraxot/module_notify_fila3)
@@ -530,60 +618,49 @@ The Fila3 Notify Module allows you to implement a robust notification system wit
 Getting started with the Fila3 Notify Module is easy! Follow these steps to integrate it into your application:
 
 1. Clone the repository:
+>>>>>>> 4b834e6 (.)
    ```bash
-   git clone https://github.com/laraxot/module_notify_fila3.git
+   #!/bin/bash
+   # =========================================================================
+   # Script Name and Purpose
+   # =========================================================================
+   # Descrizione: Cosa fa lo script
+   # Posizione: bashscripts/cartella/
+   # Autore: Nome
+   # Versione: X.Y
+   # Data: YYYY-MM-DD
+   # =========================================================================
+   ```
 
-Navigate to the project directory:
-bash
-Copia codice
-cd module_notify_fila3
-Install dependencies:
-bash
-Copia codice
-npm install
-Configure your settings in the config file to customize notification behavior.
-Start your application and unleash the power of notifications!
-📜 Usage Examples
-Here are a few snippets to demonstrate how to use the Fila3 Notify Module in your application:
+2. **Documentazione esterna in `bashscripts/docs/`**
 
-Sending a Notification
-javascript
-Copia codice
-notify.send({
-  title: "New Message!",
-  message: "You have received a new message from John Doe.",
-  type: "info", // options: success, error, warning, info
-});
-Listening for Notifications
-javascript
-Copia codice
-notify.on('notificationReceived', (data) => {
-  console.log("Notification:", data);
-});
-🤝 Contributing
-We love contributions! If you have ideas, bug fixes, or enhancements, check out the contributing guidelines to get started.
+3. **Help integrato** (`--help`)
 
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 🚨 Problemi Comuni
 
-👤 Author
-Marco Sottana
-Discover more of my work at marco76tv!
- 9e03a20f (Squashed 'laravel/Modules/Notify/' changes from 404426f9..02d5f061)
+### 1. Duplicazione Script
 
-> **Nota**: Questo README è in continuo aggiornamento. Se trovi errori o hai suggerimenti, apri pure una issue!
+**Problema**: Stesso script in 3+ cartelle  
+**Soluzione**: Identificare versione CANONICA, deprecare altre
 
-<div align="center">
-  <sub>Built with ❤️ by the development team</sub>
-</div>
- b1ca4c93 (Squashed 'bashscripts/' changes from c21599d..019cc70)
- 80ec88ee9 (.)
+**Docs**: [git-conflict-resolution-analysis.md](./git-conflict-resolution-analysis.md) § "Problemi Sistemici"
 
+<<<<<<< HEAD
+### 2. Path Hardcoded
 
+**Problema**: Path assoluti non configurabili  
+**Soluzione**: Usare `${VAR:-default}` con env var
+
+```bash
+# ✅ CORRETTO
+readonly BASE_DIR="${BASE_DIR:-/var/www/_bases/base_ptvx_fila4_mono}"
+
+# ❌ ERRATO
+readonly BASE_DIR="/var/www/_bases/base_fixcity_fila4_mono"
+=======
+=======
 
 >>>>>>> 1831d11e78 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
 # Bash Scripts
 
 **Policy di organizzazione:** Nessuno script `.sh` deve essere presente direttamente nella root di questa cartella. Tutti gli script devono essere categorizzati e inseriti in sottocartelle dedicate in base alla loro funzione (es. `utils/`, `git/`, `docs_update/`).
@@ -663,75 +740,79 @@ Script per i test:
 
 ### 1. Esecuzione degli Script
 ```bash
-
+=======
 
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
 # Rendere lo script eseguibile
 chmod +x script.sh
 
 # Eseguire lo script
 ./script.sh
+>>>>>>> 4b834e6 (.)
 ```
 
-### 2. Permessi
-- Tutti gli script devono essere eseguibili
-- Utilizzare `chmod +x` per rendere eseguibili
-- Verificare i permessi prima dell'esecuzione
+### 3. Script Non Eseguibili
 
-### 3. Log
-- Gli script generano log in `logs/`
-- I log sono nominati con il timestamp
-- Mantenere i log per il debugging
-
-## Best Practices
-
-### 1. Nomenclatura
-- Utilizzare nomi descrittivi
-- Seguire il formato `nome_funzione.sh`
-- Evitare spazi nei nomi
-
-### 2. Documentazione
-- Includere commenti nel codice
-- Documentare i parametri
-- Specificare i requisiti
-
-### 3. Sicurezza
-- Verificare i permessi
-- Validare gli input
-- Gestire gli errori
-
-## Collegamenti
-- [Documentazione <nome progetto>](/docs/README.md)
-- [Mappa Documentazione](/docs/collegamenti-documentazione.md)
-- [Script Git](/docs/git.md)
-- [Toolkit Bashscripts](/bashscripts/docs/README.md)
-
-### Versione Incoming
-
-<div align="center">
-  <sub>Built with ❤️ by the development team</sub>
-</div> 
-
----
-
-
-### Versione Incoming
-
-
----
-
-
-### Versione Incoming
-
-This toolkit addresses these challenges by providing automated tools that simplify workflow and ensure consistency and quality.
-
-## Translations
-- [Italiano](docs/README.it.md)
-- [Español](docs/README.es.md)
-
----
-
-
+**Problema**: `Permission denied`  
+**Soluzione**:
+```bash
+chmod +x bashscripts/categoria/script.sh
 ```
+
+## 🔗 Collegamenti
+
+### Documentazione Interna
+
+- [Xot Module Docs](../../laravel/Modules/Xot/docs/)
+- [Bashscripts Location Policy](../../laravel/Modules/Xot/docs/bashscripts-location-policy.md)
+- [File Naming Rules](../../laravel/Modules/Xot/docs/file-naming-case-sensitivity.md)
+
+### Documentazione Esterna
+
+- [Git Conflict Markers](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented)
+- [PSR-4 Autoloading](https://www.php-fig.org/psr/psr-4/)
+- [Bash Best Practices](https://google.github.io/styleguide/shellguide.html)
+
+## 📝 Contribuire
+
+### Aggiungere Nuovo Script
+
+1. **Posizionamento**: Scegli sottocartella appropriata di `bashscripts/`
+2. **Naming**: Segui convenzioni (`{action}_{scope}_{version}.sh`)
+3. **Header**: Includi metadata completo
+4. **Help**: Implementa `--help` flag
+5. **Documentazione**: Crea/aggiorna file in `bashscripts/docs/`
+6. **Testing**: Test manuale + dry-run mode se applicabile
+7. **Review**: Code review prima di merge
+
+### Aggiornare Documentazione
+
+1. Identifica documento pertinente in `bashscripts/docs/`
+2. Aggiungi sezione o crea nuovo file (lowercase)
+3. Aggiorna questo README.md se nuovo documento
+4. Crea backlink bidirezionali
+5. Valida con checklist DRY+KISS
+
+## 🎓 Best Practices
+
+1. **DRY (Don't Repeat Yourself)**: No duplicazioni
+2. **KISS (Keep It Simple, Stupid)**: Semplicità over complessità
+3. **Safety First**: Backup, dry-run, validazione
+4. **Documentation**: Commenti inline + docs esterna
+5. **Testing**: Test prima di production
+6. **Portability**: Env var invece di path hardcoded
+7. **Idempotency**: Script riutilizzabile più volte senza side effect
+
+## 📊 Statistiche Repository
+
+- **Script totali**: 506+
+- **Cartelle principali**: 50+
+- **Script con duplicati**: ~100 (da pulire)
+- **Script documentati**: 5+ (in crescita)
+- **Versioni mantenute**: V6+ (deprecare V1-V5)
+
+---
+
+**Ultimo aggiornamento**: Gennaio 2025  
+**Maintainer**: Sistema PTVX  
+**Status**: In continuo miglioramento

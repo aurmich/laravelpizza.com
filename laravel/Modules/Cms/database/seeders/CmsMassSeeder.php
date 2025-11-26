@@ -7,7 +7,6 @@ namespace Modules\Cms\Database\Seeders;
 use Exception;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
 use Modules\Cms\Models\Conf;
 use Modules\Cms\Models\Menu;
@@ -70,7 +69,7 @@ class CmsMassSeeder extends Seeder
         $this->command->info('🔧 Creazione moduli CMS...');
 
         // Crea 20 moduli CMS
-        /** @var Factory<Module> $factory */
+        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Module> $factory */
         $factory = Module::factory(20);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Module> $modules */
         $modules = $factory->create([
@@ -89,7 +88,7 @@ class CmsMassSeeder extends Seeder
         $this->command->info('📑 Creazione sezioni...');
 
         // Crea 100 sezioni
-        /** @var Factory<Section> $factory */
+        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Section> $factory */
         $factory = Section::factory(100);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Section> $sections */
         $sections = $factory->create([
@@ -108,7 +107,7 @@ class CmsMassSeeder extends Seeder
         $this->command->info('📄 Creazione pagine...');
 
         // Crea 500 pagine
-        /** @var Factory<Page> $factory */
+        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Page> $factory */
         $factory = Page::factory(500);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Page> $pages */
         $pages = $factory->create([
@@ -127,7 +126,7 @@ class CmsMassSeeder extends Seeder
         $this->command->info('📝 Creazione contenuti delle pagine...');
 
         // Crea 1000 contenuti di pagina
-        /** @var Factory<PageContent> $factory */
+        /** @var \Illuminate\Database\Eloquent\Factories\Factory<PageContent> $factory */
         $factory = PageContent::factory(1000);
         /** @var \Illuminate\Database\Eloquent\Collection<int, PageContent> $contents */
         $contents = $factory->create([
@@ -145,7 +144,7 @@ class CmsMassSeeder extends Seeder
         $this->command->info('🍽️ Creazione menu...');
 
         // Crea 50 menu
-        /** @var Factory<Menu> $factory */
+        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Menu> $factory */
         $factory = Menu::factory(50);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Menu> $menus */
         $menus = $factory->create([

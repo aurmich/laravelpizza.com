@@ -3,11 +3,13 @@
 Il seguente formato propone una ristrutturazione completa del file di prompt `docs.txt` per migliorarne la leggibilità, l'organizzazione e l'efficacia:
 
 ```
+=======
 
+<<<<<<< HEAD
 
+=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+>>>>>>> 4b834e6 (.)
 # SISTEMA DI DOCUMENTAZIONE MODULARE
 
 ## 1. PRINCIPI FONDAMENTALI

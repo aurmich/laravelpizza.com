@@ -15,17 +15,12 @@ use function Pest\Laravel\assertGuest;
 
 uses(TestCase::class);
 
-// =============================================================================
 // LOGIN WIDGET TESTS - Filament Component
-// =============================================================================
 // ✅ Test del WIDGET Filament, non della pagina
 // ✅ Focus su: rendering, form interaction, authentication logic
 // ✅ Architettura: Filament Widget + XotData + dynamic resolution
-// =============================================================================
 
-// =============================================================================
 // WIDGET STRUCTURE TESTS
-// =============================================================================
 
 test('widget can be rendered', function (): void {
     $component = Livewire::test(LoginWidget::class);
@@ -44,9 +39,7 @@ test('widget initializes correctly', function (): void {
     $component->assertSet('data', []);
 });
 
-// =============================================================================
 // WIDGET DATA BINDING TESTS
-// =============================================================================
 
 test('can set form data', function (): void {
     $component = Livewire::test(LoginWidget::class);
@@ -58,9 +51,7 @@ test('can set form data', function (): void {
     $component->assertSet('data.email', 'test@example.com')->assertSet('data.password', 'password123');
 });
 
-// =============================================================================
 // WIDGET AUTHENTICATION LOGIC TESTS
-// =============================================================================
 
 test('authenticates user with valid credentials', function (): void {
     // ✅ Utilizzo funzione centralizzata dal TestCase
@@ -104,9 +95,7 @@ test('handles invalid credentials gracefully', function (): void {
     assertGuest();
 });
 
-// =============================================================================
 // WIDGET XOTDATA INTEGRATION TESTS
-// =============================================================================
 
 test('authentication works regardless of user type', function (): void {
     // ✅ Utilizzo funzioni centralizzate dal TestCase

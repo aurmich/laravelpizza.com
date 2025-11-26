@@ -22,13 +22,11 @@ class Test extends Component
 
     public function render(): Renderable
     {
-        /** @var string $view */
         $view = app(GetViewAction::class)->execute();
         $view_params = [
             'view' => $view,
         ];
 
-        /** @var view-string $view */
         return view($view, $view_params);
     }
 }

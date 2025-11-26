@@ -42,16 +42,12 @@ process_file() {
     
     # Usa sed per rimuovere i conflict markers e tenere solo le incoming changes
     # Strategia:
-    # 1. Rimuove tutto dalla linea "<<<<<<< HEAD" fino alla linea "======="
-    # 2. Rimuove la linea ">>>>>>> filament4"
     # 3. Mantiene tutto quello che sta tra "=======" e ">>>>>>> filament4"
     
-    if sed -i '/^<<<<<<< HEAD$/,/^=======$/d; /^>>>>>>> filament4$/d' "$file"; then
         echo -e "${GREEN}✓ Risolto: ${relative_path}${NC}"
         ((PROCESSED_FILES++))
         
         # Verifica che il file non abbia più conflitti
-        if grep -q "<<<<<<< HEAD\|=======\|>>>>>>> filament4" "$file"; then
             echo -e "${RED}⚠ ATTENZIONE: Il file potrebbe avere ancora conflitti: ${relative_path}${NC}"
         fi
     else
@@ -64,7 +60,6 @@ process_file() {
 
 # Trova tutti i file con conflitti
 echo -e "${BLUE}Ricerca dei file con conflitti...${NC}"
-mapfile -t CONFLICT_FILES < <(find "$WORK_DIR" -type f -name "*.php" -exec grep -l "<<<<<<< HEAD" {} \;)
 
 TOTAL_FILES=${#CONFLICT_FILES[@]}
 
@@ -95,39 +90,3 @@ for file in "${CONFLICT_FILES[@]}"; do
 done
 
 echo ""
-echo "========================================"
-echo -e "${GREEN}🐄 SuperMucca ha finito il lavoro! 🐄${NC}"
-echo ""
-echo -e "${BLUE}Statistiche:${NC}"
-echo -e "  File totali trovati: ${TOTAL_FILES}"
-echo -e "  File processati: ${GREEN}${PROCESSED_FILES}${NC}"
-echo -e "  File saltati/errori: ${RED}${SKIPPED_FILES}${NC}"
-echo ""
-
-if [ $PROCESSED_FILES -gt 0 ]; then
-    echo -e "${GREEN}✓ Conflitti risolti con successo!${NC}"
-    echo ""
-    echo -e "${YELLOW}Prossimi passi suggeriti:${NC}"
-    echo "1. Controlla i file modificati:"
-    echo "   git status"
-    echo ""
-    echo "2. Verifica che tutto sia corretto:"
-    echo "   git diff --cached"
-    echo ""
-    echo "3. Committa le modifiche:"
-    echo "   git add ."
-    echo "   git commit -m 'Resolve merge conflicts - accept filament4 changes'"
-    echo ""
-    echo "4. Esegui i test:"
-    echo "   ./vendor/bin/phpstan analyze Modules --level=9"
-    echo ""
-fi
-
-if [ $SKIPPED_FILES -gt 0 ]; then
-    echo -e "${RED}⚠ Alcuni file potrebbero necessitare di attenzione manuale${NC}"
-    echo "Controlla i file .backup per vedere le versioni originali"
-fi
-
-echo ""
-echo -e "${BLUE}File di backup creati con estensione .backup${NC}"
-echo -e "${BLUE}Puoi rimuoverli con: find $WORK_DIR -name '*.backup' -delete${NC}"

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Cms\Tests\Feature\Auth;
 
+use Exception;
 use Livewire\Livewire;
 use Modules\User\Filament\Widgets\RegistrationWidget;
 use Modules\Xot\Datas\XotData;
@@ -18,38 +19,28 @@ beforeEach(function (): void {
     static::mockXotData();
 });
 
-// =============================================================================
 // REGISTRATION WIDGET TESTS - Filament Component
-// =============================================================================
 // ✅ Test del WIDGET Filament, non della pagina
 // ✅ Focus su: rendering, form interaction, basic validation
 // ✅ Architettura: Filament Widget + XotBaseWidget + dynamic resolution
-// =============================================================================
 
-// =============================================================================
 // WIDGET CORE TESTS
-// =============================================================================
 
-test('widget can be rendered for patient type', function () {
     Livewire::test(RegistrationWidget::class, ['type' => 'patient'])
         ->assertStatus(200)
         ->assertViewIs('pub_theme::filament.widgets.registration');
 });
 
-test('widget can be rendered for doctor type', function () {
     Livewire::test(RegistrationWidget::class, ['type' => 'doctor'])
         ->assertStatus(200)
         ->assertViewIs('pub_theme::filament.widgets.registration');
 });
 
-test('widget requires type parameter', function () {
-    expect(function () {
         Livewire::test(RegistrationWidget::class);
     })
-        ->toThrow(\Exception::class);
+        ->toThrow(Exception::class);
 });
 
-test('widget can handle form data input', function () {
     // ✅ Utilizzo funzione centralizzata dal TestCase
     $email = static::generateUniqueEmail();
 
@@ -62,7 +53,6 @@ test('widget can handle form data input', function () {
     expect($widget->get('data.email'))->toBe($email);
 });
 
-test('widget maintains state after setting multiple fields', function () {
     $testData = [
         'name' => 'Test Patient',
         'email' => static::generateUniqueEmail(), // ✅ Utilizzo funzione centralizzata
@@ -80,7 +70,6 @@ test('widget maintains state after setting multiple fields', function () {
     }
 });
 
-test('widget calls register method without fatal errors', function () {
     $widget = Livewire::test(RegistrationWidget::class, ['type' => 'patient'])
         ->set('data.email', static::generateUniqueEmail()) // ✅ Utilizzo funzione centralizzata
         ->set('data.name', 'Test User')
@@ -91,20 +80,18 @@ test('widget calls register method without fatal errors', function () {
     try {
         $widget->call('register');
         expect(true)->toBeTrue(); // Success path
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         // Se fallisce per action class o validation, è normale in test
-        expect($e)->toBeInstanceOf(\Exception::class);
+        expect($e)->toBeInstanceOf(Exception::class);
     }
 });
 
-test('widget works with Livewire testing framework', function () {
     $widget = Livewire::test(RegistrationWidget::class, ['type' => 'patient']);
 
     // Verifica che il widget sia compatibile con Livewire testing
     expect($widget)->not()->toBeNull();
 });
 
-test('widget handles different user types', function () {
     foreach (['patient', 'doctor'] as $type) {
         $widget = Livewire::test(RegistrationWidget::class, ['type' => $type])
             ->set('data.email', static::generateUniqueEmail()) // ✅ Utilizzo funzione centralizzata
@@ -114,14 +101,13 @@ test('widget handles different user types', function () {
         try {
             $widget->call('register');
             expect(true)->toBeTrue();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Normale per environment di test
-            expect($e)->toBeInstanceOf(\Exception::class);
+            expect($e)->toBeInstanceOf(Exception::class);
         }
     }
 });
 
-test('widget maintains state after form errors', function () {
     $email = 'invalid-email';
     $name = 'Test User';
 

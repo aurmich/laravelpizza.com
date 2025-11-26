@@ -48,22 +48,7 @@
 ### Logica di Risoluzione
 Gli script risolvono i conflitti Git prendendo sempre la **"incoming change"** (develop):
 
-```
-<<<<<<< HEAD
-codice locale (viene RIMOSSO)
-=======
-codice incoming (viene MANTENUTO)
->>>>>>> develop
-```
 
-### Algoritmo AWK
-```awk
-BEGIN { skip = 0 }
-/^<<<<<<< HEAD/ { skip = 1; next }    # Inizia a saltare
-/^=======/ { skip = 0; next }         # Smette di saltare
-/^>>>>>>> / { next }                  # Rimuove marker finale
-!skip { print }                       # Stampa solo se non sta saltando
-```
 
 ## RISULTATI OTTENUTI
 
@@ -117,14 +102,12 @@ find . -name "*.backup" -delete
 ## VERIFICA POST-RISOLUZIONE
 
 ### ✅ **Controlli Eseguiti**
-1. **Nessun marker rimasto**: `grep -r "<<<<<<< HEAD" .`
+1. **Nessun marker rimasto**
 2. **Sintassi PHP valida**: `php -l file.php`
 3. **Git status pulito**: `git status`
 
 ### 🔍 **Comandi Utili**
 ```bash
-# Verifica conflitti rimanenti
-grep -r "<<<<<<< HEAD\|=======\|>>>>>>> " . --include="*.php"
 
 # Mostra differenze
 git diff
@@ -191,8 +174,6 @@ chmod +x ./Modules/Xot/bashscripts/git/*.sh
 
 ### ❌ **Problema**: Conflitti non risolti
 ```bash
-# Verifica manualmente
-grep -r "<<<<<<< HEAD" .
 # Esegui di nuovo lo script
 ./Modules/Xot/bashscripts/git/fix_conflicts_now.sh
 ```

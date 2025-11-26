@@ -1,7 +1,7 @@
 # Modulo CMS - Content Management System
 
 ## 🎯 Panoramica
-Sistema completo di gestione contenuti basato su Filament Builder Blocks per SaluteOra.
+Sistema completo di gestione contenuti basato su Filament Builder Blocks per <nome progetto>.
 
 ## 🏗️ Componenti Principali
 - **PageResource**: Interfaccia amministrativa Filament
@@ -28,10 +28,11 @@ Modules/Cms/
 - [Processo Build Tema](./theme-build-process.md)
 - [Architettura Frontend](./frontend-architecture/struttura-homepage.md)
 - [Testing Guidelines](./tests/architecture-separation-rules.md)
+- [PHPStan Fixes Summary](./phpstan-fixes-summary.md) ⭐ **QUALITY**
 
 ### Moduli Correlati
 - [Modulo UI - Blocchi](../../UI/docs/blocks-system.md)
-- [Modulo SaluteOra - Homepage](../../SaluteOra/docs/homepage-architecture.md)
+- [Modulo <nome progetto> - Homepage](../../<nome progetto>/docs/homepage-architecture.md)
 
 ### Documentazione Root
 - [Architettura Generale](../../../docs/architecture.md)
@@ -55,7 +56,7 @@ Modules/Cms/
 **Ultimo aggiornamento**: Gennaio 2025
 # Modulo CMS
 > **Collegamenti correlati**
-> - [README.md documentazione generale SaluteOra](../../../../docs/README.md)
+> - [README.md documentazione generale <nome progetto>](../../../../docs/README.md)
 > - [README.md toolkit bashscripts](../../../../bashscripts/docs/README.md)
 > - [README.md modulo CMS](../../../../laravel/Modules/Cms/docs/README.md)
 > - [README.md modulo Dental](../../../../laravel/Modules/Dental/docs/README.md)
@@ -75,7 +76,7 @@ Modules/Cms/
 > - [README.md tema Two](../../../../laravel/Themes/Two/docs/README.md)
 > - [Collegamenti documentazione centrale](../../../../docs/collegamenti-documentazione.md)
 
-> - [README.md documentazione generale SaluteOra](../../../../docs/README.md)
+> - [README.md documentazione generale <nome progetto>](../../../../docs/README.md)
 > - [README.md toolkit bashscripts](../../../../bashscripts/docs/README.md)
 > - [README.md modulo CMS](../../../../laravel/Modules/Cms/docs/README.md)
 > - [README.md modulo Dental](../../../../laravel/Modules/Dental/docs/README.md)
@@ -173,9 +174,9 @@ Il modulo CMS gestisce i contenuti e i widget del sistema, fornendo un sistema f
 
 ## Supporto
 Per domande o problemi, consultare:
-1. La [documentazione ufficiale](https://saluteora.com/docs)
-2. Il [forum di supporto](https://saluteora.com/forum)
-3. Il team di sviluppo via [email](mailto:support@saluteora.com)
+1. La [documentazione ufficiale](https://<nome progetto>.com/docs)
+2. Il [forum di supporto](https://<nome progetto>.com/forum)
+3. Il team di sviluppo via [email](mailto:support@<nome progetto>.com)
 > Tip: This configuration file is also where you’ll define any "collections" (for example, a collection of the contributors to your site, or a collection of blog posts). Check out the official [Jigsaw documentation](https://jigsaw.tighten.co/docs/collections/) to learn more.
 
 ---

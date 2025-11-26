@@ -142,29 +142,11 @@ class BlockData extends Data implements Wireable
 }
 ```
 
-### Blocks Component
-Il componente `Blocks` del modulo UI viene utilizzato per renderizzare collezioni di blocchi:
-
-```php
-use Modules\UI\View\Components\Render\Blocks;
-
-$blocksComponent = new Blocks(
-    $blocks,
-    $page,
-    'ui::components.render.blocks.v1' // Percorso view completo
-);
-
-return $blocksComponent->render();
-```
-
-**Nota**: `GetViewAction` ora gestisce correttamente i percorsi view completi. Quando viene passato un percorso che contiene `::`, viene utilizzato direttamente senza processamento.
-
 ### Rendering Process
 1. Il JSON viene caricato dal modello `Page`
 2. I `content_blocks` vengono processati da `BlockData::collect()`
-3. Il componente `Blocks` viene istanziato con il percorso view completo
-4. Ogni blocco viene renderizzato tramite la sua view specificata
-5. Le view sono organizzate nel tema sotto `Themes/One/resources/views/components/blocks/`
+3. Ogni blocco viene renderizzato tramite la sua view specificata
+4. Le view sono organizzate nel tema sotto `Themes/One/resources/views/components/blocks/`
 
 ## Convenzioni di Naming
 

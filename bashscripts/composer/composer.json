@@ -16,15 +16,31 @@
     },
     "require": {},
     "require-dev": {
+<<<<<<< HEAD
+        "larastan/larastan": "^3.0"
+        "larastan/larastan": "*"
+<<<<<<< HEAD
+=======
+        "larastan/larastan": "*"
+        "larastan/larastan": "^3.0"
+        "larastan/larastan": "*"
+        "larastan/larastan": "^3.0"
         "larastan/larastan": "^3.0"
         "larastan/larastan": "*"
         "larastan/larastan": "*"
+>>>>>>> ef8dc24 (.)
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
         "larastan/larastan": "^3.0"
+=======
         "larastan/larastan": "*"
-        "larastan/larastan": "^3.0"
-        "larastan/larastan": "^3.0"
+>>>>>>> 59901687 (.)
+=======
         "larastan/larastan": "*"
-        "larastan/larastan": "*"
+>>>>>>> f198176d (.)
+>>>>>>> 3d9f022 (.)
+>>>>>>> 65292cd5 (.)
     },
     "config": {
         "sort-packages": true,

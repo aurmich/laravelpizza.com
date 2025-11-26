@@ -62,12 +62,12 @@ class FolioVoltServiceProvider extends ServiceProvider
         // $currentLocale = LaravelLocalization::setLocale() ?? app()->getLocale();
 
         /**
-         * @var Collection<int, \Nwidart\Modules\Module>
+         * @var Collection<int, \Nwidart\Modules\Module> $modules
          */
         $modules = Module::all();
         $paths = [];
 
-        // Verifica che il percorso esista prima di passarlo a Folio
+        // Verifica che il percorso tema esista e sia una directory prima di passarlo a Folio
         if (File::exists($theme_path) && File::isDirectory($theme_path)) {
             $locale = LaravelLocalization::setLocale() ?: app()->getLocale();
             Folio::path($theme_path)
@@ -81,7 +81,7 @@ class FolioVoltServiceProvider extends ServiceProvider
 
         foreach ($modules as $module) {
             $path = $module->getPath().'/resources/views/pages';
-            if (! File::exists($path)) {
+            if (! File::exists($path) || ! File::isDirectory($path)) {
                 continue;
             }
             $paths[] = $path;

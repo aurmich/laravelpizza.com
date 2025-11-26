@@ -8,8 +8,7 @@ use Modules\Xot\Database\Migrations\XotBaseMigration;
 /*
  * Class .
  */
-return new class extends XotBaseMigration
-{
+return new class extends XotBaseMigration {
     /**
      * Run the migrations.
      */
@@ -24,11 +23,11 @@ return new class extends XotBaseMigration
         });
         // -- UPDATE --
         $this->tableUpdate(function (Blueprint $table): void {
-            if (! $this->hasColumn('items')) {
+            if (!$this->hasColumn('items')) {
                 $table->text('items')->nullable();
             }
 
-            if (! $this->hasColumn('parent_id')) {
+            if (!$this->hasColumn('parent_id')) {
                 $table->unsignedBigInteger('parent_id')->nullable();
             }
             if ($this->hasColumn('name')) {

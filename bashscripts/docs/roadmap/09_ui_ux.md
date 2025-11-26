@@ -8,8 +8,12 @@
 
 aurmich/dev
 
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+aurmich/dev
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> f71d08e230 (.)
+>>>>>>> 4b834e6 (.)
 # 📱 Fase 9: UI/UX
 
 ## 📋 Panoramica
@@ -139,11 +143,13 @@ Questa fase si concentra sullo sviluppo di interfacce utente moderne e intuitive
 
 aurmich/dev
 - Monitoraggio utilizzo
+=======
 
+<<<<<<< HEAD
 
+=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+>>>>>>> 4b834e6 (.)
 # 📱 Fase 9: UI/UX
 
 ## 📋 Panoramica
@@ -272,11 +278,13 @@ Questa fase si concentra sullo sviluppo di interfacce utente moderne e intuitive
 
 [0;34mℹ️ [2025-04-22 11:23:26] Scelto blocco incoming (1 linee vs 1)[0m
 aurmich/dev
+=======
 
+<<<<<<< HEAD
 
+=======
 >>>>>>> f71d08e230 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+>>>>>>> 4b834e6 (.)
 # 📱 Fase 9: UI/UX
 
 ## 📋 Panoramica
@@ -657,11 +665,13 @@ Questa fase si concentra sullo sviluppo di interfacce utente moderne e intuitive
 
 [0;34mℹ️ [2025-04-22 11:23:26] Scelto blocco HEAD (253 linee vs 1)[0m
  43df3e0 (.)
+=======
 
+<<<<<<< HEAD
 
+=======
 >>>>>>> 1831d11e78 (.)
->>>>>>> 71ff9e32 (.)
->>>>>>> ec52a6b4 (.)
+>>>>>>> 4b834e6 (.)
 aurmich/dev
 
 ## Collegamenti tra versioni di 09_ui_ux.md

@@ -24,7 +24,6 @@ class Status extends Component
 
     public function render(): Renderable
     {
-        /** @var string $view */
         $view = app(GetViewAction::class)->execute();
 
         $acts = [
@@ -67,7 +66,6 @@ class Status extends Component
             'acts' => $acts,
         ];
 
-        /** @var view-string $view */
         return view($view, $view_params);
     }
 

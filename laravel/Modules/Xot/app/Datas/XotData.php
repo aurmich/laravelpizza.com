@@ -333,16 +333,20 @@ class XotData extends Data implements Wireable
     {
         $path0 = base_path('Themes/'.$this->pub_theme.'/resources/views/'.$key);
 
-        if (! file_exists($path0)) {
-            // Se il percorso non esiste, restituiamo il percorso base senza realpath
-            // Questo permette al sistema di funzionare anche se il tema non è ancora configurato
-            return $path0;
-        }
-
         try {
-            return realpath($path0);
+            /** @phpstan-ignore-next-line */
+            $realPath = @realpath($path0);
+            // realpath può restituire false se il percorso non esiste o è un link simbolico rotto
+            // Usiamo @ per sopprimere warning e gestiamo il false esplicitamente
+            /** @phpstan-ignore-next-line */
+            if (! is_string($realPath)) {
+                return $path0;
+            }
+
+            return $realPath;
         } catch (\Safe\Exceptions\FilesystemException $e) {
-            throw new Exception('realpath not find dir['.$path0.']'.PHP_EOL.'['.$e->getMessage().']');
+            // Se realpath fallisce, restituiamo il percorso originale
+            return $path0;
         }
     }
 

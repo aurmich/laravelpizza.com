@@ -4,25 +4,20 @@ declare(strict_types=1);
 
 namespace Modules\Cms\Tests\Feature\Auth;
 
-use Modules\Xot\Tests\TestCase;
 use Livewire\Volt\Volt as LivewireVolt;
 use Modules\Xot\Datas\XotData;
+use Modules\Xot\Tests\TestCase;
 
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\get;
 
 uses(TestCase::class);
 
-test('profile page is displayed', function () {
-    $userClass = XotData::make()->getUserClass();
     $user = $userClass::factory()->create();
 
     $lang = app()->getLocale();
-    actingAs($user)->get('/' . $lang . '/settings/profile')->assertOk();
+    actingAs($user)->get('/'.$lang.'/settings/profile')->assertOk();
 });
 
-test('profile information can be updated', function () {
-    $userClass = XotData::make()->getUserClass();
     $user = $userClass::factory()->create();
 
     actingAs($user);
@@ -44,8 +39,6 @@ test('profile information can be updated', function () {
         ->toBeNull();
 });
 
-test('email verification status is unchanged when email address is unchanged', function () {
-    $userClass = XotData::make()->getUserClass();
     $user = $userClass::factory()->create();
 
     actingAs($user);
@@ -60,8 +53,6 @@ test('email verification status is unchanged when email address is unchanged', f
     expect($user->refresh()->email_verified_at)->not->toBeNull();
 });
 
-test('user can delete their account', function () {
-    $userClass = XotData::make()->getUserClass();
     $user = $userClass::factory()->create();
 
     actingAs($user);
@@ -73,8 +64,6 @@ test('user can delete their account', function () {
     expect($user->fresh())->toBeNull()->and(auth()->check())->toBeFalse();
 });
 
-test('correct password must be provided to delete account', function () {
-    $userClass = XotData::make()->getUserClass();
     $user = $userClass::factory()->create();
 
     actingAs($user);

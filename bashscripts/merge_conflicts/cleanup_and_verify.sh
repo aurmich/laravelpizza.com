@@ -27,7 +27,6 @@ check_remaining_conflicts() {
     echo -e "${BLUE}Controllo conflitti residui...${NC}"
     
     local remaining_files
-    mapfile -t remaining_files < <(find . -type f -name "*.php" -exec grep -l "<<<<<<< HEAD\|=======\|>>>>>>> filament4" {} \; 2>/dev/null || true)
     
     if [ ${#remaining_files[@]} -eq 0 ]; then
         echo -e "${GREEN}✓ Nessun conflitto residuo trovato!${NC}"

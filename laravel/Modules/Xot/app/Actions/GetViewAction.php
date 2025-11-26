@@ -22,6 +22,29 @@ class GetViewAction
      */
     public function execute(string $tpl = '', string $file0 = ''): string
     {
+        // Se $tpl è già un percorso view completo (contiene ::), restituirlo direttamente
+        if ($tpl !== '' && Str::contains($tpl, '::')) {
+            // Controlla se la view esiste direttamente
+            if (view()->exists($tpl)) {
+                return $tpl;
+            }
+
+            // Se non esiste, potrebbe essere un percorso concatenato erroneamente
+            // Controlla se contiene doppio "::" che indica un errore di concatenazione
+            if (Str::contains($tpl, '::') && substr_count($tpl, '::') > 1) {
+                // Estrae l'ultima parte dopo l'ultimo "::"
+                $parts = explode('::', $tpl);
+                $cleanTpl = end($parts);
+
+                // Prova con il nome pulito
+                if (view()->exists($cleanTpl)) {
+                    return $cleanTpl;
+                }
+            }
+
+            throw new Exception('View ['.$tpl.'] not found');
+        }
+
         if ($file0 === '') {
             $backtrace = debug_backtrace();
             $file0 = app(FixPathAction::class)->execute($backtrace[0]['file'] ?? '');

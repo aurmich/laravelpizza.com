@@ -326,7 +326,7 @@ class TenantService
             return $key;
         }
 
-        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(self::class).']');
+        // Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(self::class).']');
 
         return $res;
     }

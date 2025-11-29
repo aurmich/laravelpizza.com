@@ -90,5 +90,3 @@ echo $tenants->count(); // ✅ Output: 1
 
 
 
-
-

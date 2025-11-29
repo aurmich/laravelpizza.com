@@ -66,7 +66,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Todo extends Model
 {
-    use HasFactory;
+    use \Modules\Xot\Models\Traits\HasXotFactory;
 
     protected $fillable = [
         'description',
@@ -336,6 +336,6 @@ class TodoTest extends TestCase
 ## Riferimenti
 
 - [Laravel Folio Documentation](https://github.com/laravel/folio)
-- [Laravel Volt Documentation](https://livewire.laravel.com/docs/volt)
+- [Laravel Volt Documentation](https://livewire.laravel.com/project_docs/volt)
 - [Livewire Documentation](https://livewire.laravel.com)
 - [Articolo Originale di Nuno Maduro](https://nunomaduro.com/todo_application_with_laravel_folio_and_volt) 

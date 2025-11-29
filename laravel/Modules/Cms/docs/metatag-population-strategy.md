@@ -31,8 +31,7 @@ Basato su: `navigation.hero.welcome_subtitle.label`
 
 ## Strategia SEO Keywords
 
-ollo dentistico, primo trimestre
-```
+
 
 ### Keywords Inglesi
 ```
@@ -71,7 +70,6 @@ zahnhygiene, zahnkontrolle, erstes trimester
 - **DE**: "<main module> Projekt - ANDI, INMP, COI"
 
 Basato sui partner del progetto identificati nelle traduzioni.
-
 
 
 ## Configurazioni Tecniche

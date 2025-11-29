@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e63f6ef883dba26383ead3ef23390b6",
+    "content-hash": "595e6970ceed41f06d92763132fd6aba",
     "packages": [
         {
             "name": "aaronfrancis/fast-paginate",
@@ -1139,7 +1139,7 @@
         },
         {
             "name": "coolsam/panel-modules",
-            "version": "dev-master",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "Modules/Xot/./packages/coolsam/panel-modules",

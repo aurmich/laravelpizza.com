@@ -1,140 +1,79 @@
-# Code Quality - Xot Module
+# Code Quality Guidelines for Laravel Modules
 
-> Last Updated: 2025-11-15 08:05:46
+## Overview
+This document outlines the best practices for maintaining high code quality within a Laravel module. Adhering to these standards ensures consistency, readability, and maintainability across the codebase.
 
-## Current Metrics
+## Key Principles
+1. **Strict Typing**: Always use strict typing in PHP to prevent type-related errors and improve code reliability.
+2. **Static Analysis**: Utilize tools like PHPStan for static analysis to catch potential issues before runtime.
+3. **Consistent Formatting**: Follow PSR-12 coding standards for consistent code formatting.
+4. **Documentation**: Document all public methods and classes using PHPDoc to aid in code understanding and maintenance.
 
-| Tool | Score | Status |
-|------|-------|--------|
-| PHPStan (Level 10) | 0 errors | 🟢 |
-| PHPMD | 0 violations | 🟢 |
-| PHP Insights - Quality | N/A% | ⚪ |
-| PHP Insights - Complexity | N/A% | ⚪ |
-| PHP Insights - Architecture | N/A% | ⚪ |
-| PHP Insights - Style | N/A% | ⚪ |
+## Implementation Guidelines
+### 1. PHP Strict Types
+- Declare strict types at the beginning of every PHP file to enforce type safety.
+  ```php
+  declare(strict_types=1);
+  ```
 
-### Status Legend
-- 🟢 Excellent (meets or exceeds target)
-- 🟡 Good (minor improvements needed)
-- 🔴 Needs Work (significant improvements required)
-- ⚪ Not Available
+### 2. PHPStan Configuration
+- Configure PHPStan for each module with a `phpstan.neon.dist` file to set analysis levels and paths.
+  ```neon
+  parameters:
+      level: 5
+      paths:
+          - app
+  ```
+- Use higher levels (e.g., 5 or 8) for new modules or projects to enforce stricter checks.
 
-### Quality Targets
-- **PHPStan**: 0 errors (Level 10)
-- **PHPMD**: < 10 violations
-- **PHP Insights**:
-  - Quality: ≥ 80%
-  - Complexity: ≥ 70%
-  - Architecture: ≥ 75%
-  - Style: ≥ 85%
+### 3. Safe Library Usage
+- Use the `Safe` library for safer function calls that throw exceptions instead of returning `false`.
+  ```php
+  use function Safe\file_get_contents;
+  $content = Safe\file_get_contents('file.txt');
+  ```
 
-## Improvement History
+### 4. Class and Method Length
+- Keep methods under 20 lines and classes under 200 lines to maintain readability and single responsibility.
 
-### 2025-11-15 - Initial Analysis
-- PHPStan errors: 0
-- PHPMD violations: 0
-- Quality metrics recorded
+### 5. Dependency Injection
+- Use dependency injection to avoid direct instantiation of dependencies, promoting testability and flexibility.
 
-## Common Issues and Solutions
+## Code Quality Tools
 
-### PHPStan Issues
+### Automation Scripts
 
-✓ No PHPStan errors detected!
+- [fix_docs_case](../../../../../bashscripts/docs/docs/fix_docs_case.md) - Automatic standardization of documentation filenames
+- Run automation scripts regularly to maintain code consistency
 
-### PHPMD Issues
+## Strumenti di Qualità del Codice
 
-✓ No PHPMD violations detected!
+### Scripts di Automazione
 
-## Best Practices for Xot
+- [fix_docs_case](../../../../../bashscripts/docs/docs/fix_docs_case.md) - Standardizzazione automatica dei nomi file nella documentazione
+- Eseguire gli script di automazione regolarmente per mantenere la coerenza del codice
 
-### Type Safety (PHPStan Level 10)
+## Common Issues and Fixes
+- **Type Errors**: Ensure all methods and functions have explicit return types and parameter types to avoid type-related bugs.
+- **Static Analysis Failures**: Address PHPStan errors by refining code or updating the baseline for existing code.
+- **Code Duplication**: Refactor duplicated code into reusable methods or traits to reduce maintenance overhead.
 
-1. **Always use type hints**
-   ```php
-   // ✅ CORRECT
-   public function getUserById(int $id): ?User
-   {
-       return User::find($id);
-   }
+## Testing and Verification
+- Run PHPStan analysis regularly to maintain code quality (`./vendor/bin/phpstan analyse`).
+- Use automated tools in CI/CD pipelines to enforce coding standards on every commit or pull request.
 
-   // ❌ WRONG
-   public function getUserById($id)
-   {
-       return User::find($id);
-   }
-   ```
+## Documentation and Updates
+- Document any deviations from these guidelines or custom quality rules in the relevant module's documentation folder.
+- Update this document if new tools or standards for code quality are introduced.
 
-2. **Use Safe library for unsafe functions**
-   ```php
-   use function Safe\json_decode;
-   use function Safe\file_get_contents;
-
-   $data = json_decode($json, true); // Throws on error
-   ```
-
-3. **Handle edge cases**
-   ```php
-   public function getConnectionName(): ?string
-   {
-       if (isset($this->connection)) {
-           $connection = $this->connection;
-
-           // Handle UnitEnum edge case
-           if ($connection instanceof \UnitEnum) {
-               return null;
-           }
-
-           return $connection;
-       }
-
-       return parent::getConnectionName();
-   }
-   ```
-
-### Code Complexity (PHPMD)
-
-1. **Keep methods focused** - Max 150 lines per method
-2. **Limit parameters** - Max 10 parameters (consider DTOs for more)
-3. **Avoid deep nesting** - Extract complex logic to separate methods
-4. **Reduce coupling** - Use dependency injection and interfaces
-
-### Model Architecture
-
-Models in this module extend:
-- **BaseModel** - For regular Eloquent models
-- **BasePivot** - For many-to-many pivot tables
-- **BaseMorphPivot** - For polymorphic pivot tables
-
-See [`models/README.md`](./models/README.md) for detailed model documentation.
-
-## Continuous Improvement
-
-### Weekly Checks
-```bash
-# Run quality analysis
-./bashscripts/quality-improvement/analyze-module.sh Xot
-
-# Update documentation
-./bashscripts/quality-improvement/update-module-docs.sh Xot
-```
-
-### Pre-commit
-```bash
-# Format code
-vendor/bin/pint --dirty
-
-# Quick PHPStan check on changed files
-vendor/bin/phpstan analyse path/to/changed/file.php --level=10
-```
-
-## Resources
-
-- [PHPStan Documentation](https://phpstan.org/user-guide/getting-started)
-- [PHPMD Rules](https://phpmd.org/rules/index.html)
-- [PHP Insights](https://phpinsights.com/)
-- [Safe Library](https://github.com/thecodingmachine/safe)
-- [Project CLAUDE.md](../../CLAUDE.md)
-
----
-
-**Analysis Reports**: `bashscripts/quality-improvement/results/Xot/`
+## Links to Related Documentation
+- [Xot Base Classes](../Xot/docs/XOT_BASE_CLASSES.md)
+- [Filament Extension Pattern](../../Notify/docs/FILAMENT_EXTENSION_PATTERN.md)
+- [Filament Extension Pattern Analysis](../../Notify/docs/FILAMENT_EXTENSION_PATTERN_ANALYSIS.md)
+- [Patient Module - Namespace Conventions](../../Patient/docs/NAMESPACE_CONVENTIONS.md)
+- [Patient Module - Validation Errors](../../Patient/docs/VALIDATION_ERRORS.md)
+- [PHP Strict Types](./PHP-STRICT-TYPES.md)
+- [PHPStan Implementation Guide](./PHPSTAN-IMPLEMENTATION-GUIDE.md)
+- [Naming Conventions](./NAMING-CONVENTIONS.md)
+- [Service Provider Best Practices](./SERVICE-PROVIDER-BEST-PRACTICES.md)
+- [Filament Best Practices](./FILAMENT-BEST-PRACTICES.md)

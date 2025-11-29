@@ -1,523 +1,193 @@
-# ⚡ Job - Il SISTEMA di CODE più POTENTE! 🚀
+# Modulo Job
 
-[![PHP Version](https://img.shields.io/badge/PHP-8.2+-blue.svg)](https://php.net)
-[![Laravel Version](https://img.shields.io/badge/Laravel-11.x-orange.svg)](https://laravel.com)
-[![Filament Version](https://img.shields.io/badge/Filament-3.x-purple.svg)](https://filamentphp.com)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Code Quality](https://img.shields.io/badge/code%20quality-A+-brightgreen.svg)](.codeclimate.yml)
-[![Test Coverage](https://img.shields.io/badge/coverage-90%25-success.svg)](phpunit.xml.dist)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/laraxot/job)
-[![Downloads](https://img.shields.io/badge/downloads-1k+-blue.svg)](https://packagist.org/packages/laraxot/job)
-[![Stars](https://img.shields.io/badge/stars-100+-yellow.svg)](https://github.com/laraxot/job)
-[![Issues](https://img.shields.io/github/issues/laraxot/job)](https://github.com/laraxot/job/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/laraxot/job)](https://github.com/laraxot/job/pulls)
-[![Security](https://img.shields.io/badge/security-A+-brightgreen.svg)](https://github.com/laraxot/job/security)
-[![Documentation](https://img.shields.io/badge/docs-complete-brightgreen.svg)](docs/README.md)
-[![Queues](https://img.shields.io/badge/queues-10+-blue.svg)](docs/queues.md)
-[![Real-time](https://img.shields.io/badge/real--time-monitoring-orange.svg)](docs/monitoring.md)
-[![Scheduler](https://img.shields.io/badge/scheduler-advanced-purple.svg)](docs/scheduler.md)
+## 📋 Panoramica
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/laraxot/job/main/docs/assets/job-banner.png" alt="Job Banner" width="800">
-  <br>
-  <em>🎯 Il sistema di code e job più avanzato e performante per Laravel!</em>
-</div>
+Il modulo Job gestisce il sistema di code e job processing dell'applicazione Laravel Pizza. Fornisce funzionalità avanzate per l'esecuzione asincrona di task, monitoraggio dello stato dei job e gestione delle code.
 
-## 🌟 Perché Job è REVOLUZIONARIO?
+## 🚀 Installazione
 
-### 🚀 **Sistema di Code Avanzato**
-- **⚡ 10+ Code Supportate**: Redis, Database, SQS, Beanstalkd, e altri
-- **🔄 Job Scheduling**: Pianificazione avanzata di job ricorrenti
-- **📊 Real-Time Monitoring**: Monitoraggio in tempo reale delle code
-- **🎯 Job Prioritization**: Sistema di priorità per job critici
-- **🔒 Job Security**: Sicurezza e isolamento dei job
-- **📈 Performance Analytics**: Analisi performance e ottimizzazioni
-
-### 🎯 **Integrazione Filament Perfetta**
-- **JobResource**: CRUD completo per gestione job
-- **QueueManager**: Gestore code con interfaccia visuale
-- **JobMonitor**: Monitoraggio real-time dei job
-- **SchedulerResource**: Gestore scheduler avanzato
-- **JobAnalytics**: Dashboard analitica per job
-
-### 🏗️ **Architettura Scalabile**
-- **Multi-Queue**: Supporto per multiple code simultanee
-- **Job Chaining**: Catene di job complesse
-- **Retry Logic**: Logica di retry intelligente
-- **Dead Letter Queues**: Gestione job falliti
-- **Batch Processing**: Elaborazione batch avanzata
-
-## 🎯 Funzionalità PRINCIPALI
-
-### ⚡ **Sistema Code Multi-Queue**
-```php
-// Configurazione code avanzate
-class QueueConfig
-{
-    public static function getQueues(): array
-    {
-        return [
-            'default' => [
-                'connection' => 'redis',
-                'driver' => 'redis',
-                'retry_after' => 90,
-                'block_for' => null,
-                'after_commit' => false,
-            ],
-            'high' => [
-                'connection' => 'redis',
-                'driver' => 'redis',
-                'retry_after' => 30,
-                'block_for' => null,
-                'after_commit' => true,
-            ],
-            'low' => [
-                'connection' => 'database',
-                'driver' => 'database',
-                'retry_after' => 300,
-                'block_for' => null,
-                'after_commit' => false,
-            ],
-            'emails' => [
-                'connection' => 'sqs',
-                'driver' => 'sqs',
-                'retry_after' => 60,
-                'block_for' => null,
-                'after_commit' => true,
-            ],
-            'notifications' => [
-                'connection' => 'beanstalkd',
-                'driver' => 'beanstalkd',
-                'retry_after' => 45,
-                'block_for' => null,
-                'after_commit' => false,
-            ],
-        ];
-    }
-}
-```
-
-### 🔄 **Job Scheduling Avanzato**
-```php
-// Sistema scheduling avanzato
-class JobScheduler
-{
-    public function scheduleRecurringJobs(): void
-    {
-        // Job giornaliero per pulizia
-        Schedule::job(new CleanupJob())
-            ->daily()
-            ->at('02:00')
-            ->onQueue('maintenance');
-        
-        // Job settimanale per backup
-        Schedule::job(new BackupJob())
-            ->weekly()
-            ->sundays()
-            ->at('03:00')
-            ->onQueue('backup');
-        
-        // Job ogni 5 minuti per monitoraggio
-        Schedule::job(new HealthCheckJob())
-            ->everyFiveMinutes()
-            ->onQueue('monitoring');
-        
-        // Job personalizzato con cron
-        Schedule::job(new CustomJob())
-            ->cron('0 */6 * * *') // Ogni 6 ore
-            ->onQueue('custom');
-    }
-    
-    public function scheduleBatchJobs(): void
-    {
-        // Batch di job per elaborazione massiva
-        $batch = Bus::batch([
-            new ProcessUserJob(1),
-            new ProcessUserJob(2),
-            new ProcessUserJob(3),
-        ])->then(function (Batch $batch) {
-            // Job completato con successo
-            Log::info('Batch completato: ' . $batch->id);
-        })->catch(function (Batch $batch, Throwable $e) {
-            // Gestione errori batch
-            Log::error('Errore batch: ' . $e->getMessage());
-        })->finally(function (Batch $batch) {
-            // Pulizia dopo completamento
-            $this->cleanupBatch($batch);
-        })->dispatch();
-    }
-}
-```
-
-### 📊 **Real-Time Monitoring**
-```php
-// Servizio monitoraggio real-time
-class JobMonitoringService
-{
-    public function getQueueStats(): array
-    {
-        $queues = ['default', 'high', 'low', 'emails', 'notifications'];
-        $stats = [];
-        
-        foreach ($queues as $queue) {
-            $stats[$queue] = [
-                'jobs' => $this->getQueueSize($queue),
-                'failed' => $this->getFailedJobs($queue),
-                'processing' => $this->getProcessingJobs($queue),
-                'workers' => $this->getActiveWorkers($queue),
-                'throughput' => $this->getThroughput($queue),
-            ];
-        }
-        
-        return $stats;
-    }
-    
-    public function getJobDetails(string $jobId): array
-    {
-        $job = Job::find($jobId);
-        
-        return [
-            'id' => $job->id,
-            'queue' => $job->queue,
-            'payload' => $job->payload,
-            'attempts' => $job->attempts,
-            'reserved_at' => $job->reserved_at,
-            'available_at' => $job->available_at,
-            'created_at' => $job->created_at,
-            'status' => $this->getJobStatus($job),
-        ];
-    }
-    
-    public function monitorQueue(string $queueName): void
-    {
-        // Monitoraggio real-time via WebSocket
-        $stats = $this->getQueueStats();
-        
-        broadcast(new QueueStatsUpdated($queueName, $stats[$queueName]));
-        
-        // Allerte se necessario
-        if ($this->shouldAlert($queueName, $stats[$queueName])) {
-            $this->sendAlert($queueName, $stats[$queueName]);
-        }
-    }
-}
-```
-
-## 🚀 Installazione SUPER VELOCE
+Il modulo è già incluso nel progetto principale. Per verificare lo stato:
 
 ```bash
-# 1. Installa il modulo
-composer require laraxot/job
+# Verifica se il modulo è attivo
+php artisan module:list
 
-# 2. Abilita il modulo
+# Abilita il modulo se necessario
 php artisan module:enable Job
-
-# 3. Installa le dipendenze
-composer require predis/predis
-composer require aws/aws-sdk-php
-composer require pusher/pusher-php-server
-
-# 4. Esegui le migrazioni
-php artisan migrate
-
-# 5. Pubblica gli assets
-php artisan vendor:publish --tag=job-assets
-
-# 6. Configura le code
-php artisan queue:table
-php artisan queue:failed-table
 ```
 
-## 🎯 Esempi di Utilizzo
+## 🎯 Funzionalità Principali
 
-### ⚡ Job Base
+- **Gestione Code**: Supporto per multiple queue drivers (database, redis, sync)
+- **Job Monitoring**: Tracciamento stato esecuzione job
+- **Scheduling**: Integrazione con Laravel Scheduler
+- **Event System**: Eventi per job lifecycle (executing, executed, failed)
+- **Retry Logic**: Gestione automatica retry per job falliti
+- **Progress Tracking**: Monitoraggio avanzamento job lunghi
+
+## 🔧 Configurazione
+
+### Configurazione Base
+Il modulo si integra automaticamente con la configurazione Laravel esistente:
+
 ```php
-use Modules\Job\Jobs\ProcessUserJob;
-use Modules\Job\Jobs\SendEmailJob;
-use Modules\Job\Jobs\GenerateReportJob;
-
-// Job semplice
-ProcessUserJob::dispatch($user)
-    ->onQueue('high')
-    ->delay(now()->addMinutes(5));
-
-// Job con retry
-SendEmailJob::dispatch($emailData)
-    ->onQueue('emails')
-    ->retry(3, 1000) // 3 tentativi, 1 secondo di delay
-    ->catch(function ($exception) {
-        Log::error('Email job failed: ' . $exception->getMessage());
-    });
-
-// Job batch
-$batch = Bus::batch([
-    new GenerateReportJob('daily'),
-    new GenerateReportJob('weekly'),
-    new GenerateReportJob('monthly'),
-])->then(function (Batch $batch) {
-    Log::info('Reports generated successfully');
-})->catch(function (Batch $batch, Throwable $e) {
-    Log::error('Report generation failed: ' . $e->getMessage());
-})->dispatch();
+// config/queue.php
+'default' => env('QUEUE_CONNECTION', 'database'),
 ```
 
-### 🎨 Job Resource Filament
+### Configurazioni Specifiche
 ```php
-// JobResource per gestione job
-class JobResource extends Resource
+// Modules/Job/config/job.php (se presente)
+return [
+    'max_attempts' => 3,
+    'timeout' => 60,
+    'retry_after' => 90,
+];
+```
+
+## 📁 Struttura
+
+```
+Modules/Job/
+├── app/
+│   ├── Console/           # Comandi Artisan
+│   ├── Events/            # Eventi job lifecycle
+│   ├── Jobs/              # Job classes
+│   ├── Listeners/         # Event listeners
+│   ├── Models/            # Modelli per tracking
+│   └── Providers/         # Service providers
+├── config/                # Configurazioni
+├── database/
+│   ├── migrations/        # Tabelle job tracking
+│   └── seeders/
+├── docs/                  # Documentazione
+└── tests/                 # Test suite
+```
+
+## 🔗 Dipendenze
+
+- **Xot**: Per base classes e utilities
+- **Activity**: Per logging attività job
+- **Notify**: Per notifiche stato job
+
+## 📚 Documentazione Correlata
+
+- [Documentazione Tecnica](./docs/README.md)
+- [Filament 4 Compatibility](./docs/filament-4x-compatibility.md)
+- [PHPStan Fixes](./docs/phpstan-fixes-january-2025.md)
+- [Integration Guides](./docs/_integration/)
+
+## 🎯 Esempi Utilizzo
+
+### Creare un Job
+
+```php
+<?php
+
+namespace Modules\Job\Jobs;
+
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+
+class ProcessOrderJob implements ShouldQueue
 {
-    protected static ?string $model = Job::class;
-    
-    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
+    use Dispatchable, InteractsWithQueue, SerializesModels;
+
+    public function __construct(
+        public string $orderId
+    ) {}
+
+    public function handle(): void
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('queue')
-                    ->label('Coda')
-                    ->required(),
-                Forms\Components\TextInput::make('payload')
-                    ->label('Payload')
-                    ->required(),
-                Forms\Components\Select::make('status')
-                    ->options([
-                        'pending' => 'In Attesa',
-                        'processing' => 'In Elaborazione',
-                        'completed' => 'Completato',
-                        'failed' => 'Fallito',
-                    ])
-                    ->required(),
-                Forms\Components\TextInput::make('attempts')
-                    ->label('Tentativi')
-                    ->numeric()
-                    ->default(0),
-            ]);
+        // Logica processing ordine
+        $order = Order::find($this->orderId);
+
+        // Process order logic...
+
+        // Emit event
+        event(new OrderProcessed($order));
     }
-    
-    public static function table(Table $table): Table
+
+    public function failed(\Throwable $exception): void
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID'),
-                Tables\Columns\TextColumn::make('queue')
-                    ->label('Coda'),
-                Tables\Columns\TextColumn::make('status')
-                    ->label('Stato')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'pending' => 'gray',
-                        'processing' => 'blue',
-                        'completed' => 'green',
-                        'failed' => 'red',
-                    }),
-                Tables\Columns\TextColumn::make('attempts')
-                    ->label('Tentativi'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Creato')
-                    ->dateTime(),
-            ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('queue')
-                    ->options([
-                        'default' => 'Default',
-                        'high' => 'High Priority',
-                        'low' => 'Low Priority',
-                        'emails' => 'Emails',
-                    ]),
-                Tables\Filters\SelectFilter::make('status')
-                    ->options([
-                        'pending' => 'In Attesa',
-                        'processing' => 'In Elaborazione',
-                        'completed' => 'Completato',
-                        'failed' => 'Fallito',
-                    ]),
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ]);
+        // Handle job failure
+        Log::error("Order processing failed: {$exception->getMessage()}");
     }
 }
 ```
 
-### 📊 Queue Monitoring
+### Dispatch Job
+
 ```php
-// Controller per monitoraggio code
-class QueueMonitoringController extends Controller
-{
-    public function dashboard()
-    {
-        $monitoringService = app(JobMonitoringService::class);
-        
-        return response()->json([
-            'queue_stats' => $monitoringService->getQueueStats(),
-            'failed_jobs' => $monitoringService->getFailedJobs(),
-            'active_workers' => $monitoringService->getActiveWorkers(),
-            'throughput' => $monitoringService->getThroughput(),
-        ]);
-    }
-    
-    public function retryFailedJob(string $jobId)
-    {
-        $job = FailedJob::find($jobId);
-        
-        if ($job) {
-            $job->retry();
-            return response()->json(['message' => 'Job riprovato con successo']);
-        }
-        
-        return response()->json(['error' => 'Job non trovato'], 404);
-    }
-}
+use Modules\Job\Jobs\ProcessOrderJob;
+
+// Dispatch immediato
+ProcessOrderJob::dispatch($orderId);
+
+// Dispatch ritardato
+ProcessOrderJob::dispatch($orderId)->delay(now()->addMinutes(5));
+
+// Dispatch su coda specifica
+ProcessOrderJob::dispatch($orderId)->onQueue('high-priority');
 ```
 
-## 🏗️ Architettura Avanzata
+## 🔧 Comandi Artisan
 
-### 🔄 **Multi-Queue System**
-```php
-// Sistema multi-coda flessibile
-class QueueManager
-{
-    private array $queues = [
-        'default' => DefaultQueue::class,
-        'high' => HighPriorityQueue::class,
-        'low' => LowPriorityQueue::class,
-        'emails' => EmailQueue::class,
-        'notifications' => NotificationQueue::class,
-    ];
-    
-    public function getQueue(string $name): QueueInterface
-    {
-        $queueClass = $this->queues[$name] ?? DefaultQueue::class;
-        return app($queueClass);
-    }
-    
-    public function dispatchToQueue(string $queueName, Job $job): void
-    {
-        $queue = $this->getQueue($queueName);
-        $queue->push($job);
-        
-        // Log dell'attività
-        $this->logJobDispatch($queueName, $job);
-        
-        // Broadcast real-time
-        broadcast(new JobDispatched($queueName, $job));
-    }
-    
-    public function getQueueHealth(string $queueName): array
-    {
-        $queue = $this->getQueue($queueName);
-        
-        return [
-            'size' => $queue->size(),
-            'failed' => $queue->failed(),
-            'processing' => $queue->processing(),
-            'workers' => $queue->activeWorkers(),
-            'throughput' => $queue->throughput(),
-            'last_job_at' => $queue->lastJobAt(),
-        ];
-    }
-}
+```bash
+# Avvia worker queue
+php artisan queue:work
+
+# Monitora job failed
+php artisan queue:failed
+
+# Ritenta job failed
+php artisan queue:retry all
+
+# Pulisci job failed
+php artisan queue:flush
 ```
 
-### 📊 **Job Analytics**
-```php
-// Servizio per analisi job
-class JobAnalyticsService
-{
-    public function getJobStats(): array
-    {
-        return [
-            'total_jobs' => Job::count(),
-            'completed_jobs' => Job::where('status', 'completed')->count(),
-            'failed_jobs' => Job::where('status', 'failed')->count(),
-            'pending_jobs' => Job::where('status', 'pending')->count(),
-            'processing_jobs' => Job::where('status', 'processing')->count(),
-            'avg_processing_time' => $this->getAverageProcessingTime(),
-            'success_rate' => $this->getSuccessRate(),
-            'queue_distribution' => $this->getQueueDistribution(),
-        ];
-    }
-    
-    public function getQueueDistribution(): array
-    {
-        return Job::select('queue', DB::raw('count(*) as count'))
-            ->groupBy('queue')
-            ->orderBy('count', 'desc')
-            ->get()
-            ->toArray();
-    }
-    
-    public function getSuccessRate(): float
-    {
-        $total = Job::count();
-        $completed = Job::where('status', 'completed')->count();
-        
-        return $total > 0 ? ($completed / $total) * 100 : 0;
-    }
-    
-    public function getAverageProcessingTime(): float
-    {
-        return Job::where('status', 'completed')
-            ->whereNotNull('started_at')
-            ->whereNotNull('completed_at')
-            ->avg(DB::raw('TIMESTAMPDIFF(SECOND, started_at, completed_at)')) ?? 0;
-    }
-}
+## 📊 Monitoring
+
+### Filament Admin Panel
+Il modulo fornisce widget Filament per:
+- Statistiche job in tempo reale
+- Monitoraggio code
+- Gestione job failed
+- Performance metrics
+
+### Logging
+Tutti i job sono automaticamente tracciati nel sistema Activity per audit trail completo.
+
+## 🐛 Troubleshooting
+
+### Problemi Comuni
+
+1. **Job non eseguiti**: Verifica che il worker queue sia attivo
+2. **Job stuck**: Controlla timeout e retry configuration
+3. **Memory issues**: Monitora memory usage con queue:monitor
+
+### Debug
+
+```bash
+# Log dettagliato job
+php artisan queue:work --verbose
+
+# Monitora specifica coda
+php artisan queue:work --queue=high-priority
+
+# Test job sync
+php artisan queue:work --once
 ```
 
-### 🔒 **Job Security**
-```php
-// Sistema sicurezza job
-class JobSecurityService
-{
-    public function validateJob(Job $job): bool
-    {
-        // Verifica payload
-        if (!$this->isValidPayload($job->payload)) {
-            $this->logSecurityViolation($job, 'Invalid payload');
-            return false;
-        }
-        
-        // Verifica autorizzazioni
-        if (!$this->hasPermission($job)) {
-            $this->logSecurityViolation($job, 'Permission denied');
-            return false;
-        }
-        
-        // Verifica rate limiting
-        if ($this->isRateLimited($job)) {
-            $this->logSecurityViolation($job, 'Rate limited');
-            return false;
-        }
-        
-        return true;
-    }
-    
-    public function sanitizeJob(Job $job): Job
-    {
-        // Sanitizza payload
-        $job->payload = $this->sanitizePayload($job->payload);
-        
-        // Rimuovi dati sensibili
-        $job->payload = $this->removeSensitiveData($job->payload);
-        
-        return $job;
-    }
-    
-    public function logSecurityViolation(Job $job, string $reason): void
-    {
-        Log::warning('Job security violation', [
-            'job_id' => $job->id,
-            'queue' => $job->queue,
-            'reason' => $reason,
-            'ip' => request()->ip(),
-            'user_id' => auth()->id(),
-        ]);
-    }
-}
-```
+## 🔒 Sicurezza
+
+- Tutti i job supportano serializzazione sicura
+- Validazione input automatica
+- Rate limiting integrato
+- Audit trail completo
 
 ## 📊 Metriche IMPRESSIONANTI
 
@@ -708,9 +378,8 @@ Questo progetto è distribuito sotto la licenza MIT. Vedi il file [LICENSE](LICE
 **Marco Sottana** - [@marco76tv](https://github.com/marco76tv)
 
 ---
-
-<div align="center">
-  <strong>⚡ Job - Il SISTEMA di CODE più POTENTE! 🚀</strong>
-  <br>
-  <em>Costruito con ❤️ per la comunità Laravel</em>
-</div>
+**Modulo**: Job
+**Versione**: 1.0
+**Status**: ✅ Attivo
+**PHPStan**: Level 10
+**Documentazione**: Completa

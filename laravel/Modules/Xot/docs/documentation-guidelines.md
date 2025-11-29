@@ -54,7 +54,6 @@ position: 1
 Ogni documento dovrebbe iniziare con:
 
 ```markdown
-
 # Titolo Principale
 
 Breve introduzione che spiega lo scopo del documento e il contesto.
@@ -65,7 +64,6 @@ Breve introduzione che spiega lo scopo del documento e il contesto.
 Utilizzare una gerarchia chiara di intestazioni:
 
 ```markdown
-
 ## Sezione Principale
 
 Descrizione della sezione principale.
@@ -137,7 +135,6 @@ La documentazione dei modelli dovrebbe includere:
 
 Esempio:
 ```markdown
-
 ## NomeModello
 
 ```php
@@ -197,7 +194,6 @@ La documentazione dovrebbe essere aggiornata contemporaneamente alle modifiche d
 Utilizzare strumenti di generazione automatica quando possibile:
 
 ```bash
-
 # Esempio: Generare documentazione per lo schema del database
 php artisan xot:generate-db-documentation /path/to/schema.json /path/to/output
 ```
@@ -219,7 +215,6 @@ Quando si fa riferimento a concetti o classi in altri moduli, utilizzare collega
 
 ```markdown
 Per ulteriori informazioni, consultare la [documentazione del modulo UI](../UI/project_docs/README.md).
-Per ulteriori informazioni, consultare la [documentazione del modulo UI](../UI/docs/README.md).
 ```
 
 ### 2. Documentazione Centralizzata
@@ -228,7 +223,6 @@ Alcuni argomenti comuni a più moduli dovrebbero essere documentati nel modulo X
 
 ```markdown
 Per le best practices generali sul framework, consultare la [guida principale](../Xot/project_docs/best-practices.md).
-Per le best practices generali sul framework, consultare la [guida principale](../Xot/docs/best-practices.md).
 ```
 
 ## Esempi di Eccellenza
@@ -236,7 +230,6 @@ Per le best practices generali sul framework, consultare la [guida principale](.
 ### Documentazione di Modelli
 
 ```markdown
-
 # Modelli del Modulo Brain
 
 Questo documento descrive i modelli disponibili nel modulo Brain, che rappresentano le entità del database braindb.
@@ -287,4 +280,3 @@ Per implementare queste linee guida:
 - [Markdown Guide](https://www.markdownguide.org/)
 - [Documentazione Laravel](https://laravel.com/docs)
 - [Documentazione PHPDoc](https://docs.phpdoc.org/)
-=======

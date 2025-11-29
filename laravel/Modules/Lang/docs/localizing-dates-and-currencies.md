@@ -114,7 +114,7 @@ Questo approccio si integra con il sistema di localizzazione esistente (`mcamara
 Di seguito elenco i file che modificherei e le modifiche specifiche che apporterei per implementare la localizzazione di date e valute nel progetto `<nome progetto>`:
 
 1. **Configurazione di Carbon per la Localizzazione delle Date**:
-   - File: `/var/www/html/_bases/base_techplanner_fila3_mono/laravel/app/Providers/AppServiceProvider.php`
+   - File: `/var/www/html/<nome progetto>/laravel/app/Providers/AppServiceProvider.php`
    - Modifica: Aggiungere o aggiornare il metodo `boot()` per impostare il locale di Carbon:
      ```php
      use Carbon\Carbon;
@@ -132,7 +132,7 @@ Di seguito elenco i file che modificherei e le modifiche specifiche che apporter
    - **Ragionamento**: Impostare il locale di Carbon con `app()->getLocale()` garantisce che le date siano formattate correttamente in base alla lingua corrente dell'utente (es. 'it' o 'en'), rispettando le convenzioni di formattazione di ogni lingua. Questo è particolarmente importante per un'applicazione come `<nome progetto>`, dove date di appuntamenti o trattamenti devono essere chiare per gli utenti. L'uso di `app()->getLocale()` si integra con il sistema di localizzazione esistente basato su `mcamara/laravel-localization`.
 
 2. **Creazione di un Helper per la Formattazione delle Valute**:
-   - File: `/var/www/html/_bases/base_techplanner_fila3_mono/laravel/app/helpers.php`
+   - File: `/var/www/html/<nome progetto>/laravel/app/helpers.php`
    - Modifica: Creare o aggiornare il file per aggiungere la funzione `formatCurrency()`:
      ```php
      if (!function_exists('formatCurrency')) {
@@ -147,7 +147,7 @@ Di seguito elenco i file che modificherei e le modifiche specifiche che apporter
    - **Ragionamento**: Un helper per formattare le valute centralizza la logica di localizzazione, rendendola accessibile in tutte le viste e i controller. Impostare il locale di default con `app()->getLocale()` (es. 'it_IT') garantisce coerenza con la lingua corrente dell'utente, mentre permettere di specificare un locale o una valuta diversi offre flessibilità (es. per mostrare costi in USD). Questo è utile per `<nome progetto>` in scenari di fatturazione o pagamenti internazionali.
 
 3. **Uso di Carbon e dell'Helper nelle Viste per Appuntamenti o Pagamenti**:
-   - File: `/var/www/html/_bases/base_techplanner_fila3_mono/laravel/Modules/Dental/Resources/views/appointments/index.blade.php`
+   - File: `/var/www/html/<nome progetto>/laravel/Modules/Dental/Resources/views/appointments/index.blade.php`
    - Modifica: Usare Carbon per formattare date e l'helper per le valute:
      ```blade
      <div>

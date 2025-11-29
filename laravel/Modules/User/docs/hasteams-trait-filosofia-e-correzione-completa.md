@@ -256,8 +256,8 @@ Creare test per verificare:
 
 ### 3. **Documentazione Collegamenti**
 Aggiornare:
-- [docs/USER_MODULE.md](../../../project_docs/USER_MODULE.md)
-- [Modules/User/project_docs/traits.md](traits.md)
+- [docs/USER_MODULE.md](../../../docs/USER_MODULE.md)
+- [Modules/User/docs/traits.md](traits.md)
 - File .mdc per Cursor e Windsurf
 
 ## 🎯 **RISULTATO FINALE**
@@ -274,10 +274,10 @@ Il trait `HasTeams` ora è:
 ## 🔗 **Collegamenti Bidirezionali**
 
 ### **📚 Documentazione Root**
-- [docs/laraxot_conventions.md](../../../project_docs/laraxot_conventions.md) - Convenzioni Laraxot generali
-- [docs/USER_MODULE.md](../../../project_docs/USER_MODULE.md) - Documentazione generale modulo User
-- [docs/phpstan_fixes.md](../../../project_docs/phpstan_fixes.md) - Guide PHPStan
-- [docs/TRAIT_BEST_PRACTICES.md](../../../project_docs/TRAIT_BEST_PRACTICES.md) - Best practices per trait
+- [docs/laraxot_conventions.md](../../../docs/laraxot_conventions.md) - Convenzioni Laraxot generali
+- [docs/USER_MODULE.md](../../../docs/USER_MODULE.md) - Documentazione generale modulo User
+- [docs/phpstan_fixes.md](../../../docs/phpstan_fixes.md) - Guide PHPStan
+- [docs/TRAIT_BEST_PRACTICES.md](../../../docs/TRAIT_BEST_PRACTICES.md) - Best practices per trait
 
 ### **📁 Documentazione Modulo User**
 - [traits.md](traits.md) - Documentazione completa trait modulo User
@@ -301,3 +301,4 @@ Il trait `HasTeams` ora è:
 
 **Data correzione**: Gennaio 2025  
 **Status**: ✅ **COMPLETATO**  
+**Conformità**: Laraxot PTVX Philosophy, PHPStan level 10+, Windsurf Rules

@@ -133,7 +133,3 @@ Se trovi un `RelationManager` che implementa il metodo `table()`:
 - [Esempio TeamsRelationManager](/laravel/Modules/User/docs/filament/teams_relation_manager.md)
 
 *Ultimo aggiornamento: 3 Giugno 2025*
-=======
-=======
-*Ultimo aggiornamento: 3 Giugno 2025*
-=======

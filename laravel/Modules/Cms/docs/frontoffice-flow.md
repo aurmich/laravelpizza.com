@@ -1,4 +1,4 @@
-# Flusso Frontoffice <nome progetto>
+# Flusso Frontoffice <main module>
 
 ## Indice
 1. [Introduzione](#introduzione)
@@ -10,7 +10,7 @@
 
 ## Introduzione
 
-Questo documento descrive il flusso completo del frontoffice di <nome progetto>, dalla gestione delle route alla renderizzazione dei componenti.
+Questo documento descrive il flusso completo del frontoffice di <main module>, dalla gestione delle route alla renderizzazione dei componenti.
 
 ## Struttura delle Route
 
@@ -69,7 +69,7 @@ Questo documento descrive il flusso completo del frontoffice di <nome progetto>,
 ## Gestione dei Contenuti
 
 ### Sezioni e Blocchi
-- Le sezioni sono definite in `/laravel/config/local/<nome progetto>/database/content/sections/`
+- Le sezioni sono definite in `/laravel/config/local/<directory progetto>/database/content/sections/`
 - Ogni sezione ha un file JSON che definisce:
   - ID e nome
   - Blocchi di contenuto

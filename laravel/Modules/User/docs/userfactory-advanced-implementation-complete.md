@@ -296,5 +296,4 @@ $gdprTests = [
 - [State Management](../laravel/Modules/<nome progetto>/docs/models/states.md)
 - [Cross-Module Relations](../laravel/Modules/<nome progetto>/docs/models/doctor-studio-relationship.md)
 
-
 **🎉 MISSION ACCOMPLISHED - UserFactory Advanced Implementation Complete! 🎉** 

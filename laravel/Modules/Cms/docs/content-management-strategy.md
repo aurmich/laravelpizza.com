@@ -11,7 +11,7 @@ Seguendo i principi **zen** e **minimalista** di Laraxot, la gestione dei conten
 - **Fiducia**: Linguaggio professionale e rassicurante
 - **Etica**: Rispetto della privacy e dei diritti del paziente
 
-### 🏥 **Contesto Sanitario <nome progetto>**
+### 🏥 **Contesto Sanitario <main module>**
 Le pagine istituzionali devono:
 - Trasmettere **competenza medica** e **affidabilità**
 - Garantire **compliance normativa** (GDPR, Codice Privacy)
@@ -92,9 +92,9 @@ Le pagine istituzionali devono:
 ## Collegamento Documentazione Root
 
 Questa strategia integra:
-- [Gestione Homepage](../../../docs/gestione-homepage.md)
-- [Best Practice UX](../../../docs/ux-design-principles.md)  
-- [Compliance GDPR](../../../docs/privacy-compliance.md)
+- [Gestione Homepage](/var/www/html/_bases/<directory progetto>/project_docs/gestione-homepage.md)
+- [Best Practice UX](/var/www/html/_bases/<directory progetto>/project_docs/ux-design-principles.md)  
+- [Compliance GDPR](/var/www/html/_bases/<directory progetto>/project_docs/privacy-compliance.md)
 
 ---
 

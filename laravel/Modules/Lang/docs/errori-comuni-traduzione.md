@@ -95,31 +95,17 @@ return [
 'navigation' => [
   'label' => 'permission.navigation',  // ERRORE: pattern non tradotto
   'group' => 'permission.navigation',  // ERRORE: pattern non tradotto
-  'icon' => 'permission.navigation',   // ERRORE: icona non valida
 ],
 ```
 
 **Correzione**:
 ```php
 'navigation' => [
-  'name' => 'Permesso',
-  'plural' => 'Permessi',
   'label' => 'Permessi',
   'group' => 'Gestione Utenti',
   'icon' => 'heroicon-o-shield-check',
-  'sort' => 50,
 ],
 ```
-
-**File corretti nel 2025-01-22**:
-- `Modules/Ptv/lang/it/criteri_esclusione.php`
-- `Modules/Performance/lang/it/organizzativa.php`
-- `Modules/Pdnd/lang/it/pdnd.php`
-- `Modules/Ptv/lang/it/message.php`
-- `Modules/Ptv/lang/it/option.php`
-- `Modules/Incentivi/lang/it/department.php`
-
-Vedi [Correzioni Navigation Pattern 2025](correzioni-navigation-pattern-2025.md) per dettagli completi.
 
 ## Best Practices per la Correzione
 

@@ -1,5 +1,94 @@
 # Regole Cursor per base_laravelpizza
 
+## ⚠️ REGOLA CRITICA - Architettura Frontoffice OBBLIGATORIA
+
+**PER IL FRONTOFFICE (pagine pubbliche), SEGUIRE SEMPRE QUESTA ARCHITETTURA:**
+
+### ❌ VIETATO (Frontoffice)
+- **NON creare controller** per pagine pubbliche
+- **NON scrivere rotte** in `routes/web.php` o `routes/api.php` per pagine pubbliche
+- **NON usare Route::get()** per routing frontoffice
+
+### ✅ OBBLIGATORIO (Frontoffice)
+- **Usare Folio** per routing file-based: pagine in `resources/views/pages/*.blade.php` = rotte automatiche
+- **Usare Volt** per interattività: `@volt('component-name')` direttamente nelle pagine Folio
+- **Usare Filament** SOLO per admin panel (backend)
+- **Chiamare Actions** da componenti Volt, non da controller
+
+### Pattern Architetturale
+```
+Request → Folio (routing) → Blade Page → Volt Component → Action → Service/Model
+```
+
+### Esempio Corretto
+```blade
+{{-- File: Themes/Meetup/resources/views/pages/events.blade.php --}}
+{{-- Folio crea automaticamente rotta /events --}}
+<x-layouts.app>
+    @volt('events')
+        @php
+            $events = app(\Modules\Meetup\Services\EventService::class)
+                ->getUpcomingEvents();
+        @endphp
+        
+        <div>
+            @foreach($events as $event)
+                <x-event-card :event="$event" />
+            @endforeach
+        </div>
+        
+        <button wire:click="register({{ $event->id }})">
+            Register
+        </button>
+    @endvolt
+</x-layouts.app>
+```
+
+**Questa regola è ASSOLUTAMENTE OBBLIGATORIA per il frontoffice!**
+
+---
+
+## ⚠️ REGOLA CRITICA - Gestione File Markdown OBBLIGATORIA
+
+**OGNI VOLTA CHE CREI O MODIFICHI FILE .md, SEGUIRE SEMPRE QUESTE REGOLE:**
+
+### ✅ OBBLIGATORIO
+- **File .md SOLO dentro cartelle docs esistenti**: `Modules/{ModuleName}/docs/` o `Themes/{ThemeName}/docs/`
+- **NON creare nuove cartelle docs**: Usare SOLO quelle esistenti
+- **Nomi file minuscoli**: Tutti i caratteri minuscoli, NO maiuscole
+- **Eccezioni**: Solo `README.md` e `CHANGELOG.md` possono avere maiuscole
+
+### ❌ VIETATO
+- **NON creare file .md** fuori dalle cartelle docs
+- **NON creare nuove cartelle docs** (usare quelle esistenti)
+- **NON usare caratteri maiuscoli** nei nomi file (tranne README.md e CHANGELOG.md)
+- **NON creare file** come `DOCUMENTATION_GAPS_ANALYSIS.md` (usare `documentation-gaps-analysis.md`)
+
+### Esempi Corretti
+```
+✅ Modules/Meetup/docs/documentation-gaps-analysis.md
+✅ Modules/Meetup/docs/seo-marketing-plan.md
+✅ Modules/Meetup/docs/README.md (eccezione permessa)
+✅ Themes/Meetup/docs/logo-implementation-error.md
+```
+
+### Esempi Errati
+```
+❌ laravel/DOCUMENTATION_GAPS_ANALYSIS.md (fuori da docs, maiuscole)
+❌ Modules/Meetup/docs/DOCUMENTATION_GAPS_ANALYSIS.md (maiuscole)
+❌ Modules/Meetup/docs/SEO-MARKETING-PLAN.md (maiuscole)
+❌ Modules/NewModule/docs/new-file.md (cartella docs nuova)
+```
+
+### Cartelle Docs Esistenti
+- `Modules/{ModuleName}/docs/` - Documentazione moduli
+- `Themes/{ThemeName}/docs/` - Documentazione temi
+- `laravel/docs_project/` - Documentazione progetto (se esiste)
+
+**Questa regola è ASSOLUTAMENTE OBBLIGATORIA per tutti i file .md!**
+
+---
+
 ## ⚠️ REGOLA CRITICA - Controlli Qualità Codice OBBLIGATORI
 
 **OGNI VOLTA CHE MODIFICHI UN FILE PHP, DEVI CONTROLLARLO CON:**

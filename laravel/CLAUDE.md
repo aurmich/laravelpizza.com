@@ -1,367 +1,302 @@
-# CLAUDE.md
+# Regole Critiche per Laravel Pizza Meetups
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## ⚠️ REGOLE FONDAMENTALI - LEGGERE SEMPRE
 
-## ⚠️ CRITICAL RULE - CODE QUALITY VALIDATION ⚠️
+### 1. ARCHITETTURA FRONTEND (CRITICAL!)
 
-**OGNI VOLTA che modifichi un file PHP, DEVI SEMPRE verificarlo con questi strumenti di analisi statica:**
+**NO Controller. NO Routes in web.php. NO Routes in api.php.**
 
-1. **PHPStan a livello 10** - Analisi statica rigorosa
-2. **PHPMD** (PHP Mess Detector) - Rilevamento di code smell
-3. **PHPInsights** - Analisi di qualità del codice
+**USARE SOLO:**
+- ✅ **Laravel Folio** - File-based routing
+- ✅ **Livewire Volt** - Single-file components
+- ✅ **Filament** - Admin panel
 
-### Comandi di Verifica
-
-```bash
-# PHPStan - Livello 10 (massimo rigore)
-vendor/bin/phpstan analyse --level=10 path/to/modified/file.php
-
-# Per moduli con configurazione specifica
-cd Modules/NomeModulo
-../../vendor/bin/phpstan analyse --configuration=phpstan.neon
-
-# PHPInsights (se disponibile)
-php artisan insights path/to/modified/file.php
+**Struttura Corretta:**
+```
+Modules/Meetup/resources/views/pages/
+├── index.blade.php              → route('/')
+├── events/
+│   ├── index.blade.php          → route('events.index')
+│   ├── [event:slug].blade.php   → route('events.show', $slug)
+│   └── create.blade.php         → route('events.create')
+├── dashboard.blade.php          → route('dashboard')
+└── profile/
+    ├── [user:id].blade.php      → route('profile.show', $id)
+    └── edit.blade.php           → route('profile.edit')
 ```
 
-**NON procedere mai con commit o modifiche successive senza aver verificato e risolto tutti gli errori riportati da questi strumenti.**
-
-### Configurazioni Disponibili
-
-- PHPStan: Configurazioni in `Modules/*/phpstan.neon` (livello 10)
-- PHPInsights: Configurazioni in `Modules/*/phpinsights.php`
-
-## Project Overview
-
-This is a **modular Laravel application** built using **nwidart/laravel-modules** with **Filament 4** as the admin panel framework. The project follows a custom **Laraxot architecture** that provides base classes and patterns for consistent development across modules.
-
-### Key Architectural Concepts
-
-- **Custom Application Class**: Uses `App\Application` (extends `Illuminate\Foundation\Application`) that overrides `publicPath()` to point to `../public_html/` instead of the default `public/`
-- **Module-Based Architecture**: All business logic is organized in self-contained modules under `Modules/`
-- **Tenant Configuration System**: Uses `TenantService::getConfig()` and `TenantService::config()` to load tenant-specific configurations from `config/{tenant_name}/` directories
-- **Theme System**: Supports themes in `Themes/` directory with views and assets
-- **XotData Singleton**: Central configuration object (`Modules\Xot\Datas\XotData`) manages module settings, user/team/tenant classes, and theme paths
-
-## Development Commands
-
-### Setup and Installation
-```bash
-composer setup              # Full setup: install deps, copy .env, generate key, migrate, build assets
-composer install            # Install PHP dependencies
-npm install                 # Install Node dependencies
-php artisan key:generate    # Generate application key
-```
-
-### Development Server
-```bash
-composer dev                # Runs concurrently: serve, queue, pail logs, and vite dev server
-php artisan serve           # Run Laravel development server (standalone)
-npm run dev                 # Run Vite development server for hot module replacement
-```
-
-### Testing
-```bash
-composer test               # Run all tests (clears config first)
-php artisan test            # Run PHPUnit/Pest tests
-php artisan test --filter=TestName  # Run specific test
-```
-
-### Building Assets
-```bash
-npm run build               # Build production assets with Vite
-```
-
-### Module Management
-```bash
-php artisan module:list                          # List all modules
-php artisan module:enable ModuleName             # Enable a module
-php artisan module:disable ModuleName            # Disable a module
-php artisan module:make ModuleName               # Create new module
-php artisan module:make-{type} ModuleName Name   # Create specific component in module
-```
-
-Module activation is controlled by `modules_statuses.json` in the project root.
-
-## Architecture
-
-### Module Structure
-
-Modules follow this standard structure:
-```
-Modules/{ModuleName}/
-├── app/
-│   ├── Filament/         # Filament resources, pages, widgets
-│   │   ├── Resources/
-│   │   ├── Pages/
-│   │   └── Widgets/
-│   ├── Models/           # Eloquent models
-│   ├── Actions/          # Spatie Queueable Actions
-│   ├── Services/         # Service classes
-│   ├── Providers/        # Service providers
-│   ├── Http/
-│   │   └── Controllers/
-│   ├── Datas/           # Spatie Laravel Data objects
-│   └── Contracts/       # Interfaces
-├── config/              # Module configuration
-├── database/
-│   ├── migrations/
-│   ├── seeders/
-│   └── factories/
-├── resources/
-│   ├── views/
-│   └── assets/
-├── routes/
-│   ├── web.php
-│   └── api.php
-├── tests/
-├── docs/                # Module documentation
-├── composer.json        # Module dependencies (merged via wikimedia/composer-merge-plugin)
-└── module.json          # Module metadata
-```
-
-### Core Modules
-
-- **Xot**: Foundation module providing base classes, traits, contracts, and utilities. All other modules depend on Xot.
-- **Tenant**: Multi-tenancy support with tenant-specific configurations
-- **User**: User management, authentication, teams, and memberships
-- **UI**: UI components and rendering system
-- **Cms**: Content management with Laravel Folio and Livewire Volt
-- **Activity**: Activity logging and tracking
-- **Media**: Media library management
-- **Lang**: Internationalization and translations
-- **Notify**: Notifications system
-- **Geo**: Geographical data management
-- **Gdpr**: GDPR compliance features
-- **Job**: Job queue management
-- **Seo**: SEO optimization features
-
-### Laraxot Base Class Architecture
-
-**CRITICAL**: This project uses a custom abstraction layer over Filament 4. **NEVER** extend Filament classes directly.
-
-#### Always Extend XotBase Classes
-
+**Esempio Volt Component:**
 ```php
-// ❌ WRONG - Never extend Filament classes directly
-class MyPage extends ViewRecord {}
-class MyWidget extends Widget {}
-class MyResource extends Resource {}
+<?php
+use function Laravel\Folio\name;
+use function Livewire\Volt\{state, computed};
 
-// ✅ CORRECT - Always extend XotBase classes
-class MyPage extends XotBaseViewRecord {}
-class MyWidget extends XotBaseWidget {}
-class MyResource extends XotBaseResource {}
+name('events.index');
+
+state(['search' => '', 'category' => null]);
+
+$events = computed(function () {
+    return Event::query()
+        ->when($this->search, fn($q) => $q->where('title', 'like', "%{$this->search}%"))
+        ->when($this->category, fn($q) => $q->where('category_id', $this->category))
+        ->upcoming()
+        ->paginate(12);
+});
+
+?>
+
+<x-app-layout>
+    @volt('events.index')
+    <div>
+        <input wire:model.live="search" type="search" placeholder="Search...">
+        
+        @foreach($this->events as $event)
+            <livewire:event-card :event="$event" :key="$event->id" />
+        @endforeach
+    </div>
+    @endvolt
+</x-app-layout>
 ```
 
-Available XotBase classes:
-- `Modules\Xot\Filament\Resources\Pages\XotBaseViewRecord`
-- `Modules\Xot\Filament\Resources\Pages\XotBaseCreateRecord`
-- `Modules\Xot\Filament\Resources\Pages\XotBaseEditRecord`
-- `Modules\Xot\Filament\Resources\Pages\XotBaseListRecords`
-- `Modules\Xot\Filament\Pages\XotBasePage`
-- `Modules\Xot\Filament\Widgets\XotBaseWidget`
-- `Modules\Xot\Filament\Resources\XotBaseResource`
-
-XotBase classes already implement necessary interfaces and traits (HasForms, HasActions, etc.). Do not re-implement them.
-
-#### Namespace Convention
-
-Filament classes use `Modules\{Module}\Filament\...` namespace:
-
+**❌ MAI FARE:**
 ```php
-// ✅ CORRECT
-namespace Modules\Survey\Filament\Resources\QuestionResource\Pages;
+// ❌ NO Controller
+class EventController extends Controller { }
 
-// ❌ WRONG
-namespace Modules\Survey\App\Filament\Resources\QuestionResource\Pages;
+// ❌ NO Routes in web.php
+Route::get('/events', [EventController::class, 'index']);
+
+// ❌ NO Routes in api.php  
+Route::apiResource('events', EventApiController::class);
 ```
 
-### Patterns and Practices
+### 2. PRINCIPI ARCHITETTURALI (SEMPRE!)
 
-#### Use Actions Instead of Services
+**DRY** (Don't Repeat Yourself)
+- Non duplicare codice
+- Usa Actions, Services, Traits
 
-Prefer **Spatie Queueable Actions** over traditional service classes:
+**KISS** (Keep It Simple, Stupid)
+- Soluzioni semplici > complesse
+- Evita over-engineering
 
-```php
-// ✅ CORRECT
-use Modules\Tenant\Actions\GetTenantNameAction;
+**SOLID**
+- Single Responsibility
+- Open/Closed
+- Liskov Substitution
+- Interface Segregation
+- Dependency Inversion
 
-$name = app(GetTenantNameAction::class)->execute();
+**Robust**
+- Gestione errori
+- Validazione input
+- Type safety (PHP 8.2+)
+- PHPStan Level 10
 
-// ❌ WRONG - Avoid traditional service pattern
-use Modules\Tenant\Services\SomeService;
+**Laraxot Patterns**
+- Modular architecture (nwidart/laravel-modules)
+- Action pattern (Spatie)
+- Base classes inheritance
+- Event Sourcing
+
+### 3. NAMING CONVENTIONS FILES .md
+
+**✅ CORRETTO:**
+```
+README.md                    ← Maiuscolo OK
+CHANGELOG.md                 ← Maiuscolo OK
+project-purpose.md           ← lowercase con trattini
+complete-roadmap-2025.md     ← lowercase con trattini
+api-endpoints.md             ← lowercase
 ```
 
-#### Translation System
-
-**NEVER** hardcode labels, placeholders, or tooltips. Use translation files managed by LangServiceProvider:
-
-```php
-// ❌ WRONG
-TextInput::make('name')
-    ->label('Name')
-    ->placeholder('Enter name');
-
-// ✅ CORRECT - translations handled automatically
-TextInput::make('name');
+**❌ SBAGLIATO:**
+```
+PROJECT-PURPOSE.md           ← NO maiuscole
+ERROR-ANALYSIS.md            ← NO maiuscole
+COMPLETE-ROADMAP-2025.md     ← NO maiuscole
+API-Endpoints.md             ← NO CamelCase
 ```
 
-#### Deprecated Components
+**Eccezioni UNICHE:**
+- `README.md` - Standard universale
+- `CHANGELOG.md` - Standard universale
 
-- **NEVER** use `BadgeColumn` - use `TextColumn::make()->badge()` instead
+### 4. ORGANIZZAZIONE DOCUMENTAZIONE
 
-#### Filament 4 Schema Pattern
+**✅ File .md vanno SOLO in cartelle docs/ ESISTENTI:**
+```
+Modules/Meetup/docs/          ← Usa questa
+Themes/Meetup/docs/           ← Usa questa
+```
 
-Use `Schema` instead of `Form`:
+**❌ NON creare nuove cartelle docs/:**
+```
+Modules/Meetup/docs/new-folder/  ← NO!
+Modules/Meetup/documentation/    ← NO!
+```
 
+### 5. SCOPO PROGETTO (DA RICORDARE!)
+
+**Laravel Pizza Meetups è:**
+- ✅ Piattaforma community per sviluppatori Laravel
+- ✅ Sistema gestione eventi/meetup tech
+- ✅ Chat community + profili utente
+- ✅ "Pizza" = metafora per meetup
+
+**Laravel Pizza Meetups NON è:**
+- ❌ Pizzeria online
+- ❌ E-commerce food delivery
+- ❌ Sito per ordinare pizza
+- ❌ Menu digitale ristorante
+
+**IMPORTANTE**: Se vedi codice che sembra un sistema di vendita pizza, è SBAGLIATO!
+
+### 6. FOLIO + VOLT: BEST PRACTICES
+
+**Resources da studiare:**
+- [Nuno Maduro Todo App](https://nunomaduro.com/todo_application_with_laravel_folio_and_volt)
+- [Genesis Starter Kit](https://github.com/thedevdojo/genesis)
+- [Dummy Store Example](https://github.com/benjamincrozat/dummy-store)
+- [Jason Beggs Podcast Player](https://jasonlbeggs.com/blog/livewire-volt-and-folio)
+- [Multi-Step Form Tutorial](https://neon.com/guides/laravel-volt-folio-multi-step-form)
+
+**Pattern da seguire:**
 ```php
-// ✅ CORRECT - Filament 4
-public function form(Schema $schema): Schema
+// ✅ Folio page con Volt
+<?php
+use function Laravel\Folio\{name, middleware};
+use function Livewire\Volt\{state, mount, computed};
+
+name('dashboard');
+middleware(['auth']);
+
+state(['user' => fn() => auth()->user()]);
+
+$stats = computed(function () {
+    return [
+        'events' => $this->user->registrations()->count(),
+        'messages' => $this->user->messages()->count(),
+    ];
+});
+
+?>
+
+<x-app-layout>
+    @volt('dashboard')
+    <div>
+        <h1>Welcome {{ $user->name }}</h1>
+        <div>Events: {{ $this->stats['events'] }}</div>
+    </div>
+    @endvolt
+</x-app-layout>
+```
+
+### 7. FILAMENT ADMIN (Backend Only!)
+
+**✅ Filament è per ADMIN:**
+```
+app/Filament/
+├── Resources/
+│   ├── EventResource.php
+│   └── UserResource.php
+├── Widgets/
+│   └── EventsOverview.php
+└── Pages/
+    └── Dashboard.php
+```
+
+**Frontend pubblico = FOLIO + VOLT**
+
+### 8. DATABASE & MODELS
+
+**Sempre:**
+- Migrations con timestamps
+- Soft deletes dove appropriato
+- Foreign keys con cascade
+- Indexes per performance
+- UUIDs per public IDs
+
+**Models:**
+```php
+use HasUuids, SoftDeletes, HasFactory;
+
+protected $fillable = [...];
+protected $casts = [...];
+protected $hidden = ['password'];
+protected $appends = ['full_name'];
+```
+
+### 9. ACTIONS PATTERN
+
+**Spatie Actions per business logic:**
+```php
+// app/Actions/Event/CreateEventAction.php
+class CreateEventAction
 {
-    return $schema->components($this->getFormSchema());
+    public function execute(array $data): Event
+    {
+        return DB::transaction(function () use ($data) {
+            $event = Event::create($data);
+            
+            activity('event')
+                ->performedOn($event)
+                ->causedBy(auth()->user())
+                ->log('Event created');
+                
+            return $event;
+        });
+    }
 }
 
-// ❌ WRONG - Filament 3 pattern
-public function form(Form $form): Form
-{
-    return $form->schema($this->getFormSchema());
-}
+// Uso in Volt:
+$createEvent = function() {
+    $event = app(CreateEventAction::class)->execute($this->form);
+    $this->redirect(route('events.show', $event));
+};
 ```
 
-### Tenant Configuration System
+### 10. TESTING
 
-Configuration files can be tenant-specific:
-
-```php
-// Load tenant-specific config
-$value = TenantService::config('key.subkey', $default);
-
-// Get tenant name
-$tenantName = TenantService::getName();
-
-// Tenant configs stored in: config/{tenant_name}/
-```
-
-### Theme System
-
-Themes are located in `Themes/` with resources in `resources/views/`:
-
-```php
-$xotData = XotData::make();
-$viewPath = $xotData->getPubThemeViewPath('partial/header');
-$assetUrl = $xotData->getPubThemePublicAsset('css/style.css');
-```
-
-### XotData Singleton
-
-Central configuration object for module settings:
-
-```php
-$xotData = XotData::make(); // Singleton instance
-
-$xotData->getUserClass();         // Get user model class
-$xotData->getTeamClass();         // Get team model class
-$xotData->getTenantClass();       // Get tenant model class
-$xotData->getProfileClass();      // Get profile model class
-$xotData->getProfileModel();      // Get current user's profile
-$xotData->iAmSuperAdmin();        // Check if current user is super admin
-```
-
-## Common Anti-Patterns to Avoid
-
-### DRY Violations
-
-Don't re-implement interfaces or traits already in base classes:
-
-```php
-// ❌ WRONG
-class MyWidget extends XotBaseWidget implements HasForms
-{
-    use InteractsWithForms; // Already in XotBaseWidget
-}
-
-// ✅ CORRECT
-class MyWidget extends XotBaseWidget
-{
-    // Interfaces and traits already included
-}
-```
-
-### XotBaseResource Anti-Patterns
-
-When extending `XotBaseResource`:
-- **DON'T** include `getTableColumns()` - use separate TableWidget
-- **DON'T** include navigation properties in resource
-- **DO** implement only `getFormSchema(): array`
-
-### XotBasePage Anti-Patterns
-
-When extending `XotBasePage`:
-- **DON'T** include `$navigationIcon`, `$title`, `$navigationLabel`
-- **DO** implement `getFormSchema(): array`
-
-## Type Safety and Code Quality
-
-### Mandatory Quality Checks
-
-**EVERY modified PHP file MUST be validated with:**
+**Obbligatorio:**
+- PHPStan Level 10
+- Laravel Pint (PSR-12)
+- Feature tests per user flows
+- Unit tests per Actions
+- Coverage > 70%
 
 ```bash
-# 1. PHPStan Level 10 (MANDATORY)
-vendor/bin/phpstan analyse --level=10 path/to/file.php
-
-# 2. PHPMD (MANDATORY)
-vendor/bin/phpmd path/to/file.php text cleancode,codesize,controversial,design,naming,unusedcode
-
-# 3. PHPInsights (MANDATORY)
-php artisan insights path/to/file.php --no-interaction --min-quality=90 --min-complexity=90 --min-architecture=90 --min-style=90
+./vendor/bin/phpstan analyze
+./vendor/bin/pint
+php artisan test --parallel
 ```
 
-### Code Standards
+---
 
-- Use `declare(strict_types=1);` at the top of all PHP files
-- Use type hints for all method parameters and return types
-- Use PHPStan-compatible assertions from `Webmozart\Assert\Assert`
-- Follow PSR-12 coding standards
-- All code must pass PHPStan level 10 without errors
-- Maintain minimum 90% quality score in PHPInsights
+## Quick Reference
 
-## Important Files
+**Quando creo una nuova pagina:**
+1. ✅ Crea file in `resources/views/pages/`
+2. ✅ Usa Folio naming convention
+3. ✅ Aggiungi `@volt` directive se serve stato
+4. ❌ NON creare Controller
+5. ❌ NON aggiungere rotte in web.php
 
-- `bootstrap/app.php` - Application bootstrapping with custom `App\Application`
-- `app/Application.php` - Custom application class with modified public path
-- `config/modules.php` - Module system configuration
-- `modules_statuses.json` - Module activation status
-- `composer.json` - Dependencies with composer-merge-plugin for module composer.json files
-- `vite.config.js` - Vite configuration for asset building
-- `Modules/Xot/app/Datas/XotData.php` - Central configuration singleton
-- `Modules/Xot/docs/` - Comprehensive documentation on architecture and patterns
+**Quando creo documentazione:**
+1. ✅ Usa cartelle docs/ esistenti
+2. ✅ Nome file lowercase (tranne README.md, CHANGELOG.md)
+3. ✅ Usa trattini, non underscore
+4. ❌ NON creare nuove cartelle docs/
 
-## Module Documentation
+**Quando scrivo codice:**
+1. ✅ DRY + KISS + SOLID
+2. ✅ Type hints ovunque
+3. ✅ PHPStan Level 10 compliant
+4. ✅ Action pattern per business logic
+5. ❌ NO query in views (usa computed)
 
-Each module may have a `docs/` directory with specific documentation. The Xot module has extensive documentation including:
-- `FILAMENT_4_LARAXOT_RULES.md` - Filament 4 architecture rules
-- `CODE_QUALITY_STANDARDS.md` - Code quality standards
-- `COMMON_ANTI_PATTERNS.md` - Anti-patterns to avoid
-- Various integration guides in `docs/-integration/`
+---
 
-## Routes and Views
-
-- Laravel Folio pages are managed by `FolioVoltServiceProvider` in the Cms module
-- Views use Laravel Volt for reactive components
-- Routes support localization via `mcamara/laravel-localization`
-- Main web routes in `routes/web.php` (currently commented out in favor of Folio)
-
-## Environment
-
-- **Default DB**: SQLite (`database/database.sqlite`)
-- **Public Directory**: `../public_html/` (not `public/`)
-- **Session Driver**: database
-- **Queue**: Supports queue workers (included in `composer dev`)
-- **Log Viewer**: Pail (included in `composer dev`)
-
-## Git Workflow
-
-- Main branch: `master`
-- Recent commits show integration of Meetup theme and module via git subtrees
+**Version**: 1.0
+**Last Updated**: 28 Novembre 2025
+**Status**: 🔒 CRITICAL RULES - ALWAYS FOLLOW

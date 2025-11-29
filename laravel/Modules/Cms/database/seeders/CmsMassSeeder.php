@@ -69,10 +69,9 @@ class CmsMassSeeder extends Seeder
         $this->command->info('🔧 Creazione moduli CMS...');
 
         // Crea 20 moduli CMS
-        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Module> $factory */
-        $factory = Module::factory(20);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Module> $modules */
-        $modules = $factory->create([
+        /** @phpstan-ignore-next-line */
+        $modules = Module::factory(20)->create([
             'is_active' => true,
             'created_at' => Carbon::now()->subDays(rand(1, 365)),
         ]);
@@ -88,10 +87,9 @@ class CmsMassSeeder extends Seeder
         $this->command->info('📑 Creazione sezioni...');
 
         // Crea 100 sezioni
-        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Section> $factory */
-        $factory = Section::factory(100);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Section> $sections */
-        $sections = $factory->create([
+        /** @phpstan-ignore-next-line */
+        $sections = Section::factory(100)->create([
             'is_active' => true,
             'created_at' => Carbon::now()->subDays(rand(1, 365)),
         ]);
@@ -107,10 +105,9 @@ class CmsMassSeeder extends Seeder
         $this->command->info('📄 Creazione pagine...');
 
         // Crea 500 pagine
-        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Page> $factory */
-        $factory = Page::factory(500);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Page> $pages */
-        $pages = $factory->create([
+        /** @phpstan-ignore-next-line */
+        $pages = Page::factory(500)->create([
             'is_active' => true,
             'created_at' => Carbon::now()->subDays(rand(1, 365)),
         ]);
@@ -126,10 +123,9 @@ class CmsMassSeeder extends Seeder
         $this->command->info('📝 Creazione contenuti delle pagine...');
 
         // Crea 1000 contenuti di pagina
-        /** @var \Illuminate\Database\Eloquent\Factories\Factory<PageContent> $factory */
-        $factory = PageContent::factory(1000);
         /** @var \Illuminate\Database\Eloquent\Collection<int, PageContent> $contents */
-        $contents = $factory->create([
+        /** @phpstan-ignore-next-line */
+        $contents = PageContent::factory(1000)->create([
             'created_at' => Carbon::now()->subDays(rand(1, 365)),
         ]);
 
@@ -144,10 +140,9 @@ class CmsMassSeeder extends Seeder
         $this->command->info('🍽️ Creazione menu...');
 
         // Crea 50 menu
-        /** @var \Illuminate\Database\Eloquent\Factories\Factory<Menu> $factory */
-        $factory = Menu::factory(50);
         /** @var \Illuminate\Database\Eloquent\Collection<int, Menu> $menus */
-        $menus = $factory->create([
+        /** @phpstan-ignore-next-line */
+        $menus = Menu::factory(50)->create([
             'is_active' => true,
             'created_at' => Carbon::now()->subDays(rand(1, 365)),
         ]);

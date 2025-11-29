@@ -108,7 +108,3 @@ Se trovi codice che viola questa regola:
 - [Regole per RelationManager](/docs/filament/relation_managers.md)
 
 *Ultimo aggiornamento: 3 Giugno 2025*
-=======
-=======
-*Ultimo aggiornamento: 3 Giugno 2025*
-=======

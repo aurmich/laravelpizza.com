@@ -60,5 +60,5 @@ questo è **errato** perché omette la directory `app/` nel percorso fisico.
 
 ## linkback
 
-- [convenzioni di codice](/var/www/html/base_<nome progetto>/laravel/project_docs/conventions.md)
-- [struttura progetto](/var/www/html/base_<nome progetto>/laravel/project_docs/project-structure.md)
+- [convenzioni di codice](/var/www/html/base_<nome progetto>/laravel/docs/conventions.md)
+- [struttura progetto](/var/www/html/base_<nome progetto>/laravel/docs/project-structure.md)

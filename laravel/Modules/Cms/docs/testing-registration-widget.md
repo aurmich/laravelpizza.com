@@ -14,7 +14,7 @@ This document explains the **why** and **how** of the dedicated Pest test-suite 
 2. Ensure each registration Blade page (`/{locale}/auth/{type}/register`) actually
    embeds the Livewire widget.
 3. Keep **Cms** completely independent from the concrete User models of the
-   *<nome progetto>* module by always relying on the `XotData` abstraction layer.
+   *<main module>* module by always relying on the `XotData` abstraction layer.
 4. Avoid destructive database operations – no `RefreshDatabase`, no truncation –
    the test-suite must work with the real **MySQL** dataset configured in
    `.env.testing`.
@@ -42,7 +42,7 @@ Cms.
   `XotData::make()->getUserChildTypes()` ensuring future user types are picked
   up automatically.
 * `createCmsTestUser()` helper lives in the test file itself, creating a dummy
-  authenticated user without importing <nome progetto> models.
+  authenticated user without importing <main module> models.
 * Custom helper functions like `generateUniqueTestEmail()` and `getUserClassForWidget()` provide test resilience.
 
 ## Running the suite

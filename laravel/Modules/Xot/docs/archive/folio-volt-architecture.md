@@ -17,7 +17,6 @@ Questo documento descrive l'architettura frontend basata su Folio, Volt e Filame
 - [Lang](../../Lang/docs/README.md) - Traduzioni
 - [Patient](../../Patient/docs/README.md) - Gestione pazienti
 
-=======
 ## Regole Fondamentali
 
 ### Case Sensitivity e Struttura delle Directory
@@ -284,6 +283,3 @@ new class extends Component {
 - [Grafici](../Chart/docs/charts.md)
 - [Dashboard](../Chart/docs/dashboard.md)
 - [Visualizzazione](../Chart/docs/visualization.md)
-=======
-=======
-=======

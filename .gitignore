@@ -36,3 +36,4 @@ docs/
 .Windsurf/
 .windsurf/
 laravel/database/migrations/
+_base_laravelpizza_1.code-workspace

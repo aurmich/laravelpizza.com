@@ -26,4 +26,6 @@ yarn-error.log
 .windsurf/
 .Windsurf/
 .claude/
-
+.gemini/
+CLAUDE.md
+IFLOW.md

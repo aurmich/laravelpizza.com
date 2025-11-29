@@ -37,7 +37,7 @@
 ### ❌ Non Corretto
 ```markdown
 Il file di configurazione si trova in:
-/laravel/config/<nome progetto>/database/content/pages/1.json
+/laravel/config/<directory progetto>/database/content/pages/1.json
 ```
 
 ### ✅ Corretto
@@ -93,9 +93,9 @@ Modifica il file `header.blade.php` in questa posizione per personalizzare l'hea
 - [Componenti](components.md) - Componenti disponibili
 
 ## Vedi Anche
-- [Modulo Xot](../Xot/docs/README.md) - Linee guida generali
-- [Modulo UI](../UI/docs/README.md) - Componenti di interfaccia
-- [Modulo Theme](../Theme/docs/README.md) - Gestione temi
-- [Convenzioni Naming](../../../docs/standards/file_naming_conventions.md) - Standard naming
+- [Modulo Xot](../Xot/project_docs/README.md) - Linee guida generali
+- [Modulo UI](../UI/project_docs/README.md) - Componenti di interfaccia
+- [Modulo Theme](../Theme/project_docs/README.md) - Gestione temi
+- [Convenzioni Naming](../../../project_docs/standards/file_naming_conventions.md) - Standard naming
 - [Documentazione Laravel](https://laravel.com/docs) - Documentazione ufficiale
-- [Best Practices](https://laravel.com/docs/11.x/best-practices) - Best practices Laravel
+- [Best Practices](https://laravel.com/project_docs/11.x/best-practices) - Best practices Laravel

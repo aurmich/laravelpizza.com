@@ -122,7 +122,7 @@ class Article extends Model implements \Mcamara\LaravelLocalization\Interfaces\L
 - Versiona sempre i file `lang/{locale}/routes.php` e aggiorna la documentazione ad ogni nuova pagina Folio
 - Usa sempre i metodi di LaravelLocalization per link e redirect nei Blade
 - Testa la localizzazione sia per le route che per i contenuti delle pagine Folio
-- Documenta la strategia in `/Modules/Lang/project_docs/laravel-localization-integration.md` e linka dal README
+- Documenta la strategia in `/Modules/Lang/docs/laravel-localization-integration.md` e linka dal README
 - Per la cache delle route, usa sempre `php artisan route:trans:cache`
 
 ---
@@ -133,7 +133,7 @@ class Article extends Model implements \Mcamara\LaravelLocalization\Interfaces\L
 - Crea/aggiorna i file `lang/{locale}/routes.php` per tutte le lingue supportate
 - Nei Blade Folio, sostituisci tutti i link hardcoded con i metodi di LaravelLocalization
 - Se usi parametri dinamici multilingua, aggiorna i model per supportare `LocalizedUrlRoutable`
-- Documenta la strategia in `/Modules/Lang/project_docs/laravel-localization-integration.md` e linka dal README
+- Documenta la strategia in `/Modules/Lang/docs/laravel-localization-integration.md` e linka dal README
 
 ---
 
@@ -151,6 +151,6 @@ class Article extends Model implements \Mcamara\LaravelLocalization\Interfaces\L
 ## 7. Collegamenti utili
 
 - [mcamara/laravel-localization - GitHub](https://github.com/mcamara/laravel-localization)
-- [Laravel Folio - Docs](https://laravel.com/project_docs/12.x/folio)
+- [Laravel Folio - Docs](https://laravel.com/docs/12.x/folio)
 - [Traduzione route con mcamara](https://github.com/mcamara/laravel-localization#translated-routes)
 - [Esempio di override parametri dinamici](https://github.com/mcamara/laravel-localization#translatable-route-parameters)

@@ -6,6 +6,7 @@
     "Job": true,
     "Lang": true,
     "Media": true,
+    "Meetup": true,
     "Notify": true,
     "Seo": true,
     "Tenant": true,

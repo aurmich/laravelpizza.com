@@ -68,7 +68,6 @@ Files that don't require processing (such as images and fonts) can be added dire
 Now that you’ve edited your configuration variables and know how to customize your styles and content, let’s build the site.
 
 ```bash
-
 # build static files with Jigsaw
 ./vendor/bin/jigsaw build
 
@@ -76,19 +75,6 @@ Now that you’ve edited your configuration variables and know how to customize 
 # options: dev, prod
 npm run dev
 ```
-
-# options: dev, prod
-npm run dev
-```
-=======
-# options: dev, prod
-npm run dev
-```
-
-# options: dev, prod
-npm run dev
-```
-
 ### Versione HEAD
 
 
@@ -105,5 +91,3 @@ npm run dev
 
 ---
 
-=======
-=======

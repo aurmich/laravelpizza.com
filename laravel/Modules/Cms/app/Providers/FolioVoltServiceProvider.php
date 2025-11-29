@@ -37,11 +37,17 @@ class FolioVoltServiceProvider extends ServiceProvider
          * ],
          * ]);
          */
-        $middleware = TenantService::config('middleware');
-        if (! is_array($middleware)) {
-            $middleware = [];
+        try {
+            $middleware = TenantService::config('middleware');
+            if (! is_array($middleware)) {
+                $middleware = [];
+            }
+            Assert::isArray($base_middleware = Arr::get($middleware, 'base', []));
+        } catch (\Exception $e) {
+            // Se c'è un errore nel caricamento della configurazione middleware, usa array vuoto
+            // Questo evita errori durante il bootstrap quando la configurazione non è disponibile
+            $base_middleware = [];
         }
-        Assert::isArray($base_middleware = Arr::get($middleware, 'base', []));
 
         // $base_middleware[]=\Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class;
         $base_middleware[] = LocaleSessionRedirect::class;

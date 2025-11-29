@@ -197,7 +197,3 @@ Per garantire la compatibilità con PHPStan livello 9, assicurarsi di:
 - [Regole di Traduzione](/laravel/Modules/Xot/docs/translation_rules.md)
 
 *Ultimo aggiornamento: 3 Giugno 2025*
-=======
-=======
-*Ultimo aggiornamento: 3 Giugno 2025*
-=======

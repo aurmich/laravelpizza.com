@@ -94,21 +94,10 @@ Molte traduzioni utilizzano ancora il pattern `.navigation` invece di traduzioni
 - ✅ Standardizzazione helper_text e placeholder
 - ✅ Correzione errori di sintassi PHP
 - ✅ Coerenza terminologica tra moduli
-- ✅ **Aggiornamento 2025-11-19**: rimossi gli ultimi riferimenti letterali a `.navigation` nei moduli `Performance`, `Pdnd`, `Ptv`, `IndennitaCondizioniLavoro`, `Rating` e `Setting` con label e gruppi localizzati
 
 ## Collegamenti Correlati
 - [Errori Comuni Traduzione](../errori_comuni_traduzione.md)
 - [Correzioni Errori Sintassi 2025](../correzioni_errori_sintassi_2025.md)
 - [Best Practices Traduzioni](../../Xot/docs/TRANSLATION_RULES.md)
 
-## Aggiornamento 19 Novembre 2025
-
-- `performance::organizzativa_cat_coeff.navigation.label` → `Coefficienti categoria`
-- `pdnd::servizio_accertamento_generalita.navigation.*` → valori localizzati e icone heroicon
-- `pdnd::curl_proxy*` e `pdnd::consultazione_anagrafica` → gruppo comune **PDND**
-- `ptv::stabi_dirigente.navigation.*` e `ptv::criteri_option.navigation.*` → etichette comprensibili per i referenti HR
-- `indennitacondizionilavoro::condizioni_lavoro_adm.navigation.label` → `Condizioni di lavoro`
-- `rating::rating_morph.navigation.icon` → icona `heroicon-o-star`
-- `setting::database_connection.navigation.label` → `Connessioni database`
-
-*Ultimo aggiornamento: 19 Novembre 2025*
+*Ultimo aggiornamento: 6 Gennaio 2025*

@@ -461,5 +461,3 @@ private function getPasswordLegacy(): string
 
 
 
-
-

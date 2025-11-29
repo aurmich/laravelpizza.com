@@ -527,5 +527,3 @@ public function getTableActions(): array
 This document serves as a reference for avoiding common anti-patterns when extending Xot base classes and building modules on top of the Xot foundation.
 
 
-
-

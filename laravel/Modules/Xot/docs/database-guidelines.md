@@ -100,7 +100,6 @@ Per ogni database, mantenere un file `schema.json` aggiornato che descrive la st
 Generare e mantenere aggiornata una documentazione dettagliata in formato Markdown per ogni tabella del database:
 
 ```markdown
-
 ## Tabella: nome_tabella
 
 **Descrizione:** Questa tabella contiene dati relativi a...
@@ -269,8 +268,6 @@ return new class extends XotBaseMigration {
 **Collegamenti:**
 - [Regola Performance](../../Performance/project_docs/database_migrations.md)
 - [Regole globali root](../../../project_docs/database_migrations.md)
-- [Regola Performance](../../Performance/docs/database_migrations.md)
-- [Regole globali root](../../../docs/database_migrations.md)
 
     /**
      * Ottiene la sezione associata al socio.
@@ -429,7 +426,6 @@ public function up(): void
 ### 1. Generazione Documentazione
 
 ```bash
-
 # Genera documentazione dello schema da un file JSON
 php artisan xot:generate-db-documentation /path/to/schema.json /path/to/output
 
@@ -440,7 +436,6 @@ php artisan schema:generate-diagram --tables=tabella1,tabella2 --path=/path/to/o
 ### 2. Analisi del Database
 
 ```bash
-
 # Esporta lo schema del database in JSON
 php artisan db:export-schema --connection=nome_connessione --output=/path/to/output.json
 
@@ -488,4 +483,3 @@ php artisan db:analyze-usage --connection=nome_connessione
 - Verificare che ci siano indici appropriati
 - Controllare che i tipi di dati siano ottimali per l'uso previsto
 - Utilizzare query builder o raw queries per query complesse
-=======

@@ -1,113 +1,117 @@
 # Gestione Errori Vite nei Temi
 
-## Panoramica
+## Perché
+I temi sono una componente fondamentale del modulo CMS e la loro corretta compilazione attraverso Vite è essenziale per il funzionamento dell'interfaccia utente. Gli errori di compilazione Vite possono bloccare la visualizzazione del tema e devono essere gestiti in modo sistematico.
 
-Questo documento descrive gli errori comuni relativi a Vite nella gestione dei temi del CMS e come risolverli.
+## Errore Comune: Manifest non trovato
 
-## Errori Comuni
-
-### 1. Unable to locate file in Vite manifest
-
-#### Descrizione
-L'errore si verifica quando il sistema non riesce a trovare i file di asset (CSS, JS) nel manifest di Vite.
-
-#### Sintomo
+### Descrizione dell'Errore
 ```
-Internal Server Error
 Illuminate\Foundation\ViteException
 Unable to locate file in Vite manifest: resources/css/app.css
 ```
 
-#### Cause
-- Tema non pubblicato correttamente
-- Manifest non generato
-- Percorsi non corretti
-- Cache non aggiornata
+Questo errore si verifica quando il sistema non trova il manifest Vite necessario per la corretta distribuzione degli asset del tema.
 
-#### Soluzione
-1. Pubblicare il tema:
+### Impatto
+- Blocco del rendering del tema
+- Mancata visualizzazione degli stili CSS
+- Possibile compromissione dell'esperienza utente
+
+### Struttura Standard di un Tema
+```
+ThemeName/
+├── resources/
+│   ├── css/
+│   │   └── app.css
+│   └── js/
+│       └── app.js
+├── dist/
+├── package.json
+└── vite.config.js
+```
+
+## Risoluzione
+
+### 1. Verifica Preliminare
 ```bash
-cd /var/www/html/_bases/base_predict_fila3_mono/laravel/Themes/TwentyOne
+cd /var/www/html/_bases/base_predict_fila3_mono/laravel/Themes/[NomeTema]
+```
+
+### 2. Processo di Compilazione
+```bash
+# Installazione dipendenze
+npm install
+
+# Compilazione tema
 npm run copy
 ```
 
-2. Verificare la struttura:
+### 3. Verifica Post-Compilazione
 ```bash
-ls -la public/themes/TwentyOne/dist/
+# Controllo manifest
+cat dist/manifest.json
+
+# Verifica permessi
+ls -la dist/
 ```
 
-3. Pulire la cache:
-```bash
-php artisan cache:clear
-php artisan view:clear
+## Prevenzione
+
+### Integrazione nel Workflow di Sviluppo
+1. Aggiungere controlli pre-commit per la compilazione dei temi
+2. Implementare test automatici per la verifica degli asset
+3. Documentare le modifiche alla struttura del tema
+
+### Monitoraggio
+- Log degli errori di compilazione
+- Controlli periodici dei manifest
+- Verifica dell'integrità dei file compilati
+
+## Collegamenti Correlati
+- [Documentazione Generale Errori](/project_docs/errors/README.md)
+- [Gestione Temi CMS](../themes/README.md)
+- [Processo di Deploy](../../project_docs/deployment/THEMES.md)
+
+## Note Tecniche
+- La compilazione deve essere eseguita per ogni tema individualmente
+- I manifest sono specifici per tema
+- La configurazione Vite deve essere allineata con la struttura Laravel
+
+## Troubleshooting
+
+### Configurazione Vite
+```javascript
+// vite.config.js
+export default defineConfig({
+    build: {
+        outDir: 'dist',
+        manifest: true,
+        rollupOptions: {
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js'
+            ]
+        }
+    }
+});
 ```
 
-#### Documentazione Correlata
-- [Documentazione Vite nel Tema](../Themes/TwentyOne/docs/vite-error.md)
-- [Processo di Pubblicazione](../Themes/TwentyOne/docs/publishing.md)
-- [Configurazione Vite](../Themes/TwentyOne/vite.config.js)
+### Comandi di Debug
+```bash
+# Verifica Node.js e npm
+node -v
+npm -v
 
-### 2. Manifest non trovato
+# Pulizia cache
+npm cache clean --force
 
-#### Descrizione
-Il file manifest.json non viene trovato nella cartella di destinazione.
+# Ricompilazione forzata
+rm -rf dist/ node_modules/
+npm install && npm run copy
+```
 
-#### Cause
-- Compilazione non completata
-- Percorsi errati
-- Permessi non corretti
-
-#### Soluzione
-1. Verificare la configurazione Vite
-2. Controllare i permessi delle cartelle
-3. Ricompilare gli asset
-
-### 3. Asset non aggiornati
-
-#### Descrizione
-Gli asset non vengono aggiornati dopo la pubblicazione.
-
-#### Cause
-- Cache del browser
-- Timestamp non aggiornati
-- File non copiati correttamente
-
-#### Soluzione
-1. Forzare la ricompilazione
-2. Pulire la cache del browser
-3. Verificare i timestamp
-
-## Best Practices
-
-1. **Automazione**
-   - Utilizzare script di pubblicazione
-   - Implementare controlli pre-deployment
-   - Automatizzare il processo di build
-
-2. **Monitoraggio**
-   - Controllare i log di Vite
-   - Verificare i manifest generati
-   - Monitorare le performance
-
-3. **Manutenzione**
-   - Mantenere aggiornate le dipendenze
-   - Documentare le modifiche
-   - Eseguire backup regolari
-
-## Collegamenti
-
-### Documentazione del Tema
-- [Vite Error Documentation](../../Themes/TwentyOne/docs/vite-error.md)
-- [Publishing Process](../../Themes/TwentyOne/docs/publishing.md)
-- [Vite Configuration](../../Themes/TwentyOne/vite.config.js)
-
-### Documentazione Root
-- [Tema Management](../../../docs/themes/management.md)
-- [Asset Compilation](../../../docs/build/asset-compilation.md)
-- [Cache Management](../../../docs/cache/management.md)
-
-## Note Importanti
-
-- Mantenere sincronizzati i percorsi tra codice e manifest
-- Verificare la compatibilità con le versioni di Laravel
-- Documentare ogni modifica alla configurazione 
+## Manutenzione
+- Aggiornare regolarmente le dipendenze npm
+- Verificare la compatibilità con le versioni Laravel
+- Mantenere backup dei file di configurazione 

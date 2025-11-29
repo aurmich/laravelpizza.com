@@ -63,15 +63,15 @@ Modulo riutilizzabile per gestione utenti, autenticazione e autorizzazione in pr
 - [Testing](testing/) - Test patterns, factory
 
 ## Collegamenti
-- [Modulo Xot](../Xot/project_docs/) - Framework base
-- [Modulo Notify](../Notify/project_docs/) - Sistema notifiche
+- [Modulo Xot](../Xot/docs/) - Framework base
+- [Modulo Notify](../Notify/docs/) - Sistema notifiche
 
 *Modulo riutilizzabile - NON deve contenere riferimenti project-specific*
 ```
 
 #### Struttura Target Proposta
 ```
-User/project_docs/
+User/docs/
 ├── README.md (overview, max 100 righe)
 ├── authentication/
 │   ├── README.md
@@ -271,8 +271,8 @@ php artisan user:benchmark  # Target: < 100ms
 
 ## Collegamenti
 
-- [Analisi Moduli Globale](../../../project_docs/modules_analysis_and_optimization.md)
-- [Linee Guida Riusabilità](../../../project_docs/module_reusability_guidelines.md)
+- [Analisi Moduli Globale](../../../docs/modules_analysis_and_optimization.md)
+- [Linee Guida Riusabilità](../../../docs/module_reusability_guidelines.md)
 - [Best Practices User](best-practices/)
 
 *Ultimo aggiornamento: gennaio 2025*

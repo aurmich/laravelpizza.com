@@ -418,5 +418,3 @@ class MyTableWidget extends XotBaseTableWidget
 Queste regole garantiscono implementazione corretta dei widget seguendo l'architettura Laraxot.
 
 
-
-

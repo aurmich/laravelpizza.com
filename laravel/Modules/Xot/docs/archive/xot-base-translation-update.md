@@ -91,7 +91,3 @@ return [
 - [Documentazione Principale Traduzioni](../../../docs/translation_rules.md)
 
 *Ultimo aggiornamento: 27 Gennaio 2025* 
-=======
-=======
-*Ultimo aggiornamento: 27 Gennaio 2025* 
-=======

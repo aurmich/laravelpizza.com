@@ -94,7 +94,7 @@ Per identificare il file corrispondente a un URL specifico:
 
 - **URL**: `/it/` o `/it/home`
 - **File**: `/laravel/Themes/One/resources/views/pages/index.blade.php`
-- **Contenuto**: Definito nei file JSON in `/laravel/config/local/<nome progetto>/database/content/pages/1.json`
+- **Contenuto**: Definito nei file JSON in `/laravel/config/local/<directory progetto>/database/content/pages/1.json`
 
 ## Errori Comuni e Soluzioni
 

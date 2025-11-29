@@ -167,7 +167,6 @@ if (app()->environment('local') && empty($licenseKey)) {
 
 - **Sales:** sales@fullcalendar.io
 - **Pricing:** https://fullcalendar.io/pricing/
-- **Docs:** https://fullcalendar.io/project_docs/schedulerLicenseKey
 - **Docs:** https://fullcalendar.io/docs/schedulerLicenseKey
 - **GitHub:** https://github.com/fullcalendar/fullcalendar/issues
 
@@ -182,7 +181,6 @@ if (app()->environment('local') && empty($licenseKey)) {
 - [ ] Banner rosso rimosso
 - [ ] Funzionalità premium attive
 
-## 🚀  Specifico
 ## 🚀 <nome progetto> Specifico
 
 ### Business Hours Sanitarie

@@ -211,4 +211,3 @@ Quando si lavora sui file di traduzione, non è mai consentito rimuovere chiavi 
 - **Modulo**: Lang
 - **File**: `docs/translation-file-syntax.md`
 - **Tipo Conflitto**: Documentazione best practice
-- **Scelta**: Versione HEAD (mantenere best practice 2025) 

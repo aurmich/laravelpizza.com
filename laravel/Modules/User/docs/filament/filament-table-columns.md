@@ -1,3 +1,6 @@
+# Convenzione Metodo getTableColumns per Filament Table
+
+## Motivazione della Modifica
 Per uniformarsi allo standard Filament e migliorare la coerenza del codice, il metodo precedentemente chiamato `getListTableColumns` è stato rinominato in `getTableColumns` su tutte le risorse Filament del modulo User.
 
 - **Vecchio nome:** `getListTableColumns`
@@ -36,4 +39,3 @@ public function getTableColumns(): array
 **Ultimo aggiornamento:** 2025-05-13
 
 **Link bidirezionale:** Aggiornare anche la root docs e la docs di Xot per riferimenti e cross-link.
-=======

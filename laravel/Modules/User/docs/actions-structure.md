@@ -39,7 +39,7 @@ Questa differenza è definita nel file `composer.json` di ogni modulo, che mappa
 
 ## Pattern di Implementazione
 
-<main module> utilizza il package `spatie/laravel-queueable-action` per le Actions, NON il pattern Service:
+<nome progetto> utilizza il package `spatie/laravel-queueable-action` per le Actions, NON il pattern Service:
 
 ```php
 <?php

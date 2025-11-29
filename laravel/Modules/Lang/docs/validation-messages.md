@@ -120,7 +120,7 @@ class StoreOrderRequest extends FormRequest
 - [ ] Personalizza i nomi dei campi per una UX migliore
 - [ ] Gestisci array di campi con `*` e placeholder `:position`
 - [ ] Centralizza i messaggi comuni in `validation.php` e usa override solo se necessario
-- [ ] Documenta le regole e le eccezioni in `/Modules/Lang/project_docs/validation-messages.md`
+- [ ] Documenta le regole e le eccezioni in `/Modules/Lang/docs/validation-messages.md`
 - [ ] Aggiorna la documentazione ogni volta che cambi la strategia di validazione
 
 ---

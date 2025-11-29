@@ -188,7 +188,6 @@ $users->each(function ($user) {
 ### 2. Gestione Worker
 
 ```bash
-
 # Avvia worker dedicato
 php artisan queue:work --queue=emails
 
@@ -294,12 +293,7 @@ $this->call('queue:prune-batches', [
 # Supervisor config
 [program:<nome progetto>-worker]
 process_name=%(program_name)s_%(process_num)02d
-command=php /var/www/html/_bases/base_techplanner_fila3_mono/laravel/artisan queue:work redis --queue=emails
-
-# Supervisor config
-[program:<nome progetto>-worker]
-process_name=%(program_name)s_%(process_num)02d
-command=php /var/www/html/base_<nome progetto>/artisan queue:work redis --queue=emails
+command=php /var/www/html/_bases/base_<nome progetto>/laravel/artisan queue:work redis --queue=emails
 autostart=true
 autorestart=true
 numprocs=4
@@ -381,7 +375,6 @@ if ($failedJobs > $threshold) {
 ### 1. Pulizia
 
 ```bash
-
 # Pulizia job vecchi
 php artisan queue:prune-failed --hours=168
 php artisan queue:prune-batches --hours=24

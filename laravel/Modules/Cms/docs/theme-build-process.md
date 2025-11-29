@@ -1,6 +1,6 @@
 # Processo di Build del Tema in il progetto
 
-Questo documento fornisce una panoramica del processo di build e pubblicazione del tema principale di il progetto.
+Questo documento fornisce una panoramica del processo di build e pubblicazione del tema principale di il progetto. Per una documentazione più dettagliata, consultare il [documento completo nel modulo CMS](../../laravel/Modules/Cms/project_docs/theme-build-process.md).
 
 ## Comandi Principali
 
@@ -9,7 +9,7 @@ Il tema principale di il progetto ("One") richiede due step separati per compila
 1. **Build degli asset** - Compila i file sorgente in file ottimizzati:
 
 ```bash
-cd laravel/Themes/One
+cd /var/www/html/<directory progetto>/laravel/Themes/One
 npm run build
 ```
 
@@ -37,7 +37,7 @@ Il tema è strettamente integrato con il modulo CMS di il progetto, che fornisce
 - Configurazione dei template
 - Definizione dei blocchi di contenuto
 
-Per ulteriori dettagli su come funziona l'integrazione, consultare la [documentazione del modulo CMS](./filament-blocks-system.md).
+Per ulteriori dettagli su come funziona l'integrazione, consultare la [documentazione del modulo CMS](../../laravel/Modules/Cms/project_docs/theme-cms-integration.md).
 
 ## Risorse Aggiuntive
 

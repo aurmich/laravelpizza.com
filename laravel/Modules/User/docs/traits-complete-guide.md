@@ -389,24 +389,27 @@ public function teamRoleName(TeamContract $team): ?string
 }
 ```
 
-## HasTeams ⚠️ **CONFLITTO CONTRATTO RISOLTO - PROBLEMA TEST DATABASE**
-**Status:** Trait corretto, problema con test database
+## HasTeams ✅ **CONFLITTO CONTRATTO RISOLTO - PROBLEMA AUTOINCREMENT RISOLTO**
+**Status:** Trait corretto, problema autoincrement risolto
 **Filosofia:** Jetstream + Laraxot Evolution
-**Ultima modifica:** 10 giugno 2025
+**Ultima modifica:** 22 gennaio 2025
 
-#### Problema Database Test ⚠️
-I test falliscono con errore di chiave primaria duplicata nella tabella `team_user`:
+#### Problema Autoincrement nella Tabella team_user ✅ **RISOLTO**
+Il problema di chiave primaria duplicata nella tabella `team_user` è stato risolto:
+
 ```
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'PRIMARY'
 ```
 
-**Causa identificata:** La tabella `team_user` ha una chiave primaria vuota che causa conflitti durante i test.
+**Causa identificata:** La tabella `team_user` ha `id` come PRIMARY KEY di tipo UUID (`char(36)`), ma il modello `Membership` aveva `$incrementing = true` (default da `BasePivot`), causando un conflitto quando Filament cercava di inserire un nuovo record senza UUID.
 
-**Soluzioni possibili:**
-1. Verificare la struttura della tabella `team_user` 
-2. Assicurarsi che la chiave primaria sia auto-incrementale
-3. Utilizzare database in-memory per i test
-4. Implementare factory per TeamUser con ID corretti
+**Soluzione implementata:**
+1. ✅ Creata migrazione per convertire `id` da UUID a autoincrement (`bigint`)
+2. ✅ Aggiornato modello `Membership` per usare `$keyType = 'int'` e cast `integer`
+3. ✅ Corretto PHPDoc per `$id` da `string` a `int`
+4. ✅ Preservati i dati esistenti rinominando `id` a `uuid` durante la migrazione
+
+Vedi [membership-autoincrement-fix.md](./membership-autoincrement-fix.md) per dettagli completi.
 
 #### Conflitto HasTeamsContract ✅ **RISOLTO**
 - **teamRole() contratto**: CORRETTO - ora restituisce `?Role` invece di `?string`

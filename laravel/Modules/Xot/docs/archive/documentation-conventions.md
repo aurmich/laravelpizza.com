@@ -60,14 +60,10 @@
 1. **Da modulo a root**: Ogni documento in un modulo deve linkare alla documentazione root correlata:
    ```markdown
    Vedi anche: [Documentazione generale](/docs/nome_documento.md)
-=======
-   Vedi anche: [Documentazione generale](/docs/nome_documento.md)
    ```
 
 2. **Da root a modulo**: La documentazione root deve linkare ai documenti specifici dei moduli:
    ```markdown
-   Vedi anche: [Implementazione nel modulo Xot](/laravel/Modules/Xot/docs/nome_documento.md)
-=======
    Vedi anche: [Implementazione nel modulo Xot](/laravel/Modules/Xot/docs/nome_documento.md)
    ```
 
@@ -110,9 +106,3 @@ Utilizzare script nella cartella `bashscripts` per automatizzare le verifiche e 
 - [Regole per file di traduzione](../../../.cursor/rules/translation_files_rules.mdc)
 
 *Ultimo aggiornamento: Giugno 2025*
-=======
-=======
-- [Regole per file di traduzione](../../../.cursor/rules/translation_files_rules.mdc)
-
-*Ultimo aggiornamento: Giugno 2025*
-=======

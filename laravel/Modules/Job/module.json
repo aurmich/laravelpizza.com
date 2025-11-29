@@ -1,8 +1,8 @@
 {
     "name": "Job",
     "alias": "job",
-    "description": "",
-    "keywords": [],
+    "description": "Sistema avanzato di gestione code e job processing per elaborazione asincrona di task",
+    "keywords": ["queue", "jobs", "scheduling", "monitoring", "performance"],
     "active": 1,
     "priority": 20,
     "order": 20,

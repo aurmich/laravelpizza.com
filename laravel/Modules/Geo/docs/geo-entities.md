@@ -3,7 +3,7 @@
 ## Filosofia e Principi
 
 ### 1. Separazione dei Domini
-- Le entità geografiche (Regioni, Province, Città, CAP) sono state spostate dal modulo <main module> al modulo Geo
+- Le entità geografiche (Regioni, Province, Città, CAP) sono state spostate dal modulo <nome progetto> al modulo Geo
 - Questo segue il principio di Single Responsibility (SRP) dei principi SOLID
 - Ogni modulo deve gestire solo il proprio dominio specifico
 

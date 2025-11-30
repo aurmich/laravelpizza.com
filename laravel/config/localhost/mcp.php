@@ -69,7 +69,7 @@ return [
             'args' => ['artisan'],
             'description' => 'Comandi Artisan di Laravel per gestione del progetto',
             'env' => [
-                'MCP_LARAVEL_ENV' => app()->environment(),
+                'MCP_LARAVEL_ENV' => env('APP_ENV', 'production'),
                 'MCP_LARAVEL_DEBUG' => config('app.debug', false),
             ],
         ],

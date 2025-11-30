@@ -200,7 +200,7 @@ if (! function_exists('dddx')) {
             $data['view_file'] = app(FixPathAction::class)
                 ->execute(Str::between($content, '/**PATH ', ' ENDPATH**/'));
         }
-        dd(['data' => $data]);
+        Log::debug('dddx', ['data' => $data]);
     }
 }
 /*

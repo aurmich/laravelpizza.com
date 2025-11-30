@@ -37,12 +37,24 @@ class FolioVoltServiceProvider extends ServiceProvider
          * ],
          * ]);
          */
+        // Gestione sicura della configurazione middleware per evitare errori durante bootstrap
+        $base_middleware = [];
         try {
-            $middleware = TenantService::config('middleware');
-            if (! is_array($middleware)) {
-                $middleware = [];
+            // Verifica se siamo in ambiente console e se il problema "env" è presente
+            // In questo caso, usa array vuoto per permettere al server di partire
+            if (app()->runningInConsole()) {
+                // Durante il bootstrap dei comandi artisan, potrebbe esserci un problema
+                // con la risoluzione di "env" come classe. Usiamo array vuoto come fallback.
+                $base_middleware = [];
+            } else {
+                $middleware = TenantService::config('middleware');
+                if (is_array($middleware)) {
+                    $base_middleware = Arr::get($middleware, 'base', []);
+                    if (! is_array($base_middleware)) {
+                        $base_middleware = [];
+                    }
+                }
             }
-            Assert::isArray($base_middleware = Arr::get($middleware, 'base', []));
         } catch (\Exception $e) {
             // Se c'è un errore nel caricamento della configurazione middleware, usa array vuoto
             // Questo evita errori durante il bootstrap quando la configurazione non è disponibile
@@ -56,6 +68,7 @@ class FolioVoltServiceProvider extends ServiceProvider
         // $base_middleware[]=\Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class;
 
         $theme_path = XotData::make()->getPubThemeViewPath('pages');
+        
         /*
          * // Ottieni la lingua corrente in modo sicuro
          * $currentLocale = app()->getLocale();

@@ -48,23 +48,26 @@ class MeetupServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => database_path('migrations'),
+            __DIR__ . '/../../database/migrations/' => database_path('migrations'),
         ], 'migrations');
     }
 
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php',
-            'meetup'
-        );
+        $configPath = __DIR__ . '/../../config/config.php';
+        if (file_exists($configPath)) {
+            $this->mergeConfigFrom(
+                $configPath,
+                'meetup'
+            );
+        }
     }
 
     public function registerViews(): void
     {
         $viewPath = resource_path('views/modules/meetup');
 
-        $sourcePath = __DIR__ . '/../resources/views';
+        $sourcePath = __DIR__ . '/../../resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath,
@@ -82,7 +85,7 @@ class MeetupServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'meetup');
         } else {
-            $this->loadTranslationsFrom(__DIR__ . '/../lang', 'meetup');
+            $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'meetup');
         }
     }
 }

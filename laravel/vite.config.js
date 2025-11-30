@@ -10,10 +10,11 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'Themes/Meetup/resources/html/css/app.css',
-                'Themes/Meetup/resources/html/js/app.js',
+                'Themes/Meetup/resources/css/app.css',
+                'Themes/Meetup/resources/js/app.js',
             ],
             refresh: true,
+            buildDirectory: 'build',
         }),
         tailwindcss(),
     ],
@@ -27,8 +28,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 'app': 'resources/js/app.js',
-                'meetup-css': 'Themes/Meetup/resources/html/css/app.css',
-                'meetup-js': 'Themes/Meetup/resources/html/js/app.js',
+                'meetup-css': 'Themes/Meetup/resources/css/app.css',
+                'meetup-js': 'Themes/Meetup/resources/js/app.js',
             },
         },
     },

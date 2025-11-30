@@ -8,14 +8,21 @@ namespace App;
 
 class Application extends \Illuminate\Foundation\Application
 {
+
     public function publicPath($path = ''): string
     {
         $tmp = $this->basePath.'/../public_html/'.$path;
         $tmp = str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $tmp);
-        if (realpath($tmp) === false) {
-            return realpath($this->basePath.'/../public_html/').'/'.$path;
+        $realPath = \realpath($tmp);
+        if ($realPath === false) {
+            $baseRealPath = \realpath($this->basePath.'/../public_html/');
+            if ($baseRealPath === false) {
+                return $this->basePath.'/../public_html/'.$path;
+            }
+
+            return $baseRealPath.'/'.$path;
         }
 
-        return realpath($tmp);
+        return $realPath;
     }
 }

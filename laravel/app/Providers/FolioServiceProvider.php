@@ -20,10 +20,13 @@ class FolioServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Folio::path(resource_path('views/pages'))->middleware([
-            '*' => [
-                //
-            ],
-        ]);
+        $pagesPath = resource_path('views/pages');
+        if (is_dir($pagesPath)) {
+            Folio::path($pagesPath)->middleware([
+                '*' => [
+                    //
+                ],
+            ]);
+        }
     }
 }

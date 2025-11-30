@@ -76,7 +76,6 @@ class CmsServiceProvider extends XotBaseServiceProvider
         $lang_dir = app(FixPathAction::class)->execute(base_path($theme_path.'/lang'));
 
         $theme_dir = app(FixPathAction::class)->execute(base_path($resource_path.'/views'));
-
         app('view')->addNamespace($theme_type, $theme_dir);
         $this->loadTranslationsFrom($lang_dir, $theme_type);
 

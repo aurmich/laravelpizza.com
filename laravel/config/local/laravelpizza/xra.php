@@ -7,7 +7,7 @@ return [
     'enable_ads' => '1',
     'main_module' => 'TechPlanner',
     'primary_lang' => 'it',
-    'pub_theme' => 'Sixteen',
+    'pub_theme' => 'Meetup',
     'search_action' => 'it/videos',
     'show_trans_key' => false,
     'disable_admin_dynamic_route' => true,

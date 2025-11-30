@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 <head>
     <title>{{ $meta->getTitle() }}</title>
 
@@ -47,13 +42,11 @@ declare(strict_types=1);
         sizes="16x16">
     <link rel="apple-touch-icon" href="{{ $meta->getFaviconBySize(size: '180x180', format: 'png') }}">
     <link rel="manifest" href="{{ $meta->getSiteWebmanifest() }}">
-    {{--  
-<meta name="theme-color" content="#ffffff">
 
-@foreach (config('app.locales') as $locale => $lang)
-    <link rel="alternate" hreflang="{{ $locale }}" href="{{ localized_route(Route::currentRouteName(), request()->route()->parameters(), $locale) }}">
-@endforeach
---}}
+    {{-- Theme color and localized routes (commented out for now)
+    <meta name="theme-color" content="#ffffff">
+    --}}
+
     {{ $slot }}
     @filamentStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'], 'themes/' . $meta->getPubTheme())

@@ -1,7 +1,7 @@
 {
     "id": "1",
     "title": {
-        "it": "TechPlanner - Sistema di Gestione Tecnica"
+        "it": "Laravel Pizza Meetups - Home"
     },
     "slug": "home",
     "middleware": null,
@@ -13,18 +13,18 @@
                 "slug": "hero-section",
                 "data": {
                     "view": "pub_theme::components.blocks.hero.main",
-                    "title": "Benvenuto in TechPlanner",
-                    "subtitle": "Sistema avanzato di gestione tecnica e pianificazione aziendale",
-                    "description": "Gestisci dipendenti, progetti e risorse in modo efficiente con il nostro sistema integrato.",
+                    "title": "Laravel Developers. Pizza. Community.",
+                    "subtitle": "Join fellow Laravel, Filament, and Livewire enthusiasts for pizza meetups.",
+                    "description": "Share knowledge, build connections, and enjoy great food together.",
                     "background_image": "/images/hero-bg.jpg",
                     "cta_primary": {
-                        "label": "Inizia Ora",
-                        "url": "/admin",
+                        "label": "Join the Community",
+                        "url": "/auth/register",
                         "style": "primary"
                     },
                     "cta_secondary": {
-                        "label": "Scopri di Più",
-                        "url": "#features",
+                        "label": "View Events",
+                        "url": "/events",
                         "style": "secondary"
                     }
                 }
@@ -34,50 +34,32 @@
                 "slug": "features-grid",
                 "data": {
                     "view": "pub_theme::components.blocks.features.grid",
-                    "title": "Funzionalità Principali",
-                    "description": "Tutto quello che ti serve per gestire la tua azienda",
+                    "title": "Why Join Our Community?",
+                    "description": "More than just pizza - it's about building lasting connections with developers who share your passion",
                     "features": [
                         {
-                            "icon": "heroicon-o-users",
-                            "title": "Gestione Dipendenti",
-                            "description": "Gestisci il personale, presenze e performance in un unico posto",
-                            "url": "/employee/admin",
-                            "color": "blue"
-                        },
-                        {
-                            "icon": "heroicon-o-chart-bar",
-                            "title": "Analytics & Report",
-                            "description": "Visualizza statistiche dettagliate e genera report personalizzati",
-                            "url": "/chart/admin",
-                            "color": "green"
-                        },
-                        {
-                            "icon": "heroicon-o-cog-6-tooth",
-                            "title": "Configurazione",
-                            "description": "Personalizza il sistema secondo le tue esigenze aziendali",
-                            "url": "/admin/settings",
-                            "color": "purple"
-                        },
-                        {
                             "icon": "heroicon-o-calendar",
-                            "title": "Pianificazione",
-                            "description": "Organizza progetti, scadenze e milestone importanti",
-                            "url": "/admin/planning",
-                            "color": "orange"
-                        },
-                        {
-                            "icon": "heroicon-o-shield-check",
-                            "title": "Sicurezza",
-                            "description": "Controllo accessi avanzato e audit trail completo",
-                            "url": "/admin/security",
+                            "title": "Regular Meetups",
+                            "description": "Join weekly pizza meetups with Laravel developers in your area",
                             "color": "red"
                         },
                         {
-                            "icon": "heroicon-o-document-text",
-                            "title": "Documentazione",
-                            "description": "Guide complete e documentazione tecnica sempre aggiornata",
-                            "url": "/docs",
-                            "color": "indigo"
+                            "icon": "heroicon-o-users",
+                            "title": "Growing Community",
+                            "description": "Connect with passionate developers who love Laravel and pizza",
+                            "color": "red"
+                        },
+                        {
+                            "icon": "heroicon-o-map-pin",
+                            "title": "Multiple Locations",
+                            "description": "Find meetups in cities around the world",
+                            "color": "red"
+                        },
+                        {
+                            "icon": "heroicon-o-chat-bubble-left-right",
+                            "title": "Real-time Chat",
+                            "description": "Stay connected with the community between meetups",
+                            "color": "red"
                         }
                     ]
                 }
@@ -87,62 +69,28 @@
                 "slug": "stats-section",
                 "data": {
                     "view": "pub_theme::components.blocks.stats.overview",
-                    "title": "TechPlanner in Numeri",
-                    "background_color": "bg-gray-50",
+                    "title": "Laravel Pizza in Numbers",
+                    "background_color": "bg-slate-900",
                     "stats": [
                         {
+                            "number": "150+",
+                            "label": "Active Members",
+                            "description": "Developers in our community"
+                        },
+                        {
+                            "number": "25+",
+                            "label": "Cities",
+                            "description": "Meetups around the world"
+                        },
+                        {
                             "number": "500+",
-                            "label": "Aziende Attive",
-                            "description": "Utilizzano TechPlanner quotidianamente"
+                            "label": "Pizzas Shared",
+                            "description": "And counting!"
                         },
                         {
-                            "number": "15.000+",
-                            "label": "Dipendenti Gestiti",
-                            "description": "Attraverso la nostra piattaforma"
-                        },
-                        {
-                            "number": "99.9%",
-                            "label": "Uptime",
-                            "description": "Affidabilità garantita 24/7"
-                        },
-                        {
-                            "number": "50+",
-                            "label": "Integrazioni",
-                            "description": "Con i principali software aziendali"
-                        }
-                    ]
-                }
-            },
-            {
-                "type": "testimonials",
-                "slug": "testimonials",
-                "data": {
-                    "view": "pub_theme::components.blocks.testimonials.carousel",
-                    "title": "Cosa Dicono i Nostri Clienti",
-                    "testimonials": [
-                        {
-                            "content": "TechPlanner ha rivoluzionato la gestione del nostro personale. Ora tutto è più efficiente e organizzato.",
-                            "author": "Marco Rossi",
-                            "role": "CEO",
-                            "company": "Innovazione S.r.l.",
-                            "avatar": "/images/testimonial-1.jpg",
-                            "rating": 5
-                        },
-                        {
-                            "content": "L'interfaccia è intuitiva e le funzionalità sono esattamente quello che cercavamo per la nostra PMI.",
-                            "author": "Laura Bianchi",
-                            "role": "HR Manager",
-                            "company": "Tech Solutions",
-                            "avatar": "/images/testimonial-2.jpg",
-                            "rating": 5
-                        },
-                        {
-                            "content": "Il supporto tecnico è eccezionale e l'implementazione è stata rapida e senza problemi.",
-                            "author": "Giuseppe Verdi",
-                            "role": "IT Director",
-                            "company": "Manifattura Italiana",
-                            "avatar": "/images/testimonial-3.jpg",
-                            "rating": 5
+                            "number": "100%",
+                            "label": "Laravel Love",
+                            "description": "Pure passion for code"
                         }
                     ]
                 }
@@ -152,18 +100,18 @@
                 "slug": "final-cta",
                 "data": {
                     "view": "pub_theme::components.blocks.cta.banner",
-                    "title": "Pronto a Iniziare?",
-                    "description": "Unisciti alle centinaia di aziende che hanno già scelto TechPlanner per gestire il loro business.",
-                    "background_color": "bg-blue-600",
+                    "title": "Ready to Join?",
+                    "description": "Be part of a growing community of Laravel developers who love pizza and code.",
+                    "background_color": "bg-red-600",
                     "text_color": "text-white",
                     "cta_primary": {
-                        "label": "Accedi al Sistema",
-                        "url": "/admin",
+                        "label": "Sign Up Now",
+                        "url": "/auth/register",
                         "style": "white"
                     },
                     "cta_secondary": {
-                        "label": "Richiedi Demo",
-                        "url": "/contact",
+                        "label": "Browse Events",
+                        "url": "/events",
                         "style": "outline-white"
                     }
                 }
@@ -171,69 +119,12 @@
         ]
     },
     "sidebar_blocks": {
-        "it": [
-            {
-                "type": "quick-links",
-                "slug": "quick-links",
-                "data": {
-                    "view": "pub_theme::components.blocks.sidebar.quick-links",
-                    "title": "Accesso Rapido",
-                    "links": [
-                        {
-                            "label": "Dashboard Admin",
-                            "url": "/admin",
-                            "icon": "heroicon-o-squares-2x2"
-                        },
-                        {
-                            "label": "Gestione Dipendenti",
-                            "url": "/employee/admin",
-                            "icon": "heroicon-o-users"
-                        },
-                        {
-                            "label": "Report e Analytics",
-                            "url": "/chart/admin",
-                            "icon": "heroicon-o-chart-bar"
-                        },
-                        {
-                            "label": "Documentazione",
-                            "url": "/docs",
-                            "icon": "heroicon-o-document-text"
-                        }
-                    ]
-                }
-            },
-            {
-                "type": "system-info",
-                "slug": "system-info",
-                "data": {
-                    "view": "pub_theme::components.blocks.sidebar.system-info",
-                    "title": "Informazioni Sistema",
-                    "info": [
-                        {
-                            "label": "Versione",
-                            "value": "{{ app()->version() }}"
-                        },
-                        {
-                            "label": "Ambiente",
-                            "value": "{{ app()->environment() }}"
-                        },
-                        {
-                            "label": "Lingua",
-                            "value": "{{ app()->getLocale() }}"
-                        },
-                        {
-                            "label": "Tema",
-                            "value": "Sixteen"
-                        }
-                    ]
-                }
-            }
-        ]
+        "it": []
     },
     "footer_blocks": {
         "it": []
     },
-    "created_at": "2025-07-08T09:02:57.000000Z",
+    "created_at": "2025-01-06T15:30:00.000000Z",
     "updated_at": "2025-01-06T15:30:00.000000Z",
     "created_by": null,
     "updated_by": "01985ae8-8039-71ea-88c7-54ebce6295b0"

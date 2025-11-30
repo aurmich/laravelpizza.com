@@ -61,6 +61,26 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
+        "go":[
+            "@php -d memory_limit=-1 composer.phar selfupdate",
+            "rm -rf ./app/View/Components/vendor/",
+            "rm -rf ./resources/views/vendor/",
+            "@php -d memory_limit=-1 composer.phar update -W",
+            "@php artisan vendor:publish --all",
+            "rm -rf database/migrations/*",
+            "rm -rf ./app/View/Components/vendor/",
+            "mkdir -p bootstrap/cache",
+            "@php artisan migrate",
+            "@php artisan filament:upgrade",
+            "@php artisan filament:optimize",
+            "@php artisan config:cache",
+            "@php artisan view:cache",
+            "@php artisan icons:cache",
+            "@php artisan route:clear",
+            "sudo chown -R www-data:www-data ..",
+            "sudo chmod -R g+w ..",
+            "@php artisan serve"
         ]
     },
     "extra": {

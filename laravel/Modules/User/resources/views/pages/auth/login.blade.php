@@ -41,7 +41,7 @@ new class extends Component {
 
 ?>
 
-<x-layouts.main>
+<x-layouts.guest>
 
     <div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">
 
@@ -79,4 +79,4 @@ new class extends Component {
 
     </div>
 
-</x-layouts.main>
+</x-layouts.guest>

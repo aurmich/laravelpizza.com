@@ -21,3 +21,18 @@
 
 ## Note
 - Per casi specifici e casistiche di errore consultare la documentazione dei singoli moduli (es. Performance).
+
+## Case Study: Teams Migration Violation
+
+**Data**: 2025-11-30
+
+**Problema**: Migrazione separata `2025_05_16_221811_add_owner_id_to_teams_table.php` violava filosofia Laraxot.
+
+**Soluzione**:
+1. Integrata colonna `owner_id` nella migrazione originale `2023_01_01_000006_create_teams_table.php`
+2. Aggiornato timestamp: rinominato in `2025_05_16_221811_create_teams_table.php`
+3. Eliminati duplicati: `2023_01_01_000007_create_teams_table.php` e `2025_05_16_221811_add_owner_id_to_teams_table.php`
+
+**Riferimenti**:
+- `Modules/User/docs/migration-teams-owner-id-violation-analysis.md`
+- `Modules/Xot/docs/migration-teams-violation-case-study.md`

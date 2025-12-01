@@ -37,10 +37,10 @@ new class extends Component
 
 ?>
 
-<x-layouts.app>
+<x-layouts.public>
     @volt('pages.view')
     <div>
         <x-page side="content" :slug="$slug" />
     </div>
     @endvolt
-</x-layouts.app>
+</x-layouts.public>

@@ -362,4 +362,65 @@ BadgeColumn::make('status')
 
 Queste regole garantiscono coerenza con l'architettura Laraxot e compatibilità con Filament 4.
 
+---
+
+## 🎯 Regole Critiche Aggiuntive (2025-11-30)
+
+### 8. **Frontend Asset Management**
+
+**REGOLA CRITICA**: Ogni modifica a `resources/css/app.css` o `resources/js/app.js` richiede `npm run build && npm run copy`.
+
+```bash
+cd /var/www/_bases/base_laravelpizza/laravel/Themes/Meetup
+npm run build && npm run copy
+```
+
+**Riferimenti**:
+- `Modules/Xot/docs/frontend-asset-management-rule.md`
+- `Themes/Meetup/docs/development-workflow-css-js-changes.md`
+
+### 9. **Componenti Blade Anonimi con Namespace**
+
+**REGOLA CRITICA**: I componenti anonimi registrati con `Blade::anonymousComponentPath()` NON supportano la sintassi namespace esplicita.
+
+```blade
+// ❌ ERRATO
+<x-pub_theme::components.layouts.main>
+
+// ✅ CORRETTO
+<x-layouts.main>
+```
+
+**Riferimenti**:
+- `Modules/Xot/docs/blade-anonymous-components-namespace-rule.md`
+- `Themes/Meetup/docs/pub-theme-component-namespace-error-analysis.md`
+
+### 10. **Filosofia Migrazioni Laraxot**
+
+**REGOLA ASSOLUTA**: Una Tabella = Una Migrazione
+
+Per modificare una tabella esistente:
+1. **MODIFICARE** direttamente la migrazione originale
+2. **AGGIORNARE** il timestamp nel nome del file
+3. **NON creare** mai nuove migrazioni separate
+
+**Riferimenti**:
+- `Modules/User/docs/laraxot-migration-philosophy.md`
+- `Modules/Xot/docs/migration-update-rules.md`
+- `Modules/Xot/docs/migration-teams-violation-case-study.md`
+
+### 11. **Architettura Frontoffice (Folio + Volt)**
+
+**REGOLA CRITICA**: Nel frontoffice NON usare controller né scrivere rotte in `web.php` o `api.php`.
+
+**✅ OBBLIGATORIO**:
+- **Folio** per routing file-based
+- **Volt** per interattività
+- **Filament** SOLO per admin panel
+- **Actions** chiamate da componenti Volt
+
+**Riferimenti**:
+- `Modules/Meetup/docs/architecture-reference.md`
+- `Modules/Meetup/docs/folio-volt-repositories-analysis.md`
+
 

@@ -83,5 +83,9 @@ class CmsServiceProvider extends XotBaseServiceProvider
             ->execute(base_path($resource_path.'/views/components'));
 
         Blade::anonymousComponentPath($componentViewPath);
+        Blade::anonymousComponentNamespace(
+            $theme_type.'::',
+            app(FixPathAction::class)->execute(base_path($resource_path.'/views'))
+        );
     }
 }

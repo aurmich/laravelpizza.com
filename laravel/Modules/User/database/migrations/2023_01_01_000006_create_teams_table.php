@@ -7,14 +7,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Schema\Blueprint;
+use Modules\User\Models\Team;
 use Modules\Xot\Database\Migrations\XotBaseMigration;
 
 return new class extends XotBaseMigration
 {
-    /**
-     * Nome della tabella gestita dalla migrazione.
-     */
-    protected string $table_name = 'teams';
+    protected string $table = 'teams';
+    protected ?string $connection = 'user';
+    protected ?string $model_class = Team::class;
 
     /**
      * Esegue la migrazione.
@@ -47,15 +47,12 @@ return new class extends XotBaseMigration
             if (! $this->hasColumn('code')) {
                 $table->string('code', 36)->nullable()->index();
             }
-            
-            // Owner ID - aggiunto per gestire il proprietario del team
+
             if (! $this->hasColumn('owner_id')) {
                 $table->uuid('owner_id')->nullable()->after('id');
             }
-            
-            $this->updateTimestamps($table, true);
 
-            // $this->updateUser($table);
+            $this->updateTimestamps($table, true);
         });
     }
 };

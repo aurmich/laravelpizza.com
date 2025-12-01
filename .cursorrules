@@ -140,3 +140,89 @@ $factory = Model::factory(10);
 $collection = $factory->create([...]);
 ```
 
+---
+
+## ⚠️ REGOLA CRITICA - Frontend Asset Management OBBLIGATORIA
+
+**OGNI VOLTA CHE MODIFICHI FILE CSS O JAVASCRIPT, DEVI ESEGUIRE:**
+
+```bash
+cd /var/www/_bases/base_laravelpizza/laravel/Themes/Meetup
+npm run build && npm run copy
+```
+
+**Perché**:
+- Vite compila i file source (`resources/css/app.css`, `resources/js/app.js`) in asset ottimizzati
+- Gli asset devono essere copiati in `public_html/themes/Meetup/` per essere accessibili via web
+- **Senza build e copy, le modifiche NON sono visibili nel browser** (`http://127.0.0.1:8000/it`)
+
+**Quando**:
+- ✅ Dopo modifiche a `resources/css/app.css`
+- ✅ Dopo modifiche a `resources/js/app.js`
+- ✅ Prima di testare nel browser
+- ✅ Prima di commitare modifiche frontend
+- ❌ NON serve durante `npm run dev` (hot reload automatico)
+
+**Documentazione**: `laravel/Themes/Meetup/docs/development-workflow-css-js-changes.md`
+
+**Questa regola è ASSOLUTAMENTE OBBLIGATORIA per vedere modifiche CSS/JS!**
+
+---
+
+## ⚠️ REGOLA CRITICA - Componenti Blade Anonimi con Namespace
+
+**I componenti anonimi registrati con `Blade::anonymousComponentPath()` NON supportano la sintassi namespace esplicita.**
+
+### ❌ ERRATO
+```blade
+<x-pub_theme::components.layouts.main>
+    {{ $slot }}
+</x-pub_theme::components.layouts.main>
+```
+
+### ✅ CORRETTO
+```blade
+<x-layouts.main>
+    {{ $slot }}
+</x-layouts.main>
+```
+
+**Perché**:
+- `CmsServiceProvider::registerNamespaces()` registra componenti anonimi con `Blade::anonymousComponentPath()`
+- I componenti anonimi funzionano solo con sintassi semplice `<x-component-name>`
+- La sintassi namespace esplicita cerca classi componenti o view namespace, non componenti anonimi
+
+**Documentazione**: `laravel/Themes/Meetup/docs/pub-theme-component-namespace-error-analysis.md`
+
+**Questa regola è ASSOLUTAMENTE OBBLIGATORIA per componenti anonimi!**
+
+---
+
+## ⚠️ REGOLA CRITICA - Filosofia Migrazioni Laraxot OBBLIGATORIA
+
+**UNA TABELLA = UNA MIGRAZIONE**
+
+**Per modificare una tabella esistente**:
+1. **MODIFICARE** direttamente la migrazione originale
+2. **AGGIORNARE** il timestamp nel nome del file
+3. **NON creare** mai nuove migrazioni separate
+
+### ❌ VIETATO
+- Creare `add_column_to_table.php` per aggiungere colonne
+- Creare `update_table.php` per modifiche
+- Creare più migrazioni per la stessa tabella
+
+### ✅ CORRETTO
+- Modificare `create_table.php` originale
+- Aggiungere colonne nella sezione `tableUpdate()` con controlli `hasColumn()`
+- Aggiornare timestamp: `2025_05_16_221811_create_table.php`
+
+**Principi**:
+- **Single Source of Truth**: Una sola fonte di verità per struttura tabella
+- **Evoluzione Organica**: La migrazione "cresce" nel tempo
+- **Anti-Frammentazione**: Evita esplosione di micro-migrazioni
+
+**Documentazione**: `laravel/Modules/User/docs/laraxot-migration-philosophy.md`
+
+**Questa regola è ASSOLUTAMENTE OBBLIGATORIA per tutte le migrazioni!**
+

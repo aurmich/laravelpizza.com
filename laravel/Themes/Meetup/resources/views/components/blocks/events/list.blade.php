@@ -1,15 +1,30 @@
-@props(['data'])
+@props([
+    'data' => [],
+    'title' => null,
+    'description' => null,
+    'events' => [],
+    'view_all_url' => null,
+])
+
+@php
+    // Support both formats: separate variables or $data array
+    // When @include passes $block->data, Laravel expands the array into separate variables
+    $title = $title ?? ($data['title'] ?? 'Upcoming Events');
+    $description = $description ?? ($data['description'] ?? 'Join us at our next meetup');
+    $events = $events ?? ($data['events'] ?? []);
+    $view_all_url = $view_all_url ?? ($data['view_all_url'] ?? null);
+@endphp
 
 {{-- Event Cards Section --}}
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ $data['title'] ?? 'Upcoming Events' }}</h2>
-            <p class="text-xl text-gray-400">{{ $data['description'] ?? 'Join us at our next meetup' }}</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ $title }}</h2>
+            <p class="text-xl text-gray-400">{{ $description }}</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8 mb-12">
-            @foreach($data['events'] ?? [] as $event)
+            @foreach($events as $event)
             <!-- Event Card -->
             <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden hover:border-red-500/50 transition-colors">
                 <div class="bg-gradient-to-r from-red-600 to-red-700 p-6">
@@ -37,9 +52,9 @@
             @endforeach
         </div>
 
-        @if(isset($data['view_all_url']))
+        @if($view_all_url)
         <div class="text-center">
-            <a href="{{ $data['view_all_url'] }}" class="inline-flex items-center text-red-500 hover:text-red-400 font-semibold text-lg">
+            <a href="{{ $view_all_url }}" class="inline-flex items-center text-red-500 hover:text-red-400 font-semibold text-lg">
                 View All Events
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
